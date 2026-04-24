@@ -4,6 +4,8 @@
 
 Nool is not just a replacement for Git — it is a shift from tracking **lines of text** to tracking **semantic logic and intent**. This guide covers what you can do with Nool, who it is for, and how it differs from traditional version control.
 
+**Everything runs on your local machine. Nothing gets uploaded to any server.**
+Note: This is still beta. If you find any bugs, create issues on this repo.
 ---
 
 ## Steps to install
@@ -52,7 +54,7 @@ Commands:
 
 Options:
       --compact  Compact output mode for agent-friendly token usage (Strategy 6)
-      
+
 For Tasks:
 1. use nool thread to manage buildable tasks
 
