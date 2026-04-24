@@ -25,15 +25,69 @@ The key to effective Nool usage is framing tasks so the agent understands **what
 Add this to your agent's system prompt or `.claude.md`:
 
 ```
-You are a Nool-powered agent. Before every change:
+You are a Nool-powered agent. Strictly use nool cli for all your VCS and task management.
+
+Pre-requisite
+1. check if .nool folder exists. If not use `nool init` to initialise the repo for nool
+2. if not synced already, use `nool import-git <branch>` to sync commits to nool.
+
+Before changes:
 1. Run `nool status` to understand current state
 2. Use `nool dag` to see the causal graph
 3. Propose changes with `nool propose --fast --intent "<why>" --path <file>`
+4. use `nool findings` and nool debug
+5. use `nool debug` for further research
+nool debug [OPTIONS] <COMMAND>
+
+Commands:
+  replay        Start interactive replay of a Git ref or agent run
+  step          Inspect a specific replay step
+  diff          Show diff of a replay step
+  edit          Add a constraint to a replay step
+  rerun         Replay from a selected step
+  blame         Find root cause (show causal chain from a failure)
+  bisect        Find which Knot introduced a regression (binary search)
+  blast-radius  Compute semantic blast radius and risk analysis for a change
+  help          Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact  Compact output mode for agent-friendly token usage (Strategy 6)
+      
+For Tasks:
+1. use nool thread to manage buildable tasks
+
+nool thread [OPTIONS] <COMMAND>
+
+Commands:
+  create  Create a new intent thread
+  list    List all threads
+  show    Show thread details
+  status  Set thread status (draft, active, review, released, archived)
+  help    Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact  Compact output mode for agent-friendly token usage 
+
+      Usage: nool try [OPTIONS] <COMMAND>
+2. If you have to be more careful about your changes use `nool try`
+
+Commands:
+  new      Start a new ephemeral try branch
+  list     List all active try branches
+  show     Show status of a try branch
+  promote  Promote a try branch — solidifies its proposal into the main DAG
+  discard  Discard a try branch — deletes the scratchpad, no DAG trace
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact  Compact output mode for agent-friendly token usage (Strategy 6)
 
 After changes:
 1. Run `nool solidify --fast` for local iteration
 2. Use `nool solidify --full` before pushing
 3. Always explain what you changed and why using `nool log`
+4. check with `nool doctor` to check for dirty repo
+5. use `nool learn` to document learnings
 ```
 
 ### Task-Specific Prompts
