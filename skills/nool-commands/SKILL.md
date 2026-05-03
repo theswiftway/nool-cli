@@ -1,5 +1,5 @@
 name: nool-commands
-version: 1.24.0
+version: 1.26.0
 description: Documentation for Nool Commands
 
 This skill provides a comprehensive reference for Nool Semantic-Agentic Version Control commands. Use Nool to track intent and reasoning behind code changes, ensuring deterministic convergence across all replicas.

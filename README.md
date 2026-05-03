@@ -1,6 +1,6 @@
 # Nool User Guide: Semantic-Agentic Version Control
 
-**Current Version**: v1.24.0 — This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.18.0 and later.
+**Current Version**: v1.26.0 — This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.18.0 and later.
 
 Nool is not just a replacement for Git — it is a shift from tracking **lines of text** to tracking **semantic logic and intent**. This guide covers what you can do with Nool, who it is for, and how it differs from traditional version control.
 
@@ -8,16 +8,42 @@ Nool is not just a replacement for Git — it is a shift from tracking **lines o
 Note: This is still beta. If you find any bugs, create issues on this repo.
 ---
 
+## Quick Links
+
+- **[Skills.md](./Skills.md)** - Comprehensive reference for all 46+ nool commands with examples and best practices
+- **[SKILL.md](./skills/nool-commands/SKILL.md)** - Agent-optimized skill file for Claude Code integration
+
 ## Steps to install
 
 ```bash
-./install_tar.sh nool-1.24.0-release.tar.gz
+./install_tar.sh nool-1.26.0-release.tar.gz
 ```
-Add SKILL.md file to appropriate location for your agent.
+
+### For Agent Integration
+
+Copy the skill files to your agent directories:
+
+```bash
+# Claude Code
+cp skills/nool-commands/SKILL.md ~/.claude/skills/nool-commands/SKILL.md
+
+# Agent Framework
+cp skills/nool-commands/SKILL.md ~/.agents/skills/nool-commands/SKILL.md
 ```
-~/.agents/skills/nool-commands/SKILL.md
-~/.claude/skills/nool-commands/SKILL.md
+
+### For All Agents to Use
+
+To enable all agents to reference the full Nool command documentation:
+
+```bash
+# Make Skills.md available to all agents
+cp Skills.md ~/.claude/skills/nool-commands/Commands.md
+cp Skills.md ~/.agents/skills/nool-commands/Commands.md
 ```
+
+This ensures agents can reference:
+- **SKILL.md** - Quick reference (agent-optimized, compact)
+- **Commands.md** - Full documentation (detailed examples and workflows)
 ## Prompting Your Agent to Use Nool
 
 The key to effective Nool usage is framing tasks so the agent understands **what to track, when to validate, and how to reason about impact**. Here are proven prompt patterns:
@@ -123,6 +149,24 @@ Build the new payment webhook handler:
 4. Generate changelog: `nool changelog --thread "Stripe Webhooks v2"`
 ```
 
+### Session Rehydration Prompt
+
+```
+You are resuming work from a previous session. Recover context and continue:
+
+1. Check status: `nool status` — Quick overview (30 sec)
+2. Recent work: `nool query recent-knots --limit 15` — What changed (1 min)
+3. Your threads: `nool thread list` — Active work areas (30 sec)
+4. Pull latest: `nool pull origin` — Sync with team (1 min)
+5. Check conflicts: `nool discover conflicts` — Any collisions? (30 sec)
+6. Get context: `nool discover context --thread "Your Thread"` — Decisions made (2 min)
+7. Review learnings: `nool discover learnings --thread "Your Thread"` — Knowledge captured (2 min)
+8. Query findings: `nool findings "your topic"` — Recorded discoveries (1 min)
+9. Visual: `nool dag` — Architecture view (1 min)
+
+After 10 minutes, you'll have full context and can resume work.
+```
+
 ### Multi-Agent Collaboration Prompt
 
 ```
@@ -132,6 +176,7 @@ You are the UI agent. Your backend counterpart is working in a separate thread.
 2. Check what changed: `nool dag` or `nool query recent-knots`
 3. Before API changes: `nool query neighbors <api_knot_id>` to see what's affected
 4. Communicate via thread: `nool thread chat "Payment Feature"` to coordinate
+5. Discover what they did: `nool discover context --thread "Backend Work"` to get decisions
 ```
 
 ### Review & Rollback Prompt
