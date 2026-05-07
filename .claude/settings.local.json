@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nool --help)",
+      "Bash(nool propose *)",
+      "Bash(nool solidify *)",
+      "Bash(nool query *)",
+      "Bash(nool thread *)",
+      "Bash(nool task *)",
+      "Bash(nool bug *)",
+      "Bash(nool bridge *)",
+      "Bash(nool admin *)",
+      "Bash(nool try *)",
+      "Bash(nool discover *)",
+      "Bash(nool learn *)",
+      "Bash(nool debug *)",
+      "Bash(nool announce *)",
+      "Bash(nool findings *)",
+      "Bash(nool usage *)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(cp /Users/arunbalakrishnan/Development/nool-cli/Skills.md ~/.claude/skills/nool-commands/Commands.md)",
+      "Bash(cp /Users/arunbalakrishnan/Development/nool-cli/Skills.md ~/.agents/skills/nool-commands/Commands.md)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git rm *)",
+      "Bash(git push *)"
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 # Nool CLI Project Guide
 
 **Project**: Nool Semantic-Agentic Version Control  
-**Current Version**: v1.26.0  
+**Current Version**: v1.27.0 — Scale optimizations, pagination, consolidation  
 **Repository Type**: Nool-managed  
 **MCP Server**: Nool MCP (nool-mcp) — installed locally
 
@@ -30,6 +30,63 @@ When working in this project, refer to:
 2. **SKILL.md** for quick syntax lookup
 3. Run `nool --help` for real-time command reference
 4. Run `nool quick-start` for interactive guidance
+
+---
+
+## ✨ v1.27.0 Features: Scale Optimizations
+
+### Memory-Bounded Operations
+
+**Pagination for Large Repositories**
+```bash
+# Load only what you need — memory bounded by page size
+nool log --skip 100 --limit 50
+nool dag --skip 0 --limit 100
+```
+- Scales efficiently to 10k+ knots
+- No memory bloat regardless of DAG size
+- Use case: Browsing history in large repos
+
+**On-Demand Causal Chains**
+```bash
+nool why <knot-id>  # Fetches ancestors as needed
+nool why <knot-id> --depth 5
+```
+- Memory scales with chain depth (typically 5-10 knots), not repository size
+- Faster startup than full DAG load
+- Efficient for understanding change impact
+
+**Optimized Bisect**
+```bash
+nool debug bisect --good <knot> --bad <knot> --test "make test"
+```
+- Only loads knots in the timestamp range between good and bad
+- Saves memory when bisecting large ranges
+
+### Performance Improvements
+
+**Short ID Resolution**
+- Added index on 8-char knot_id prefix
+- Lookups now O(log n) instead of O(n) table scan
+- Transparent improvement to all commands using short IDs
+
+**Git Mirror Consolidation**
+- New repos automatically use host git repository
+- ~50% disk savings on new installations
+- `nool init` auto-detects existing `.git` and consolidates
+
+### Schema Enhancements
+
+**Richer Metadata Tracking**
+- `breaking_change`: Flag for breaking API changes
+- `related_issues`: Link to tracking system (Jira, GitHub)
+- `test_note`: Document test coverage for change
+- `metadata_tags`: Arbitrary tags for categorization
+
+Use with:
+```bash
+nool propose --intent "..." --breaking --issue "#123" --test-note "Added tests for X" --tag "critical"
+```
 
 ---
 

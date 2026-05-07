@@ -1,6 +1,6 @@
 # Nool Skills & Commands Reference
 
-**Version**: 1.26.0
+**Version**: 1.27.0 — Scale optimizations, pagination, memory efficiency
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. Each command is documented with its purpose, syntax, and common use cases.
 
