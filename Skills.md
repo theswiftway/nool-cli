@@ -1,6 +1,6 @@
 # Nool Skills & Commands Reference
 
-**Version**: 1.27.0 — Scale optimizations, pagination, memory efficiency
+**Version**: 1.29.0 — Persona-aware CLI, Discovery, and Enhanced Diagnostics
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. Each command is documented with its purpose, syntax, and common use cases.
 
@@ -26,11 +26,94 @@ This document provides a comprehensive reference for all Nool commands organized
 16. [Discovery & Collaboration](#discovery--collaboration)
 17. [Multi-Agent Coordination](#multi-agent-coordination)
 18. [Usage & Analytics](#usage--analytics)
-19. [Other Commands](#other-commands)
+19. [Knowledge & Learning](#knowledge--learning)
+20. [Other Commands](#other-commands)
 
 ---
 
-## Initialize
+## Discovery & Collaboration
+
+Tools for exploring the DAG, finding context, and resolving conflicts.
+
+### `nool discover conflicts`
+Detect potential semantic conflicts between branches or threads.
+
+**Usage**:
+```bash
+nool discover conflicts
+```
+
+**When to use**: Before merging or solidifying high-risk changes.
+
+### `nool discover context`
+Retrieve relevant knots, files, and threads for the current task.
+
+**Usage**:
+```bash
+nool discover context --path <file>
+```
+
+**When to use**: When starting a new task to see what else has touched this area.
+
+---
+
+## Multi-Agent Coordination
+
+Coordinate work in multi-agent environments.
+
+### `nool announce`
+Announce your intent to work on a specific area or thread.
+
+**Usage**:
+```bash
+nool announce --intent "Refactoring auth" --thread "Security"
+```
+
+**When to use**: Before starting work to prevent duplicate effort from other agents.
+
+---
+
+## Usage & Analytics
+
+Track token consumption and agent performance.
+
+### `nool usage`
+Show token usage and cost analytics.
+
+**Usage**:
+```bash
+nool usage --summary
+```
+
+**When to use**: To monitor project costs and agent efficiency.
+
+---
+
+## Knowledge & Learning
+
+Capture and retrieve reasoning and findings.
+
+### `nool learn`
+Record a knowledge finding or reasoning note.
+
+**Usage**:
+```bash
+nool learn --kind reasoning_note --content "..."
+```
+
+**When to use**: To document "why" a decision was made for future reference.
+
+### `nool findings`
+Retrieve recorded findings for a file, thread, or topic.
+
+**Usage**:
+```bash
+nool findings --file src/main.rs
+```
+
+---
+
+## Other Commands
 
 Initialize and bootstrap Nool repositories.
 

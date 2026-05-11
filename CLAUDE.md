@@ -1,16 +1,16 @@
 # Nool CLI Project Guide
 
 **Project**: Nool Semantic-Agentic Version Control  
-**Current Version**: v1.27.0 — Scale optimizations, pagination, consolidation  
+**Current Version**: v1.29.0 — Persona-aware CLI, Discovery, and Enhanced Diagnostics  
 **Repository Type**: Nool-managed  
 **MCP Server**: Nool MCP (nool-mcp) — installed locally
 
 ## 📚 Documentation
 
 ### Quick References
-- **[Skills.md](./Skills.md)** — Complete reference for all 46+ nool commands
-  - 18 organized sections
-  - 90+ command documentation entries
+- **[Skills.md](./Skills.md)** — Complete reference for all 50+ nool commands
+  - 19 organized sections
+  - 100+ command documentation entries
   - Usage examples and best practices
   - Workflow examples for common tasks
 
@@ -30,6 +30,50 @@ When working in this project, refer to:
 2. **SKILL.md** for quick syntax lookup
 3. Run `nool --help` for real-time command reference
 4. Run `nool quick-start` for interactive guidance
+
+---
+
+## ✨ v1.29.0 Features: Collaboration & Diagnostics
+
+### Persona-Aware CLI
+```bash
+# Set persona for the session
+nool --persona agent <command>
+
+# Or use environment variable
+export NOOL_PERSONA=agent
+```
+- **developer**: Standard interactive mode with rich formatting.
+- **user**: Simplified interface focusing on high-level results.
+- **agent**: Token-optimized, machine-readable, high-density output.
+
+### Discovery & Multi-Agent Coordination
+**Intent Announcement**
+```bash
+nool announce --intent "Refactoring auth module" --thread "Security"
+```
+- Alerts other agents/developers to active work.
+- Automatically captures surrounding context.
+
+**Knowledge Retrieval**
+```bash
+nool learn --kind reasoning_note --content "Using B-trees for the index because..."
+nool findings --file src/db.rs
+```
+- Persist and retrieve architectural decisions and findings directly in the DAG.
+
+**Discovery Tools**
+```bash
+nool discover conflicts  # Show potential semantic conflicts
+nool discover context    # Suggest relevant knots/files for current work
+```
+
+### Advanced Diagnostics
+**Topology & Health**
+```bash
+nool status --topology  # Visualize replica mesh and sync health
+nool usage              # Track token costs and agent efficiency
+```
 
 ---
 

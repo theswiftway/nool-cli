@@ -1,6 +1,6 @@
 # Nool User Guide: Semantic-Agentic Version Control
 
-**Current Version**: v1.27.0 — Scale optimizations, pagination, and consolidation. This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.18.0 and later.
+**Current Version**: v1.29.0 — Persona-aware CLI, Discovery Panels, and Enhanced Diagnostics. This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.18.0 and later.
 
 Nool is not just a replacement for Git — it is a shift from tracking **lines of text** to tracking **semantic logic and intent**. This guide covers what you can do with Nool, who it is for, and how it differs from traditional version control.
 
@@ -10,28 +10,38 @@ Note: This is still beta. If you find any bugs, create issues on this repo.
 
 ## Quick Links
 
-- **[Skills.md](./Skills.md)** - Comprehensive reference for all 46+ nool commands with examples and best practices
+- **[Skills.md](./Skills.md)** - Comprehensive reference for all 50+ nool commands with examples and best practices
 - **[SKILL.md](./skills/nool-commands/SKILL.md)** - Agent-optimized skill file for Claude Code integration
 
-## What's New in v1.27.0
+## What's New in v1.29.0
 
-**Scale Optimizations & Memory Efficiency**
+**Persona-Aware CLI**
 
-- **Paginated Log & DAG**: Added `--skip` and `--limit` flags to `nool log` and `nool dag` commands. Memory now bounded by page size, not total DAG size. Scales to 10k+ knots efficiently.
-- **On-Demand Causal Chains**: `nool why` now fetches ancestors on-demand instead of loading entire DAG. Memory usage scales with chain depth (typically 5-10 knots), not repository size.
-- **Short ID Indexing**: Added SQLite index for knot_id prefix lookups. Short ID resolution is now O(log n) instead of O(n) table scan.
-- **Optimized Bisect**: `nool debug bisect` now loads only knots in the good-to-bad timestamp range, not the entire DAG.
-- **Git Mirror Consolidation**: New repos automatically use host git repository for Nool refs instead of creating separate mirror. Saves ~50% disk space on new installations.
+- **Role-Based Experience**: Added `--persona` flag (developer, user, agent). Commands and output are now filtered and optimized for your specific role. Agents get a high-density, code-synthesis-optimized interface.
+- **Environment Variable**: Set `NOOL_PERSONA` to lock your preferred experience across sessions.
 
-**Database Schema**
+**Discovery & Collaboration Panels**
 
-- Automatic migration for new metadata columns: `breaking_change`, `related_issues`, `test_note`, `metadata_tags`
-- Intent records now capture richer change metadata for better release tracking and audit trails
+- **`nool discover`**: New toolset for identifying conflicts, retrieving context, searching learnings, and finding similar work across the DAG.
+- **`nool announce`**: Multi-agent coordination tool to announce intent and capture relevant context before starting work, reducing duplicate effort in multi-agent environments.
+- **Web Console Tabs**: The `nool console` now includes dedicated tabs for Discovery, Collaboration, and Intent Announcement.
+
+**Enhanced Diagnostics & Monitoring**
+
+- **Timeline Visualization**: `nool dag` and `nool log` now detect and highlight parallel branches and potential semantic divergence.
+- **Replica Topology**: `nool status --topology` shows all known remotes, their sync health, and the overall mesh structure.
+- **Usage & Token Tracking**: `nool usage` provides detailed analytics on token consumption, agent performance, and thread-level costs.
+
+**Infrastructure & DX**
+
+- **Shell Completion**: Added `nool completion` for bash, zsh, fish, and powershell.
+- **Fast Mode Hardening**: Improved background validation (`nool validate`) for quarantined Knots.
+- **Reliability**: Replaced heuristic-based impact detection with exact DAG-based causal tracking for blast radius analysis.
 
 ## Steps to install
 
 ```bash
-./install_tar.sh nool-1.27.0-release.tar.gz
+./install_tar.sh nool-release-1.29.0.tar.gz
 ```
 
 ### For Agent Integration
