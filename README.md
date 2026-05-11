@@ -41,7 +41,7 @@ Note: This is still beta. If you find any bugs, create issues on this repo.
 ## Steps to install
 
 ```bash
-./install_tar.sh nool-release-1.29.0.tar.gz
+./install_tar.sh nool-release-1.31.0.tar.gz
 ```
 
 ### For Agent Integration

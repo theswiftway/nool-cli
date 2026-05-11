@@ -91,6 +91,8 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 - `nool pluck <thread_name>`: Selective undo (thread plucking).
 - `nool compare <left> <right>`: Compare semantic changes between threads/releases.
 - `nool changelog`: Generate semantic changelog.
+- `nool diff <left> <right>`: Show file-content diff between two Knots.
+- `nool merge <thread1> <thread2>`: Semantic 3-way merge of two divergent threads.
 
 ## Git Bridge
 - `nool bridge status`: Check Git mirror state.

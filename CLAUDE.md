@@ -638,4 +638,4 @@ nool debug bisect --broken <broken> --good <good>
 
 ---
 
-*Last updated: May 4, 2026 for Nool v1.26.0*
+*Last updated: May 4, 2026 for Nool v1.31.0*
