@@ -1,5 +1,5 @@
 name: nool-commands
-version: 1.26.0
+version: 1.31.0
 description: Documentation for Nool Commands
 
 This skill provides a comprehensive reference for Nool Semantic-Agentic Version Control commands. Use Nool to track intent and reasoning behind code changes, ensuring deterministic convergence across all replicas.
@@ -7,13 +7,13 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 ## Core Workflow
 
 ### Initialize
-- `nool init`: Initialize an empty Nool repository.
+- `nool init`: Initialize a new Nool ledger and generate an identity key.
 - `nool init --from-git <branch>`: Bootstrap a Nool ledger from existing Git history.
 
 ### Propose Changes
 - `nool propose --intent "<rationale>" --path <file> --kind <type>`: Create a semantic change proposal.
 - `nool propose --fast`: Zero-friction mode. Auto-infers intent from git diff and recent context.
-- `nool propose --try <name>`: Propose changes in an ephemeral try branch.
+- `nool propose --try-branch <name>`: Propose changes in an ephemeral try branch.
 
 ### Solidify (Commit)
 - `nool solidify --fast`: Rapid local iteration with deferred validation (recommended for active coding).
@@ -52,7 +52,7 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 ## Context & Knowledge
 
 ### Capture Learning
-- `nool learn --about <topic> --kind <root_cause|discovery> --content "<text>"`: Record findings.
+- `nool learn --about <topic> --kind <root_cause|finding> --content "<text>"`: Record findings.
 - `nool findings <query>`: Query captured knowledge to avoid re-discovering issues.
 
 ## Threads, Tasks & Bugs
@@ -79,7 +79,7 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 - `nool bug list`: List bugs.
 - `nool bug show <bug_id>`: Show bug details.
 - `nool bug investigate <bug_id>`: Mark as investigating.
-- `nool bug wontfix <bug_id> --reason <text>`: Mark as wontfix.
+- `nool bug wont-fix <bug_id> --reason <text>`: Mark as wontfix.
 - `nool bug duplicate <bug_id> --of <original_id>`: Mark as duplicate.
 
 ### Tags & Releases
@@ -99,23 +99,22 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 - `nool bridge add-remote <url>`: Add auto-push remote.
 - `nool bridge remove-remote <url>`: Remove auto-push remote.
 - `nool bridge watch`: Start sync watch daemon.
-- `nool bridge lfs init`: Initialize git-lfs.
-- `nool bridge lfs track <pattern>`: Track files with git-lfs.
+- `nool bridge lfs`: Initialize git-lfs support for large file tracking.
 - `nool git <command>`: Raw git pass-through.
 
 ## Administrative
 - `nool console`: Launch the interactive web dashboard (default: localhost:4001).
 - `nool admin account`: Account settings (login, email, subscription).
-- `nool admin billing`: Manage subscription.
-- `nool admin channels`: Manage release channels.
-- `nool admin plugins`: Manage plugins.
+- `nool admin team`: Team management: add members, assign roles.
+- `nool admin channel`: Manage release channels.
+- `nool admin plugin`: Manage plugins.
 - `nool inbox`: Unified notification centre.
 - `nool audit`: Compliance report.
 
 ## Other Commands
 - `nool languages`: List supported languages.
 - `nool link <knot_id>`: Link a solidified Knot to metadata.
-- `nool quickstart`: Quick-start guide.
+- `nool quick-start`: Quick-start guide.
 - `nool guide`: Detailed guide.
 - `nool upgrade`: Upgrade CLI.
 - `nool uninstall`: Uninstall CLI.

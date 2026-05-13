@@ -1,6 +1,6 @@
 # Nool Skills & Commands Reference
 
-**Version**: 1.29.0 — Persona-aware CLI, Discovery, and Enhanced Diagnostics
+**Version**: 1.31.0 — Persona-aware CLI, Discovery, and Enhanced Diagnostics
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. Each command is documented with its purpose, syntax, and common use cases.
 
@@ -25,9 +25,8 @@ This document provides a comprehensive reference for all Nool commands organized
 15. [Debug & Troubleshooting](#debug--troubleshooting)
 16. [Discovery & Collaboration](#discovery--collaboration)
 17. [Multi-Agent Coordination](#multi-agent-coordination)
-18. [Usage & Analytics](#usage--analytics)
-19. [Knowledge & Learning](#knowledge--learning)
-20. [Other Commands](#other-commands)
+18. [Knowledge & Learning](#knowledge--learning)
+19. [Other Commands](#other-commands)
 
 ---
 
@@ -73,7 +72,7 @@ nool announce --intent "Refactoring auth" --thread "Security"
 
 ---
 
-## Usage & Analytics
+
 
 Track token consumption and agent performance.
 
@@ -1284,68 +1283,7 @@ nool announce with-context "Refactoring database layer" --decisions "Use eventua
 
 ---
 
-## Usage & Analytics
 
-Track token consumption and agent performance.
-
-### `nool usage usage`
-Show token consumption for an agent or all agents.
-
-**Usage**:
-```bash
-nool usage usage
-nool usage usage --agent alice
-```
-
-### `nool usage budget-set`
-Set a token budget limit for an agent.
-
-**Usage**:
-```bash
-nool usage budget-set --agent alice --tokens 100000
-```
-
-### `nool usage budget-status`
-Show token budget status for agents.
-
-**Usage**:
-```bash
-nool usage budget-status
-```
-
-### `nool usage analytics`
-Show token analytics: cost per line, waste ratio, efficiency.
-
-**Usage**:
-```bash
-nool usage analytics
-```
-
-### `nool usage agent`
-Agent bug rate, severity, patterns, and recommendations.
-
-**Usage**:
-```bash
-nool usage agent --agent alice
-```
-
-### `nool usage thread`
-Thread-level cost analysis (tokens spent, bugs, cost per Knot).
-
-**Usage**:
-```bash
-nool usage thread --thread "Payment Feature"
-```
-
-### `nool usage dashboard`
-Dashboard — combined tokens-per-bug metric across all threads.
-
-**Usage**:
-```bash
-nool usage dashboard
-```
-
----
 
 ## Other Commands
 
@@ -1417,7 +1355,7 @@ nool version
 
 **Output**:
 ```
-Nool v1.26.0
+Nool v1.31.0
 Built: 2026-05-02
 Git: https://github.com/...
 ```
@@ -1570,4 +1508,26 @@ isky experiments, use `nool try` instead of polluting the main DAG.
 
 ---
 
-*Last updated: May 2026 for Nool v1.26.0*
+*Last updated: May 2026 for Nool v1.31.0*
+Branches**: For risky experiments, use `nool try` instead of polluting the main DAG.
+
+8. **Keep Threads Clean**: Archive completed threads to keep the interface focused.
+
+9. **Link to External Systems**: Use `nool link` to connect Knots to issues, PRs, and tickets for full traceability.
+
+10. **Monitor Health**: Run `nool doctor` regularly to catch problems early.
+
+---
+
+*Last updated: May 2026 for Nool v1.31.0*
+isky experiments, use `nool try` instead of polluting the main DAG.
+
+8. **Keep Threads Clean**: Archive completed threads to keep the interface focused.
+
+9. **Link to External Systems**: Use `nool link` to connect Knots to issues, PRs, and tickets for full traceability.
+
+10. **Monitor Health**: Run `nool doctor` regularly to catch problems early.
+
+---
+
+*Last updated: May 2026 for Nool v1.31.0*

@@ -72,7 +72,7 @@ nool discover context    # Suggest relevant knots/files for current work
 **Topology & Health**
 ```bash
 nool status --topology  # Visualize replica mesh and sync health
-nool usage              # Track token costs and agent efficiency
+
 ```
 
 ---
@@ -474,7 +474,7 @@ All major nool commands are pre-authorized:
 - ✅ `nool debug` — Debugging tools
 - ✅ `nool announce` — Multi-agent coordination
 - ✅ `nool findings` — Query learnings
-- ✅ `nool usage` — Analytics
+
 - ✅ `nool admin` — Admin operations
 
 ### Development Workflow
@@ -639,3 +639,4 @@ nool debug bisect --broken <broken> --good <good>
 ---
 
 *Last updated: May 4, 2026 for Nool v1.31.0*
+: May 4, 2026 for Nool v1.31.0*
