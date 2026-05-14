@@ -329,14 +329,6 @@ nool validate
 nool console
 ```
 
-## Secure Synchronization (nool-transport)
-
-Nool uses the Signal Protocol (Double Ratchet and X3DH) to provide end-to-end encrypted (E2EE) synchronization between replicas.
-
-- **Forward Secrecy**: A new symmetric key is derived for every message sent.
-- **Break-In Recovery**: Every bidirectional exchange heals the session.
-- **Stable Identity**: Nodes identify each other by their public keys.
-
 ## Other Commands
 
 - `nool languages` - List supported languages
