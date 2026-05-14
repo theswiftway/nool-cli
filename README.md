@@ -1,5 +1,5 @@
 # Nool User Guide: Semantic-Agentic Version Control
-Current Version: v1.31.0 — Persona-aware CLI, Discovery Panels, and Enhanced Diagnostics. This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.18.0 and later.
+Current Version: v1.31.1 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search. This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.18.0 and later.
 
 Nool is not just a replacement for Git — it is a shift from tracking lines of text to tracking semantic logic and intent. This guide covers what you can do with Nool, who it is for, and how it differs from traditional version control.
 
@@ -7,6 +7,24 @@ Everything runs on your local machine. Nothing gets uploaded to any server. Note
 Quick Links
 Skills.md - Comprehensive reference for all 50+ nool commands with examples and best practices
 SKILL.md - Agent-optimized skill file for Claude Code integration
+What's New in v1.31.1
+Synthesis Multi-File Knots
+
+Complete VCS Snapshots: Introduced Synthesis payloads, enabling atomic multi-file proposals and solidifications. This ensures that the Knot DAG captures the entire state of a logical change, even when it spans multiple directories.
+Multi-file Diff: Updated the diff engine to support comprehensive multi-file knot comparisons.
+Jira Platform Integration
+
+Automated Task Sync: nool now supports bi-directional sync with Jira. Task completion in Nool can automatically trigger state transitions in Jira using dynamic transition discovery.
+Credential Safety: Securely handles Jira credentials via the new Platform Integration layer.
+Recursive Semantic Search
+
+Enhanced Query: The `nool query` command now supports recursive semantic search over the code graph, allowing for deeper discovery of patterns and dependencies.
+Performance: Optimized FTS (Full-Text Search) indexes for faster knowledge retrieval.
+Harden Nool 0.6.0 Core
+
+Unified Sync: Consolidated synchronization logic for improved reliability across diverse network topologies.
+Causal-aware Doctor: `nool doctor` now uses exact DAG-based causal tracking to identify and repair repository health issues.
+Orphan Quarantine: Persistent quarantine for orphaned knots ensures that temporary sync issues don't compromise local ledger integrity.
 What's New in v1.31.0
 Persona-Aware CLI
 
@@ -28,7 +46,7 @@ Shell Completion: Added nool completion for bash, zsh, fish, and powershell.
 Fast Mode Hardening: Improved background validation (nool validate) for quarantined Knots.
 Reliability: Replaced heuristic-based impact detection with exact DAG-based causal tracking for blast radius analysis.
 Steps to install
-./install_tar.sh nool-release-1.31.0.tar.gz
+./install_tar.sh nool-release-1.31.1.tar.gz
 For Agent Integration
 Copy the skill files to your agent directories:
 
@@ -55,110 +73,63 @@ Add this to your agent's system prompt or .claude.md:
 
 You are a Nool-powered agent. Strictly use nool cli for all your VCS and task management.
 
+Workflow:
+1. Coordination: Before starting, use `nool announce --intent "<what>"` to prevent collisions.
+2. Context: Use `nool discover context` and `nool discover learnings` to rehydrate task context.
+3. Propose: Use `nool propose --fast --intent "<why>" --path <files...>` for multi-file Synthesis knots.
+4. Verify: Use `nool status` and `nool log` to explain your progress logically.
+5. Knowledge: Use `nool learn` to record decisions and findings for future sessions.
+
 Pre-requisite
 1. check if .nool folder exists. If not use `nool init` to initialise the repo for nool
 2. if not synced already, use `nool import-git <branch>` to sync commits to nool.
 
 Before changes:
 1. Run `nool status` to understand current state
-2. Use `nool dag` to see the causal graph
-3. Propose changes with `nool propose --fast --intent "<why>" --path <file>`
-4. use `nool findings` and nool debug
-5. use `nool debug` for further research
-nool debug [OPTIONS] <COMMAND>
+2. Use `nool discover context` to find related work and dependencies
+3. Use `nool announce --intent "Working on <feature>"` to coordinate with other agents
+4. Use `nool dag` to see the causal graph
 
-Commands:
-  replay        Start interactive replay of a Git ref or agent run
-  step          Inspect a specific replay step
-  diff          Show diff of a replay step
-  edit          Add a constraint to a replay step
-  rerun         Replay from a selected step
-  blame         Find root cause (show causal chain from a failure)
-  bisect        Find which Knot introduced a regression (binary search)
-  blast-radius  Compute semantic blast radius and risk analysis for a change
-  help          Print this message or the help of the given subcommand(s)
-
-Options:
-      --compact  Compact output mode for agent-friendly token usage (Strategy 6)
-
-For Tasks:
-1. use nool thread to manage buildable tasks
-
-nool thread [OPTIONS] <COMMAND>
-
-Commands:
-  create  Create a new intent thread
-  list    List all threads
-  show    Show thread details
-  status  Set thread status (draft, active, review, released, archived)
-  help    Print this message or the help of the given subcommand(s)
-
-Options:
-      --compact  Compact output mode for agent-friendly token usage 
-
-      Usage: nool try [OPTIONS] <COMMAND>
-2. If you have to be more careful about your changes use `nool try`
-
-Commands:
-  new      Start a new ephemeral try branch
-  list     List all active try branches
-  show     Show status of a try branch
-  promote  Promote a try branch — solidifies its proposal into the main DAG
-  discard  Discard a try branch — deletes the scratchpad, no DAG trace
-  help     Print this message or the help of the given subcommand(s)
-
-Options:
-      --compact  Compact output mode for agent-friendly token usage (Strategy 6)
+During changes:
+1. Propose multi-file changes: `nool propose --fast --intent "<rationale>" --path src/file1.rs src/file2.rs`
+2. Iterate quickly: `nool solidify --fast`
+3. Debug with causality: `nool why <knot_id>` and `nool debug blame`
 
 After changes:
-1. Run `nool solidify --fast` for local iteration
-2. Use `nool solidify --full` before pushing
-3. Always explain what you changed and why using `nool log`
-4. check with `nool doctor` to check for dirty repo
-5. use `nool learn` to document learnings
+1. Final validation: `nool solidify --full` before pushing
+2. Push work: `nool push origin`
+3. Document learnings: `nool learn --kind decision --content "Used <pattern> because <reason>"`
+
 Task-Specific Prompts
 Refactoring Task
 Refactor the authentication module in src/auth/. Before touching any file:
-1. Run `nool query recent-knots --thread "Auth"` to see recent changes
-2. Pick a function and run `nool query blast-radius <node_id>` to understand its dependencies
-3. Propose changes using `nool propose --intent "Simplify token validation" --path src/auth/tokens.rs --kind function`
-4. Solidify only after reviewing what Nool's integrity driver reports
+1. Run `nool announce --intent "Refactoring auth module"`
+2. Run `nool discover context --path src/auth/` to see recent changes and active threads
+3. Run `nool query blast-radius <node_id>` to understand dependencies
+4. Propose changes using `nool propose --intent "Simplify token validation" --path src/auth/tokens.rs src/auth/utils.rs`
+5. Solidify only after reviewing what Nool's integrity driver reports
 Bug Fix Task
 Fix the memory leak in the connection pool:
-1. Use `nool query search "connection pool"` to find related changes
+1. Use `nool query search "connection pool"` to find related changes (recursive search enabled)
 2. Create a thread: `nool thread create "Fix Memory Leak Q2"`
-3. Propose the fix with `nool propose --intent "Close connections in finally block" --path db/pool.rs --kind function --thread "Fix Memory Leak Q2"`
-4. Link to any related bug: `nool bug list --status open`
-Feature Development Task
-Build the new payment webhook handler:
-1. Create a thread: `nool thread create "Stripe Webhooks v2"`
-2. Break work into semantic knots:
-   - `nool propose --intent "Add webhook signature verification" --path src/webhooks/stripe.rs --kind function --thread "Stripe Webhooks v2"`
-   - `nool propose --intent "Parse payment events" --path src/webhooks/payment.rs --kind function --thread "Stripe Webhooks v2"`
-3. Use `nool query materialize` to review completed work
-4. Generate changelog: `nool changelog --thread "Stripe Webhooks v2"`
+3. Set active thread: `nool thread active "Fix Memory Leak Q2"`
+4. Propose the fix: `nool propose --intent "Close connections in finally block" --path db/pool.rs`
+5. Link to bug: `nool bug link <bug_id> --fix <knot_id>`
 Session Rehydration Prompt
 You are resuming work from a previous session. Recover context and continue:
 
-1. Check status: `nool status` — Quick overview (30 sec)
-2. Recent work: `nool query recent-knots --limit 15` — What changed (1 min)
-3. Your threads: `nool thread list` — Active work areas (30 sec)
-4. Pull latest: `nool pull origin` — Sync with team (1 min)
-5. Check conflicts: `nool discover conflicts` — Any collisions? (30 sec)
-6. Get context: `nool discover context --thread "Your Thread"` — Decisions made (2 min)
-7. Review learnings: `nool discover learnings --thread "Your Thread"` — Knowledge captured (2 min)
-8. Query findings: `nool findings "your topic"` — Recorded discoveries (1 min)
-9. Visual: `nool dag` — Architecture view (1 min)
+1. Overview: `nool status` (30 sec)
+2. Recent work: `nool query recent-knots --limit 10` (1 min)
+3. Active context: `nool discover context` and `nool discover learnings` (2 min)
+4. Knowledge check: `nool findings "topic"` (1 min)
+5. Visualise: `nool dag` (1 min)
 
-After 10 minutes, you'll have full context and can resume work.
+After 5 minutes, you'll have full context and can resume work.
 Multi-Agent Collaboration Prompt
-You are the UI agent. Your backend counterpart is working in a separate thread.
-
-1. Sync state: `nool sync origin && nool pull`
-2. Check what changed: `nool dag` or `nool query recent-knots`
-3. Before API changes: `nool query neighbors <api_knot_id>` to see what's affected
-4. Communicate via thread: `nool thread chat "Payment Feature"` to coordinate
-5. Discover what they did: `nool discover context --thread "Backend Work"` to get decisions
+1. Check announcements: `nool discover context` to see what other agents are doing.
+2. Announce work: `nool announce --intent "Building UI components"` to prevent overlap.
+3. Coordinate: `nool thread chat "Thread Name"` to discuss architectural decisions.
+4. Pull latest: `nool sync origin && nool pull` frequently.
 Review & Rollback Prompt
 Review recent changes:
 1. Run `nool log | head -20` to see what was done
@@ -166,16 +137,15 @@ Review recent changes:
 3. If issues found: `nool pluck "Thread Name"` to preview without the problematic changes
 
 Before merging to main:
-1. `nool doctor` - check health
+1. `nool doctor` - check health (causal-aware diagnostics)
 2. `nool validate` - validate fast-mode knots
 3. `nool solidify --full` - full validation
 Emergency Response Prompt
 Something broke in production. Trace the issue:
-1. `nool query search "production bug"` - find related knots
-2. `nool bug investigate <id>` - mark as investigating
+1. `nool query search "production bug"` - find related knots (recursive search)
+2. `nool debug blame` - trace the causal chain to the root failure
 3. `nool query blast-radius <problematic_knot_id>` - find what else was affected
-4. `nool git log` - compare with git history
-5. `nool audit` - full compliance report for post-mortem
+4. `nool audit` - full compliance report for post-mortem
 Tutorial
 Click here to learn how to use it. Nool Tutorial
 

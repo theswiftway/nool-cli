@@ -1,6 +1,6 @@
 # Nool Skills & Commands Reference
 
-**Version**: 1.31.0 — Persona-aware CLI, Discovery, and Enhanced Diagnostics
+**Version**: 1.31.1 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. Each command is documented with its purpose, syntax, and common use cases.
 
@@ -74,19 +74,6 @@ nool announce --intent "Refactoring auth" --thread "Security"
 
 
 
-Track token consumption and agent performance.
-
-### `nool usage`
-Show token usage and cost analytics.
-
-**Usage**:
-```bash
-nool usage --summary
-```
-
-**When to use**: To monitor project costs and agent efficiency.
-
----
 
 ## Knowledge & Learning
 
@@ -403,7 +390,7 @@ Semantic search over the DAG.
 nool query search "connection pool memory leak"
 ```
 
-**Use case**: Find changes related to specific topics without knowing exact intent.
+**Use case**: Find changes related to specific topics without knowing exact intent. Supports recursive search over the semantic code graph (introduced v1.31.1).
 
 ### `nool why <node_id>`
 Walk the causal chain of a Knot.
@@ -624,6 +611,10 @@ Mark a task as complete.
 ```bash
 nool task finish task-123
 ```
+
+**What it does**:
+- Marks the task as completed in the local ledger.
+- If Jira integration is configured (`JIRA_BASE_URL`, `JIRA_API_TOKEN`), automatically discovers and triggers the appropriate Jira workflow transition (e.g., "Done").
 
 #### `nool task block <id> --reason <text>`
 Block a task with explanation.
@@ -1355,7 +1346,7 @@ nool version
 
 **Output**:
 ```
-Nool v1.31.0
+Nool v1.31.1
 Built: 2026-05-02
 Git: https://github.com/...
 ```
@@ -1497,7 +1488,7 @@ nool changelog --since "1 day ago"
 
 ---
 
-*Last updated: May 2026 for Nool v1.31.0*
+*Last updated: May 2026 for Nool v1.31.1*
 isky experiments, use `nool try` instead of polluting the main DAG.
 
 8. **Keep Threads Clean**: Archive completed threads to keep the interface focused.
@@ -1508,7 +1499,7 @@ isky experiments, use `nool try` instead of polluting the main DAG.
 
 ---
 
-*Last updated: May 2026 for Nool v1.31.0*
+*Last updated: May 2026 for Nool v1.31.1*
 Branches**: For risky experiments, use `nool try` instead of polluting the main DAG.
 
 8. **Keep Threads Clean**: Archive completed threads to keep the interface focused.
@@ -1519,7 +1510,7 @@ Branches**: For risky experiments, use `nool try` instead of polluting the main 
 
 ---
 
-*Last updated: May 2026 for Nool v1.31.0*
+*Last updated: May 2026 for Nool v1.31.1*
 isky experiments, use `nool try` instead of polluting the main DAG.
 
 8. **Keep Threads Clean**: Archive completed threads to keep the interface focused.
@@ -1530,4 +1521,4 @@ isky experiments, use `nool try` instead of polluting the main DAG.
 
 ---
 
-*Last updated: May 2026 for Nool v1.31.0*
+*Last updated: May 2026 for Nool v1.31.1*

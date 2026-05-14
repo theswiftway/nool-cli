@@ -1,7 +1,7 @@
 # Nool CLI Project Guide
 
 **Project**: Nool Semantic-Agentic Version Control  
-**Current Version**: v1.29.0 — Persona-aware CLI, Discovery, and Enhanced Diagnostics  
+**Current Version**: v1.31.1 — Persona-aware CLI, Discovery, and Enhanced Diagnostics  
 **Repository Type**: Nool-managed  
 **MCP Server**: Nool MCP (nool-mcp) — installed locally
 
@@ -33,7 +33,7 @@ When working in this project, refer to:
 
 ---
 
-## ✨ v1.29.0 Features: Collaboration & Diagnostics
+## ✨ v1.31.1 Features: Collaboration & Diagnostics
 
 ### Persona-Aware CLI
 ```bash
@@ -147,8 +147,9 @@ nool status
 # 2. See what changed recently
 nool query recent-knots --limit 10
 
-# 3. Check your threads
-nool thread list
+# 3. Rehydrate task context
+nool discover context
+nool discover learnings
 
 # 4. Review findings from prior work
 nool findings "your topic or file"
@@ -173,7 +174,7 @@ nool discover conflicts
 # 5. Pull latest from remote
 nool pull origin
 
-# 6. Inspect decision history
+# 6. Inspect decision history (recursive search v1.31.1)
 nool query search "decision made"
 ```
 
@@ -189,10 +190,10 @@ nool why <knot_id>
 # 3. See what depends on it
 nool query blast-radius <knot_id>
 
-# 4. Check for any problems introduced
-nool query neighbors <knot_id>
+# 4. Trace root cause (v1.31.1 hardened)
+nool debug blame <failure_point>
 
-# 5. Review the actual changes
+# 5. Review the actual changes (Synthesis knots v1.31.1)
 nool query materialize <knot_id>
 ```
 
@@ -319,7 +320,7 @@ echo "=== Ready to resume work ==="
 # Verify nool is installed
 nool version
 
-# Should output: Nool v1.26.0 or later
+# Should output: Nool v1.31.1 or later
 ```
 
 ### Project Setup
@@ -497,8 +498,8 @@ nool push origin       # Replicate changes
 ## 📊 Repository State
 
 ### Current Version
-- **Nool**: v1.26.0
-- **Last Updated**: May 4, 2026
+- **Nool**: v1.31.1
+- **Last Updated**: May 14, 2026
 - **Commands Documented**: 46+ with 90+ subcommands
 
 ### Key Directories
@@ -638,5 +639,5 @@ nool debug bisect --broken <broken> --good <good>
 
 ---
 
-*Last updated: May 4, 2026 for Nool v1.31.0*
-: May 4, 2026 for Nool v1.31.0*
+*Last updated: May 14, 2026 for Nool v1.31.1*
+: May 14, 2026 for Nool v1.31.1*

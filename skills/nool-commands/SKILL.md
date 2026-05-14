@@ -1,5 +1,5 @@
 name: nool-commands
-version: 1.31.0
+version: 1.31.1
 description: Documentation for Nool Commands
 
 This skill provides a comprehensive reference for Nool Semantic-Agentic Version Control commands. Use Nool to track intent and reasoning behind code changes, ensuring deterministic convergence across all replicas.
@@ -11,7 +11,7 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 - `nool init --from-git <branch>`: Bootstrap a Nool ledger from existing Git history.
 
 ### Propose Changes
-- `nool propose --intent "<rationale>" --path <file> --kind <type>`: Create a semantic change proposal.
+- `nool propose --intent "<rationale>" --path <file> --kind <type>`: Create a semantic change proposal. Supports multi-file Synthesis knots (v1.31.1).
 - `nool propose --fast`: Zero-friction mode. Auto-infers intent from git diff and recent context.
 - `nool propose --try-branch <name>`: Propose changes in an ephemeral try branch.
 
@@ -38,16 +38,16 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 - `nool query recent-knots`: Show recent knots (optionally filtered by thread).
 - `nool query blast-radius <node_ids>`: Compute causal descendants for knots.
 - `nool query materialize <node_ids>`: Reconstruct content from knots.
-- `nool query search "<text>"`: Semantic search over the DAG.
+- `nool query search "<text>"`: Semantic search over the DAG. Supports recursive search (v1.31.1).
 - `nool why <node_id>`: Walk causal chain of a knot.
 - `nool log`: Show canonical replay log.
 - `nool dag`: Visualise the DAG.
 
 ### Status & Health
 - `nool status`: View current DAG heads, pending proposals, and thread state.
-- `nool doctor`: Release-readiness and repository health checks.
+- `nool doctor`: Release-readiness and repository health checks (causal-aware in v1.31.1).
 - `nool doctor --fix`: Auto-repair semantic issues.
-- `nool validate`: Run background validation for fast-mode Knots.
+- `nool validate`: Run background validation for all quarantined fast-mode Knots.
 
 ## Context & Knowledge
 
@@ -70,7 +70,7 @@ This skill provides a comprehensive reference for Nool Semantic-Agentic Version 
 - `nool task pick <id>`: Claim a task.
 - `nool task assign <id> --to <agent>`: Assign a task.
 - `nool task mine`: Show my tasks.
-- `nool task finish <id>`: Mark a task as complete.
+- `nool task finish <id>`: Mark a task as complete. Triggers Jira sync if configured (v1.31.1).
 - `nool task block <id> --reason <text>`: Block a task.
 
 ### Bugs

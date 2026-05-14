@@ -2,6 +2,22 @@
 
 All notable changes to Nool are documented in this file.
 
+## [1.31.1] - 2026-05-14
+
+### Added
+- **Synthesis Multi-File Knots**: Complete support for multi-file proposals and solidifications, ensuring full VCS snapshots within the Knot DAG.
+- **Jira Platform Integration**: Automated Jira task completion sync with dynamic transition discovery based on project workflows.
+- **Recursive Semantic Search**: Enhanced `nool query` with recursive search capabilities over the semantic code graph.
+
+### Changed
+- **Harden Nool 0.6.0 Core**: Unified synchronization logic, introduced causal-aware `doctor` diagnostics, and implemented persistent orphan quarantine for improved repository health.
+- **Intent Architecture**: Refactored `IntentRecord` to a structured format, improving type safety and internal metadata handling.
+- **Git Bridge**: Updated Git integration specifications and handling for historical knots.
+
+### Fixed
+- **Async Compilation**: Resolved compilation errors in Axum handlers by ensuring `Ledger` references are correctly handled across await points.
+- **Dead-code Cleanup**: Final architectural refinement and removal of legacy code remnants for the 1.31.x series.
+
 ## [1.31.0] - 2026-05-11
 
 ### Added
