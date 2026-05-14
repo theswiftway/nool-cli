@@ -174,7 +174,7 @@ Before merging to main:
 
 ## Tutorial
 
-Click here to learn how to use it: [Nool Tutorial](https://knot-agent-vision.lovable.app/learn)
+Click here to learn how to use it: [Nool Tutorial](https://www.nool.dev/docs)
 
 ## Who Is Nool For?
 
