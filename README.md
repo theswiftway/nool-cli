@@ -55,7 +55,7 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 ## Steps to install
 
 ```bash
-./install_tar.sh nool-release-1.31.1.tar.gz
+./install_tar.sh nool-release-1.33.0.tar.gz
 ```
 
 ### For Agent Integration
