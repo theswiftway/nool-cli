@@ -390,7 +390,7 @@ Semantic search over the DAG.
 nool query search "connection pool memory leak"
 ```
 
-**Use case**: Find changes related to specific topics without knowing exact intent. Supports recursive search over the semantic code graph (introduced v1.31.1).
+**Use case**: Find changes related to specific topics without knowing exact intent. Supports recursive search over the semantic code graph (introduced v1.33.0).
 
 ### `nool why <node_id>`
 Walk the causal chain of a Knot.
@@ -831,6 +831,56 @@ nool bridge lfs
 ---
 
 ## Administrative
+### `nool ui`
+Launch the interactive terminal DAG explorer. Navigate the causal graph visually and introspect TOON metadata.
+
+**Usage**:
+```bash
+nool ui
+```
+
+### `nool daemon`
+Manage the background synchronization daemon (Invisible Bridge).
+
+**Usage**:
+```bash
+nool daemon start    # Start zero-touch background sync
+nool daemon status   # Check daemon health
+nool daemon stop     # Stop background process
+```
+
+### `nool thread handoff`
+Formally transfer thread responsibility to another agent with high-density TOON metadata.
+
+**Usage**:
+```bash
+nool thread handoff --name "Feature Thread" --to <agent_id> -d "Decision" -s "Next step" --solidify
+```
+
+### `nool admin reconcile`
+Manually trigger the asynchronous self-healing reconciliation loop to repair DAG drift.
+
+**Usage**:
+```bash
+nool admin reconcile --batch-size 100
+```
+
+### `nool admin gc`
+Perform metabolic garbage collection of reification resources.
+
+**Usage**:
+```bash
+nool admin gc --force
+```
+
+### `nool admin train-dict`
+Train and activate a new Zstd compression dictionary based on recent mutation patterns.
+
+**Usage**:
+```bash
+nool admin train-dict --sample-size 100
+```
+
 
 Manage accounts, settings, and plugins.
 
@@ -1346,7 +1396,7 @@ nool version
 
 **Output**:
 ```
-Nool v1.31.1
+Nool v1.33.0
 Built: 2026-05-02
 Git: https://github.com/...
 ```
@@ -1488,4 +1538,4 @@ nool changelog --since "1 day ago"
 
 ---
 
-*Last updated: May 2026 for Nool v1.31.1*
+*Last updated: May 2026 for Nool v1.33.0*

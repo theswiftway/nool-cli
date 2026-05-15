@@ -1,7 +1,7 @@
 # Nool User Guide: Semantic-Agentic Version Control
 
-**Current Version**: v1.31.1 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
-This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.18.0 and later.
+**Current Version**: v1.33.0 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
+This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.33.0 and later.
 
 Nool is not just a replacement for Git — it is a shift from tracking lines of text to tracking semantic logic and intent. This guide covers what you can do with Nool, who it is for, and how it differs from traditional version control.
 
@@ -13,24 +13,23 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 - [Skills.md](./Skills.md) - Comprehensive reference for all 50+ nool commands with examples and best practices
 - [SKILL.md](./SKILL.md) - Agent-optimized skill file for Claude Code integration
 
-## What's New in v1.31.1
+## What's New in v1.33.0
 
-### Synthesis Multi-File Knots
-- **Complete VCS Snapshots**: Introduced Synthesis payloads, enabling atomic multi-file proposals and solidifications. This ensures that the Knot DAG captures the entire state of a logical change, even when it spans multiple directories.
-- **Multi-file Diff**: Updated the diff engine to support comprehensive multi-file knot comparisons.
+### Invisible Bridge & Daemonized Sync
+- **nool-daemon**: A new background process that provides zero-touch synchronization. Standard Git commands (`commit`, `checkout`, `merge`) are implicitly translated into Nool Knot DAG transformations.
+- **Bidirectional Git Flow**: Full support for parallel causal timelines; Nool now natively understands and projects Git branch divergence.
 
-### Jira Platform Integration
-- **Automated Task Sync**: nool now supports bi-directional sync with Jira. Task completion in Nool can automatically trigger state transitions in Jira using dynamic transition discovery.
-- **Credential Safety**: Securely handles Jira credentials via the new Platform Integration layer.
+### Interactive DAG Introspection
+- **nool ui**: A robust, interactive TUI application for visual DAG exploration. Select any Knot to introspect its TOON metadata, reasoning, and semantic blast radius.
+- **High-Fidelity Telemetry**: Visualize the "Cognitive State" of the repository as agents and humans collaborate.
 
-### Recursive Semantic Search
-- **Enhanced Query**: The `nool query` command now supports recursive semantic search over the code graph, allowing for deeper discovery of patterns and dependencies.
-- **Performance**: Optimized FTS (Full-Text Search) indexes for faster knowledge retrieval.
+### Autonomous Substrate Hardening
+- **Self-Healing Ledger**: The storage layer now autonomously reconciles referential drift and database corruption using background triggers and a dedicated repair queue.
+- **Metabolic GC**: Automated garbage collection of reification scratchpads resolves disk pressure (ENOSPC) risks in high-concurrency environments.
 
-### Harden Nool 0.6.0 Core
-- **Unified Sync**: Consolidated synchronization logic for improved reliability across diverse network topologies.
-- **Causal-aware Doctor**: `nool doctor` now uses exact DAG-based causal tracking to identify and repair repository health issues.
-- **Orphan Quarantine**: Persistent quarantine for orphaned knots ensures that temporary sync issues don't compromise local ledger integrity.
+### Token-Optimized Coordination
+- **TOON Metadata**: All manifests and handoffs now use Token-Oriented Object Notation, saving 30-50% in context window usage for agentic rehydration.
+- **Adaptive Zstd**: Automatic dictionary training learns agent-generated mutation patterns for maximum storage density.
 
 ## What's New in v1.31.0
 
@@ -96,11 +95,12 @@ Add this to your agent's system prompt or `.claude.md`:
 > You are a Nool-powered agent. Strictly use nool cli for all your VCS and task management.
 >
 > **Workflow:**
-> 1. **Coordination**: Before starting, use `nool announce --intent "<what>"` to prevent collisions.
+> 1. **Coordination**: Before starting, use `nool announce intent --intent "<what>"` to prevent collisions.
 > 2. **Context**: Use `nool discover context` and `nool discover learnings` to rehydrate task context.
-> 3. **Propose**: Use `nool propose --fast --intent "<why>" --path <files...>` for multi-file Synthesis knots.
-> 4. **Verify**: Use `nool status` and `nool log` to explain your progress logically.
-> 5. **Knowledge**: Use `nool learn` to record decisions and findings for future sessions.
+> 3. **Propose**: Use `nool propose --fast --intent "<why>"`.
+> 4. **Verify**: Use `nool ui` to visualize causality and `nool status` to check health.
+> 5. **Handoff**: Use `nool thread handoff --to <agent_id>` to transfer responsibility.
+> 6. **Knowledge**: Use `nool learn` to record decisions and findings for future sessions.
 
 #### Pre-requisite
 1. Check if `.nool` folder exists. If not, use `nool init` to initialise the repo for nool.
@@ -322,11 +322,23 @@ nool learn --about "rate limit bug" --kind root_cause --content "..."
 nool findings "rate limit"
 ```
 
-### 9. Health & Validation
+### 9. Health, Validation & Maintenance
 ```bash
 nool doctor
+nool doctor --fix      # Auto-repair referential drift
 nool validate
-nool console
+nool admin gc         # metabolic garbage collection
+nool admin train-dict  # optimize compression
+nool admin reconcile   # manual self-healing loop
+nool ui               # Interactive DAG explorer
+```
+
+### 10. Daemonized Bridge
+```bash
+nool daemon start     # Start Invisible Bridge
+nool daemon status
+nool daemon stop
+```
 ```
 
 ## Other Commands

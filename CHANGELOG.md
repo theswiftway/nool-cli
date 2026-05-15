@@ -2,6 +2,26 @@
 
 All notable changes to Nool are documented in this file.
 
+## [1.33.0] - 2026-05-15
+
+### Added
+- **Invisible Bridge (Daemonized Sync)**: Introduced `nool-daemon` for background Git-to-Nool synchronization. Native Git Flow support ensures branches and merges are automatically tracked in the semantic DAG.
+- **Interactive TUI Explorer**: Added `nool ui` for visual DAG navigation, providing real-time causal graph rendering and high-density TOON metadata introspection.
+- **Self-Healing Storage**: Implemented an asynchronous Background Reconciliation Loop and SQLite Triggers to autonomously repair referential drift and database corruption.
+- **TOON Metadata Engine**: Adopted Token-Oriented Object Notation (TOON) for all internal manifests and metadata, reducing agent context rehydration costs by 30-50%.
+- **Metabolic Resource GC**: Automated cleanup of reification scratchpads via `nool admin gc` to prevent ENOSPC deadlocks.
+- **Adaptive Compression**: Integrated automatic Zstd dictionary training into the solidification pipeline for improved storage efficiency (~20%).
+- **Agent Handoff Protocol**: Formally codified responsibility transfers via `nool thread handoff` with signed decision/roadmap metadata.
+
+### Changed
+- **CLI Robustness**: Moved CLI argument validation from runtime to build-time using debug assertions.
+- **Short-Flag De-collision**: Reassigned conflicting short flags across the entire command suite (e.g., `target-nodes` now `-k`).
+- **High-Fidelity Storage Results**: Standardized all storage operations on high-fidelity error types with detailed failure context.
+
+### Fixed
+- **SQLite FK Contention**: Resolved foreign key constraint violations during complex knot pruning and reconciliation.
+- **Robust Deserialization**: The replay engine now gracefully handles and prunes individual corrupted BLOBs without failing the session.
+
 ## [1.31.1] - 2026-05-14
 
 ### Added
