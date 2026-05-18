@@ -1,7 +1,7 @@
 # Nool: Operational Continuity Infrastructure for Autonomous Engineering
 
-**Current Version**: v1.33.0 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
-This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.33.0 and later.
+**Current Version**: v1.34.2 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
+This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.34.2 and later.
 
 Git stores your code state. **Nool stores your engineering operational state.** 
 
