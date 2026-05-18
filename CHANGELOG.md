@@ -5,6 +5,7 @@ All notable changes to Nool are documented in this file.
 ## [1.33.0] - 2026-05-15
 
 ### Added
+- **Landing Page Redesign**: Complete overhaul of nool.dev with "Infrastructure-grade" narrative. Pivot from "AI memory" to "Operational Continuity Infrastructure" with deep SEO and Agent Discoverability (JSON-LD) support.
 - **Invisible Bridge (Daemonized Sync)**: Introduced `nool-daemon` for background Git-to-Nool synchronization. Native Git Flow support ensures branches and merges are automatically tracked in the semantic DAG.
 - **Interactive TUI Explorer**: Added `nool ui` for visual DAG navigation, providing real-time causal graph rendering and high-density TOON metadata introspection.
 - **Self-Healing Storage**: Implemented an asynchronous Background Reconciliation Loop and SQLite Triggers to autonomously repair referential drift and database corruption.

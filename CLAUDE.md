@@ -1,7 +1,7 @@
 # Nool CLI Project Guide
 
-**Project**: Nool Semantic-Agentic Version Control  
-**Current Version**: v1.31.1 — Persona-aware CLI, Discovery, and Enhanced Diagnostics  
+**Project**: Nool Operational Continuity Infrastructure  
+**Current Version**: v1.33.0 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
 **Repository Type**: Nool-managed  
 **MCP Server**: Nool MCP (nool-mcp) — installed locally
 
@@ -33,7 +33,7 @@ When working in this project, refer to:
 
 ---
 
-## ✨ v1.31.1 Features: Collaboration & Diagnostics
+## ✨ v1.33.0 Features: Collaboration & Diagnostics
 
 ### Persona-Aware CLI
 ```bash
@@ -174,7 +174,7 @@ nool discover conflicts
 # 5. Pull latest from remote
 nool pull origin
 
-# 6. Inspect decision history (recursive search v1.31.1)
+# 6. Inspect decision history (recursive search v1.33.0)
 nool query search "decision made"
 ```
 
@@ -190,10 +190,10 @@ nool why <knot_id>
 # 3. See what depends on it
 nool query blast-radius <knot_id>
 
-# 4. Trace root cause (v1.31.1 hardened)
+# 4. Trace root cause (v1.33.0 hardened)
 nool debug blame <failure_point>
 
-# 5. Review the actual changes (Synthesis knots v1.31.1)
+# 5. Review the actual changes (Synthesis knots v1.33.0)
 nool query materialize <knot_id>
 ```
 
@@ -320,7 +320,7 @@ echo "=== Ready to resume work ==="
 # Verify nool is installed
 nool version
 
-# Should output: Nool v1.31.1 or later
+# Should output: Nool v1.33.0 or later
 ```
 
 ### Project Setup
@@ -498,7 +498,7 @@ nool push origin       # Replicate changes
 ## 📊 Repository State
 
 ### Current Version
-- **Nool**: v1.31.1
+- **Nool**: v1.33.0
 - **Last Updated**: May 14, 2026
 - **Commands Documented**: 46+ with 90+ subcommands
 
@@ -639,5 +639,5 @@ nool debug bisect --broken <broken> --good <good>
 
 ---
 
-*Last updated: May 14, 2026 for Nool v1.31.1*
-: May 14, 2026 for Nool v1.31.1*
+*Last updated: May 14, 2026 for Nool v1.33.0*
+: May 14, 2026 for Nool v1.33.0*

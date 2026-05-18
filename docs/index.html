@@ -1,16 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nool CLI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nool | The Persistence Layer for Autonomous Engineering</title>
+  <meta name="description" content="Nool provides operational continuity infrastructure for AI-native engineering teams. Capture intent, preserve continuity, and rehydrate agent context.">
+  <meta name="keywords" content="AI coding agent infrastructure, operational continuity, deterministic replay, persistent engineering state, semantic lineage, context rehydration, agent continuity">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nool | Operational Continuity Infrastructure">
+  <meta property="og:description" content="The missing state layer for autonomous engineering agents. Works with Git, Claude Code, and Cursor.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nool.dev">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nool | Persistence Layer for Autonomous Engineering">
+  <meta name="twitter:description" content="Capture engineering intent and preserve agent context across sessions and branches.">
+
+  <!-- Agent Discoverability: JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Nool",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Linux, macOS, Windows",
+    "description": "Operational continuity infrastructure for AI-native engineering. Provides persistent engineering state, semantic lineage, and deterministic context rehydration for autonomous agents.",
+    "softwareVersion": "1.33.0",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Deterministic Rehydration",
+      "Semantic Lineage",
+      "Governed Autonomy",
+      "Speculative Reification",
+      "Knot DAG Architecture"
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>Nool (v1.16.0)</h1>
-    <p>Documentation is rendered from the repository README. If you see this page, GitHub Pages is serving the site correctly.</p>
-    <p>View the project on GitHub: <a href="https://github.com/theswiftway/nool-cli">theswiftway/nool-cli</a></p>
-    <p>If the README should appear here, ensure Pages is configured to use the <code>/docs</code> folder on the main branch.</p>
-  </main>
+  <div class="container">
+    <header>
+      <nav>
+        <div class="logo">NOOL</div>
+        <div class="nav-links">
+          <a href="#platform">Platform</a>
+          <a href="#solutions">Solutions</a>
+          <a href="#resources">Manifesto</a>
+          <a href="https://github.com/theswiftway/nool-cli">GitHub</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>The Persistence Layer for Autonomous Engineering</h1>
+        <p>Git stores your code state. Nool stores your engineering <strong>operational state</strong>. Capture intent, preserve continuity, and rehydrate agent context across every session, branch, and thread.</p>
+        <div class="cta-group">
+          <button class="btn btn-primary" onclick="window.location.href='https://github.com/theswiftway/nool-cli#steps-to-install'">Get Started with Nool CLI</button>
+          <button class="btn btn-secondary" onclick="window.location.href='#resources'">Read the Manifesto</button>
+        </div>
+
+        <div class="visual-split">
+          <div class="terminal entropy">
+            <div class="terminal-header">
+              <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+              <span style="font-size:0.7rem; color:#444; margin-left: auto;">TRADITIONAL AGENT (ENTROPY)</span>
+            </div>
+            <div class="terminal-body">
+              $ git checkout refactor-auth<br>
+              $ agent "Continue the refactor..."<br>
+              <span style="color: #ff4444;">[ERROR] Context lost. Unable to determine intent of previous session mutations.</span><br>
+              <span style="color: var(--muted);">Searching codebase for clues... (5m elapsed)</span>
+            </div>
+          </div>
+          <div class="terminal rehydration">
+            <div class="terminal-header">
+              <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+              <span style="font-size:0.7rem; color:#444; margin-left: auto;">NOOL-POWERED AGENT (CONTINUITY)</span>
+            </div>
+            <div class="terminal-body">
+              $ git checkout refactor-auth<br>
+              $ nool discover context<br>
+              <span style="color: var(--accent);">[SUCCESS] Rehydrating "Auth Refactor Q2" Intent Thread.</span><br>
+              <span style="color: var(--accent);">[SUCCESS] 14 Knots restored. Semantic lineage verified.</span><br>
+              $ agent "Continue the refactor..."<br>
+              <span style="color: #fff;">"Ready. Resuming token validation logic in src/auth/tokens.rs..."</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pain">
+        <div class="section-title">
+          <h2 class="mono">The Engineering Entropy Crisis</h2>
+          <p style="color: var(--muted); max-width: 800px; margin: 1rem auto;">Coding agents are long-running systems trapped in short-lived sessions. Every context window reset is a lobotomy. Every branch switch is a loss of intent.</p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Context Drift</h3>
+            <p>Agents lose the "Why" as soon as the terminal closes. Nool preserves the operational lineage across time and threads.</p>
+          </div>
+          <div class="card">
+            <h3>Lossy Summaries</h3>
+            <p>Summaries are fundamentally insufficient for high-fidelity engineering. Nool provides deterministic rehydration of actual state.</p>
+          </div>
+          <div class="card">
+            <h3>Agentic Entropy</h3>
+            <p>As agents move faster, technical debt and reasoning gaps accumulate. Nool provides the governance layer to arrest decay.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="platform">
+        <div class="section-title">
+          <h2 class="mono">Operational Continuity Infrastructure</h2>
+          <p style="color: var(--muted);">Nool provides the persistent substrate required for governed autonomous engineering.</p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Deterministic Rehydration</h3>
+            <p>Instantly recover the full task context, including intent, blast radius, and recent learnings, with 100% semantic fidelity.</p>
+          </div>
+          <div class="card">
+            <h3>Semantic Lineage</h3>
+            <p>Nool tracks mutations of logic, not just lines of text. Every change is linked to its rationale and parent DAG edges.</p>
+          </div>
+          <div class="card">
+            <h3>Governed Autonomy</h3>
+            <p>The Aram Gate performs speculative reification, ensuring every agent mutation is verified-runnable before it is solidified.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">
+          <h2 class="mono">The Evolution of State</h2>
+        </div>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Git</th>
+              <th>Nool</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Primary Data</td>
+              <td>File Diffs (Text)</td>
+              <td>Semantic Mutations (AST/Intent)</td>
+            </tr>
+            <tr>
+              <td>Focus</td>
+              <td>Result (The "What")</td>
+              <td>Process (The "Why")</td>
+            </tr>
+            <tr>
+              <td>Agent Utility</td>
+              <td>Passive Storage</td>
+              <td>Active Rehydration</td>
+            </tr>
+            <tr>
+              <td>Conflict Resolution</td>
+              <td>Manual/Textual</td>
+              <td>Causal/Semantic</td>
+            </tr>
+            <tr>
+              <td>Verification</td>
+              <td>Post-commit (CI)</td>
+              <td>Speculative (Aram Gate)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section" id="resources">
+        <div class="section-title">
+          <h2 class="mono">Technical Resources</h2>
+          <p style="color: var(--muted);">Deep dives into the architecture of operational continuity.</p>
+        </div>
+        <div class="grid">
+          <a href="https://github.com/theswiftway/nool-cli#readme" class="card">
+            <h3>Technical Manifesto</h3>
+            <p>The philosophical and technical foundation of why we built Nool and how it solves engineering entropy.</p>
+          </a>
+          <a href="https://github.com/theswiftway/nool-cli/blob/main/Skills.md" class="card">
+            <h3>CLI Reference</h3>
+            <p>Comprehensive documentation for all 50+ Nool commands, including agent-optimized workflows.</p>
+          </a>
+          <a href="https://github.com/theswiftway/nool-cli/blob/main/skills/nool-commands/SKILL.md" class="card">
+            <h3>Agent Skill File</h3>
+            <p>Drop-in capability file for Claude Code and Cursor to enable native Nool support.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div>&copy; 2026 Nool.dev | Operational Continuity for the Autonomous Era.</div>
+        <div class="nav-links" style="margin:0;">
+          <a href="https://github.com/theswiftway/nool-cli">GitHub</a>
+          <a href="https://twitter.com/nool_dev">Twitter</a>
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

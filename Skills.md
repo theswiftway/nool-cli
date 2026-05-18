@@ -1,8 +1,8 @@
-# Nool Skills & Commands Reference
+# Nool: Operational Continuity Infrastructure — Command Reference
 
-**Version**: 1.31.1 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search
+**Version**: v1.33.0 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search
 
-This document provides a comprehensive reference for all Nool commands organized by skill category. Each command is documented with its purpose, syntax, and common use cases.
+This document provides a comprehensive reference for all Nool commands organized by skill category. These commands enable **Deterministic Rehydration**, **Semantic Lineage**, and **Governed Autonomy** for autonomous engineering agents.
 
 ---
 

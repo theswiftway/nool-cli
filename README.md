@@ -1,9 +1,11 @@
-# Nool User Guide: Semantic-Agentic Version Control
+# Nool: Operational Continuity Infrastructure for Autonomous Engineering
 
 **Current Version**: v1.33.0 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
 This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.33.0 and later.
 
-Nool is not just a replacement for Git — it is a shift from tracking lines of text to tracking semantic logic and intent. This guide covers what you can do with Nool, who it is for, and how it differs from traditional version control.
+Git stores your code state. **Nool stores your engineering operational state.** 
+
+As coding agents become long-running autonomous systems, engineering teams require a persistent state layer to capture intent, preserve continuity, and rehydrate context across every session, branch, and thread. Nool provides that layer—tracking semantic mutations of logic rather than just text diffs.
 
 Everything runs on your local machine. Nothing gets uploaded to any server.  
 **Note**: This is still beta. If you find any bugs, create issues on this repo.
