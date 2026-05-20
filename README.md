@@ -476,4 +476,4 @@ nool audit        # Compliance report
 
 ## License
 
-The first 2000 knots or 30 days are free to try. After that, an explicit license is required from https://nool.dev/pricing
+The first 2000 knots or 30 days are free to try. No credit card required. After that, an explicit license is required from https://nool.dev/pricing
