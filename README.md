@@ -2,7 +2,6 @@
 
 [![Version](https://img.shields.io/badge/version-2.2.2-blue.svg)](https://github.com/nool-dev/nool)
 [![Status](https://img.shields.io/badge/status-beta-yellow.svg)](https://github.com/nool-dev/nool)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/nool-dev/nool)
 
 **Operational Continuity Infrastructure for Autonomous Engineering**
 
@@ -474,3 +473,7 @@ nool upgrade      # Upgrade CLI
 nool version      # Print version
 nool audit        # Compliance report
 ```
+
+## License
+
+The first 2000 knots or 30 days are free to try. After that, an explicit license is required from https://nool.dev/pricing

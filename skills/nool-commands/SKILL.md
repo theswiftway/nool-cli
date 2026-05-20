@@ -1,6 +1,7 @@
 ---
 name: nool-commands
 description: Nool Operational Continuity Infrastructure. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
+license: Proprietary. First 2000 knots or 30 days free, then see https://nool.dev/pricing
 metadata:
   version: "2.2.2"
 ---
