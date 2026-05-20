@@ -1,4 +1,3 @@
-
 === nool init ===
 Initialize a new Nool ledger and generate an identity key
 
@@ -32,6 +31,7 @@ Options:
       --issue <REF>                  Gap 2: Link to related issue/PR (can be specified multiple times)
       --test-note <NOTE>             Gap 2: Test coverage note (e.g. "added test_pricing.rs")
       --tag <TAG>                    Gap 2: Metadata tags (can be specified multiple times)
+      --push [<REMOTE>]              Gap 4: Auto-push after solidify (optional remote name, defaults to origin)
       --amend                        Amend the existing proposal: load and modify the candidate stash
       --compact                      Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>            Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
@@ -49,6 +49,70 @@ Commands:
   promote  Promote a try branch — solidifies its proposal into the main DAG
   discard  Discard a try branch — deletes the scratchpad, no DAG trace
   help     Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool try new ===
+Start a new ephemeral try branch
+
+Usage: nool try new [OPTIONS] <NAME>
+
+Arguments:
+  <NAME>  
+
+Options:
+      --from <KNOT_ID>     Base Knot ID to branch from (short or full hex)
+  -i, --intent <INTENT>    
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool try list ===
+List all active try branches
+
+Usage: nool try list [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool try show ===
+Show status of a try branch
+
+Usage: nool try show [OPTIONS] <NAME>
+
+Arguments:
+  <NAME>  
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool try promote ===
+Promote a try branch — solidifies its proposal into the main DAG
+
+Usage: nool try promote [OPTIONS] <NAME>
+
+Arguments:
+  <NAME>  
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool try discard ===
+Discard a try branch — deletes the scratchpad, no DAG trace
+
+Usage: nool try discard [OPTIONS] <NAME>
+
+Arguments:
+  <NAME>  
 
 Options:
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
@@ -200,17 +264,16 @@ Release-readiness and repository health checks
 Usage: nool doctor [OPTIONS]
 
 Options:
-      --json                Emit structured JSON for automation
-      --strict              Treat warnings as release-blocking
-      --fs-only             Only inspect Git/filesystem hygiene
-      --semantic-only       Only inspect Nool semantic health
-      --artifacts           Run release artifact and checksum checks
-  -f, --fix                 Automatically fix issues where possible
-      --git-fallback        Fallback to git operations for recovery
-      --backfill-mutations  Re-index existing knots for path-based intelligence
-      --compact             Compact output mode for agent-friendly token usage (Strategy 6)
-      --persona <PERSONA>   Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
-  -h, --help                Print help
+      --json               Emit structured JSON for automation
+      --strict             Treat warnings as release-blocking
+      --fs-only            Only inspect Git/filesystem hygiene
+      --semantic-only      Only inspect Nool semantic health
+      --artifacts          Run release artifact and checksum checks
+  -f, --fix                Automatically fix issues where possible
+      --git-fallback       Fallback to git operations for recovery
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
 
 === nool admin ===
 Administration & account management (team, plugins, billing)
@@ -218,16 +281,354 @@ Administration & account management (team, plugins, billing)
 Usage: nool admin [OPTIONS] <COMMAND>
 
 Commands:
-  account  Account settings: login, email, subscription
-  team     Team management: add members, assign roles
-  plugin   Plugin management: install, list, initialize
-  channel  Release channel management
+  account     Account settings: login, email, subscription
+  team        Team management: add members, assign roles
+  plugin      Plugin management: install, list, initialize
+  channel     Release channel management
+  gc          Resource management (GC)
+  train-dict  Train storage compression dictionary
+  reconcile   v3.0 Self-Healing: Process a batch of items from the repair queue
+  help        Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account ===
+Account settings: login, email, subscription
+
+Usage: nool admin account [OPTIONS] <COMMAND>
+
+Commands:
+  subscribe  Open login/subscription portal
+  billing    Billing portal and subscription management
+  help       Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account subscribe ===
+Open login/subscription portal
+
+Usage: nool admin account subscribe [OPTIONS]
+
+Options:
+  -t, --tier <TIER>        Plan: free, solo (Offer: $6.99/mo), startup, enterprise
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account billing ===
+Billing portal and subscription management
+
+Usage: nool admin account billing [OPTIONS] <COMMAND>
+
+Commands:
+  manage   Open the Nool Hub billing portal to manage (upgrade/downgrade) your subscription
+  portal   Open the Nool Hub billing portal to manage your subscription (Alias for manage)
+  status   Check current subscription status
+  usage    Check your reasoning usage/metering
+  restore  Restore a subscription to this identity using your email
+  create   Create a new subscription
+  list     List all subscriptions
+  get      Get subscription details
+  update   Update a subscription (change plan, interval, etc)
+  cancel   Cancel a subscription
+  verify   Verify subscription status with Stripe (no webhook needed)
   help     Print this message or the help of the given subcommand(s)
 
 Options:
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
+
+=== nool admin account billing manage ===
+Open the Nool Hub billing portal to manage (upgrade/downgrade) your subscription
+
+Usage: nool admin account billing manage [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account billing portal ===
+Open the Nool Hub billing portal to manage your subscription (Alias for manage)
+
+Usage: nool admin account billing portal [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account billing status ===
+Check current subscription status
+
+Usage: nool admin account billing status [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account billing usage ===
+Check your reasoning usage/metering
+
+Usage: nool admin account billing usage [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account billing restore ===
+Restore a subscription to this identity using your email
+
+Usage: nool admin account billing restore [OPTIONS] <EMAIL>
+
+Arguments:
+  <EMAIL>  
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account billing create ===
+Create a new subscription
+
+Usage: nool admin account billing create [OPTIONS] --email <EMAIL> --plan <PLAN>
+
+Options:
+      --email <EMAIL>        Customer email
+      --plan <PLAN>          Plan: free, pro, enterprise
+      --interval <INTERVAL>  Billing interval: monthly or yearly [default: monthly]
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
+
+=== nool admin account billing list ===
+List all subscriptions
+
+Usage: nool admin account billing list [OPTIONS]
+
+Options:
+      --active-only        Only show active subscriptions
+      --json               Output as JSON
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin account billing get ===
+Get subscription details
+
+Usage: nool admin account billing get [OPTIONS] --customer <CUSTOMER>
+
+Options:
+      --customer <CUSTOMER>  Customer pubkey/email
+      --json                 Output as JSON
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
+
+=== nool admin account billing update ===
+Update a subscription (change plan, interval, etc)
+
+Usage: nool admin account billing update [OPTIONS] --customer <CUSTOMER>
+
+Options:
+      --customer <CUSTOMER>  Customer identifier
+      --plan <PLAN>          New plan: free, pro, enterprise
+      --interval <INTERVAL>  New interval: monthly or yearly
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
+
+=== nool admin account billing cancel ===
+Cancel a subscription
+
+Usage: nool admin account billing cancel [OPTIONS] --customer <CUSTOMER>
+
+Options:
+      --customer <CUSTOMER>  Customer identifier
+      --reason <REASON>      Reason for cancellation
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
+
+=== nool admin account billing verify ===
+Verify subscription status with Stripe (no webhook needed)
+
+Usage: nool admin account billing verify [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin team ===
+Team management: add members, assign roles
+
+Usage: nool admin team [OPTIONS] <COMMAND>
+
+Commands:
+  add   Add a new member to the team
+  list  List all team members and roles
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin team add ===
+Add a new member to the team
+
+Usage: nool admin team add [OPTIONS] --key <KEY> --role <ROLE>
+
+Options:
+  -k, --key <KEY>          
+  -r, --role <ROLE>        
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin team list ===
+List all team members and roles
+
+Usage: nool admin team list [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin plugin ===
+Plugin management: install, list, initialize
+
+Usage: nool admin plugin [OPTIONS] <COMMAND>
+
+Commands:
+  list     List all installed plugins
+  install  Install a plugin from a local manifest
+  init     Initialize a new plugin project
+  help     Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin plugin list ===
+List all installed plugins
+
+Usage: nool admin plugin list [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin plugin install ===
+Install a plugin from a local manifest
+
+Usage: nool admin plugin install [OPTIONS] <MANIFEST_PATH>
+
+Arguments:
+  <MANIFEST_PATH>  
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin plugin init ===
+Initialize a new plugin project
+
+Usage: nool admin plugin init [OPTIONS] --plugin-type <PLUGIN_TYPE> <NAME>
+
+Arguments:
+  <NAME>  
+
+Options:
+  -p, --plugin-type <PLUGIN_TYPE>  
+      --compact                    Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>          Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                       Print help
+
+=== nool admin channel ===
+Release channel management
+
+Usage: nool admin channel [OPTIONS] <COMMAND>
+
+Commands:
+  create  Create a new release channel
+  list    List all release channels
+  help    Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin channel create ===
+Create a new release channel
+
+Usage: nool admin channel create [OPTIONS] --name <NAME> --policy <POLICY>
+
+Options:
+  -n, --name <NAME>        
+  -p, --policy <POLICY>    
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin channel list ===
+List all release channels
+
+Usage: nool admin channel list [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin gc ===
+Resource management (GC)
+
+Usage: nool admin gc [OPTIONS]
+
+Options:
+  -f, --force              Force full cleanup including current target
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool admin train-dict ===
+Train storage compression dictionary
+
+Usage: nool admin train-dict [OPTIONS]
+
+Options:
+  -s, --sample-size <SAMPLE_SIZE>  Number of recent knots to sample (default: 100) [default: 100]
+      --compact                    Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>          Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                       Print help
+
+=== nool admin reconcile ===
+v3.0 Self-Healing: Process a batch of items from the repair queue
+
+Usage: nool admin reconcile [OPTIONS]
+
+Options:
+  -b, --batch-size <BATCH_SIZE>  Maximum number of items to process in this batch [default: 50]
+      --compact                  Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>        Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                     Print help
 
 === nool languages ===
 List all supported languages and their validation status
@@ -261,6 +662,110 @@ Options:
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
+
+=== nool debug replay ===
+Start interactive replay of a Git ref or agent run
+
+Usage: nool debug replay [OPTIONS] <REFERENCE>
+
+Arguments:
+  <REFERENCE>  Git ref or run:<id>
+
+Options:
+      --tui                Render in terminal UI (TUI)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool debug step ===
+Inspect a specific replay step
+
+Usage: nool debug step [OPTIONS] <STEP_ID>
+
+Arguments:
+  <STEP_ID>  Step ID
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool debug diff ===
+Show diff of a replay step
+
+Usage: nool debug diff [OPTIONS] [STEP_ID]
+
+Arguments:
+  [STEP_ID]  Step ID (optional; if omitted, shows stashed proposal diff)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool debug edit ===
+Add a constraint to a replay step
+
+Usage: nool debug edit [OPTIONS] <STEP_ID>
+
+Arguments:
+  <STEP_ID>  Step ID
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool debug rerun ===
+Replay from a selected step
+
+Usage: nool debug rerun [OPTIONS] <STEP_ID>
+
+Arguments:
+  <STEP_ID>  Step ID
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool debug blame ===
+Find root cause (show causal chain from a failure)
+
+Usage: nool debug blame [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool debug bisect ===
+Find which Knot introduced a regression (binary search)
+
+Usage: nool debug bisect [OPTIONS] --good <GOOD> --test <TEST>
+
+Options:
+      --good <GOOD>        Known-good Knot ID
+      --bad <BAD>          Known-bad Knot ID (defaults to HEAD)
+      --test <TEST>        Test command (exit 0 = good, exit 1 = bad)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool debug blast-radius ===
+Compute semantic blast radius and risk analysis for a change
+
+Usage: nool debug blast-radius [OPTIONS] [TARGETS]...
+
+Arguments:
+  [TARGETS]...  Target knot IDs or file paths
+
+Options:
+  -s, --symbol <SYMBOL>        Symbol name to analyze (e.g. "MyStruct")
+  -t, --threshold <THRESHOLD>  Risk threshold for warnings (0-100, default 70) [default: 70]
+      --compact                Compact output mode for agent-friendly token usage
+      --persona <PERSONA>      Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                   Print help
 
 === nool dag ===
 Visualise DAG
@@ -349,18 +854,96 @@ Intent Thread management
 Usage: nool thread [OPTIONS] <COMMAND>
 
 Commands:
-  create  Create a new intent thread
-  list    List all threads
-  show    Show thread details (with optional unified knowledge view)
-  status  Set thread status (draft, active, review, released, archived)
-  active  Set or show the currently active thread for proposals
-  chat    Chat in a thread (ephemeral group discussion)
-  help    Print this message or the help of the given subcommand(s)
+  create   Create a new intent thread
+  list     List all threads
+  show     Show thread details (with optional unified knowledge view)
+  status   Set thread status (draft, active, review, released, archived)
+  chat     Add or view DAG-backed notes in a thread
+  handoff  Handoff thread responsibility to another agent
+  help     Print this message or the help of the given subcommand(s)
 
 Options:
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
+
+=== nool thread create ===
+Create a new intent thread
+
+Usage: nool thread create [OPTIONS] --name <NAME>
+
+Options:
+  -n, --name <NAME>        
+  -d, --desc <DESC>        [default: ""]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool thread list ===
+List all threads
+
+Usage: nool thread list [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool thread show ===
+Show thread details (with optional unified knowledge view)
+
+Usage: nool thread show [OPTIONS] <THREAD_NAME>
+
+Arguments:
+  <THREAD_NAME>  
+
+Options:
+      --full               Show full knowledge view: decisions, constraints, patterns, issues, test gaps
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool thread status ===
+Set thread status (draft, active, review, released, archived)
+
+Usage: nool thread status [OPTIONS] --name <NAME> --status <STATUS>
+
+Options:
+  -n, --name <NAME>        
+  -s, --status <STATUS>    
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool thread chat ===
+Add or view DAG-backed notes in a thread
+
+Usage: nool thread chat [OPTIONS] <NAME>
+
+Arguments:
+  <NAME>  Thread name
+
+Options:
+  -m, --message <MESSAGE>  Message to send (optional; if omitted, shows chat history)
+  -t, --ttl <TTL>          Message TTL in seconds (optional)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool thread handoff ===
+Handoff thread responsibility to another agent
+
+Usage: nool thread handoff [OPTIONS] --name <NAME> --to <TO>
+
+Options:
+  -n, --name <NAME>          Thread name
+  -t, --to <TO>              Target agent ID (hex-encoded pubkey)
+  -d, --decision <DECISION>  Key decisions made (can be specified multiple times)
+  -s, --next <NEXT>          Recommended next steps (can be specified multiple times)
+      --solidify             Automatically solidify the handoff knot
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
 
 === nool task ===
 Task lifecycle management
@@ -368,16 +951,134 @@ Task lifecycle management
 Usage: nool task [OPTIONS] <COMMAND>
 
 Commands:
-  create  
-  inbox   
-  pick    
-  assign  
-  mine    
-  finish  
-  block   
-  help    Print this message or the help of the given subcommand(s)
+  create         
+  list-github    
+  import-github  
+  list-jira      
+  import-jira    
+  inbox          
+  pick           
+  assign         
+  mine           
+  finish         
+  block          
+  help           Print this message or the help of the given subcommand(s)
 
 Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task create ===
+Usage: nool task create [OPTIONS] --name <NAME>
+
+Options:
+  -n, --name <NAME>          
+  -d, --desc <DESC>          [default: ""]
+  -p, --priority <PRIORITY>  [default: 3]
+  -s, --solidify             Automatically solidify
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
+
+=== nool task list-github ===
+Usage: nool task list-github [OPTIONS] --repo <REPO>
+
+Options:
+      --repo <REPO>        
+  -l, --limit <LIMIT>      [default: 20]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task import-github ===
+Usage: nool task import-github [OPTIONS] --repo <REPO> --issue <ISSUE>
+
+Options:
+      --repo <REPO>        
+      --issue <ISSUE>      
+      --thread <THREAD>    
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task list-jira ===
+Usage: nool task list-jira [OPTIONS] --project <PROJECT>
+
+Options:
+      --project <PROJECT>  
+  -l, --limit <LIMIT>      [default: 20]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task import-jira ===
+Usage: nool task import-jira [OPTIONS] --project <PROJECT> --issue <ISSUE>
+
+Options:
+      --project <PROJECT>  
+      --issue <ISSUE>      
+      --thread <THREAD>    
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task inbox ===
+Usage: nool task inbox [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task pick ===
+Usage: nool task pick [OPTIONS] --id <ID>
+
+Options:
+  -i, --id <ID>            
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task assign ===
+Usage: nool task assign [OPTIONS] --id <ID> --to <TO>
+
+Options:
+  -i, --id <ID>            
+  -t, --to <TO>            
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task mine ===
+Usage: nool task mine [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task finish ===
+Usage: nool task finish [OPTIONS] --id <ID>
+
+Options:
+  -i, --id <ID>            
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool task block ===
+Usage: nool task block [OPTIONS] --id <ID> --reason <REASON>
+
+Options:
+  -i, --id <ID>            
+  -r, --reason <REASON>    
+  -s, --solidify           Automatically solidify
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
@@ -388,21 +1089,6 @@ Compliance report: intent coverage, authors, tag/release history
 Usage: nool audit [OPTIONS]
 
 Options:
-      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
-      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
-  -h, --help               Print help
-
-=== nool merge ===
-Semantic 3-way merge of two divergent threads
-
-Usage: nool merge [OPTIONS] <TARGET>
-
-Arguments:
-  <TARGET>  Target thread or Knot ID to merge from
-
-Options:
-      --path <PATH>        Optional: the specific file path to merge (semantic path)
-  -s, --solidify           Automatically solidify if no conflicts
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
@@ -426,6 +1112,111 @@ Options:
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
 
+=== nool bridge lfs ===
+Initialize git-lfs support for large file tracking
+
+Usage: nool bridge lfs [OPTIONS] <COMMAND>
+
+Commands:
+  init    Initialize git-lfs in the repository
+  track   Track files matching a pattern with git-lfs
+  status  Show git-lfs status
+  help    Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge lfs init ===
+Initialize git-lfs in the repository
+
+Usage: nool bridge lfs init [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge lfs track ===
+Track files matching a pattern with git-lfs
+
+Usage: nool bridge lfs track [OPTIONS] <PATTERN>
+
+Arguments:
+  <PATTERN>  
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge lfs status ===
+Show git-lfs status
+
+Usage: nool bridge lfs status [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge mirror-repair ===
+Repair or rebuild the Bifrost Git mirror
+
+Usage: nool bridge mirror-repair [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge status ===
+Show auto-sync configuration and recent push history
+
+Usage: nool bridge status [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge add-remote ===
+Add a remote URL for auto-pushing
+
+Usage: nool bridge add-remote [OPTIONS] <URL>
+
+Arguments:
+  <URL>  
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge remove-remote ===
+Remove an auto-push remote URL
+
+Usage: nool bridge remove-remote [OPTIONS] <URL>
+
+Arguments:
+  <URL>  
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bridge watch ===
+Start the sync watch daemon
+
+Usage: nool bridge watch [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
 === nool inbox ===
 Unified notification centre
 
@@ -442,21 +1233,6 @@ Launch the interactive web console
 Usage: nool console [OPTIONS]
 
 Options:
-      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
-      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
-  -h, --help               Print help
-
-=== nool msg ===
-Direct 1:1 message
-
-Usage: nool msg [OPTIONS] <RECIPIENT_KEY> <MESSAGE>
-
-Arguments:
-  <RECIPIENT_KEY>  
-  <MESSAGE>        
-
-Options:
-  -t, --ttl <TTL>          
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
@@ -534,6 +1310,176 @@ Options:
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
 
+=== nool query resolve-intent ===
+Search for knots matching an intent query
+
+Usage: nool query resolve-intent [OPTIONS] <QUERY>
+
+Arguments:
+  <QUERY>  Natural language query (e.g. "rate limiting")
+
+Options:
+      --thread <THREAD>    Filter by thread name
+      --since <SINCE>      Only search knots after this HLC timestamp
+  -l, --limit <LIMIT>      Limit results [default: 5]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool query neighbors ===
+Show causal neighbors of a knot
+
+Usage: nool query neighbors [OPTIONS] <NODE_ID>
+
+Arguments:
+  <NODE_ID>  Center knot node_id (hex)
+
+Options:
+      --direction <DIRECTION>  Direction: parents, children, or both [default: both]
+      --depth <DEPTH>          Search depth [default: 1]
+      --compact                Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>      Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                   Print help
+
+=== nool query recent-knots ===
+Show recent knots (optionally filtered by thread)
+
+Usage: nool query recent-knots [OPTIONS]
+
+Options:
+      --thread <THREAD>            Filter by thread name
+      --around-node <AROUND_NODE>  Find knots around this node_id
+  -l, --limit <LIMIT>              Limit results [default: 20]
+      --compact                    Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>          Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                       Print help
+
+=== nool query blast-radius ===
+Compute blast radius (causal descendants) for one or more knots
+
+Usage: nool query blast-radius [OPTIONS] [NODE_IDS]...
+
+Arguments:
+  [NODE_IDS]...  Target knot node_ids (hex)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool query materialize ===
+Materialize content reconstruction for knots
+
+Usage: nool query materialize [OPTIONS] [NODE_IDS]...
+
+Arguments:
+  [NODE_IDS]...  Knot node_ids (hex)
+
+Options:
+      --mode <MODE>        Output mode: snippet or full file [default: snippet]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool query validate ===
+Validate files without proposing
+
+Usage: nool query validate [OPTIONS] [PATHS]...
+
+Arguments:
+  [PATHS]...  Files to validate
+
+Options:
+      --scope <SCOPE>      Validation scope [default: targeted]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool query search ===
+Semantic search (NL intent → Knots)
+
+Usage: nool query search [OPTIONS] <QUERY>
+
+Arguments:
+  <QUERY>  Natural language search query
+
+Options:
+  -l, --limit <LIMIT>      Maximum number of results [default: 5]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool ui ===
+Interactive TUI DAG explorer
+
+Usage: nool ui [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool daemon ===
+Launch the background synchronization daemon (Invisible Bridge)
+
+Usage: nool daemon [OPTIONS] <COMMAND>
+
+Commands:
+  start   Start the background sync daemon
+  stop    Stop the background sync daemon
+  status  Show daemon status
+  help    Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool daemon start ===
+Start the background sync daemon
+
+Usage: nool daemon start [OPTIONS]
+
+Options:
+  -f, --foreground         Run in foreground (for debugging)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool daemon stop ===
+Stop the background sync daemon
+
+Usage: nool daemon stop [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool daemon status ===
+Show daemon status
+
+Usage: nool daemon status [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool promote ===
+Promote a Local knot to Staged/Synced status (runs validation and creates git commit)
+
+Usage: nool promote [OPTIONS] <KNOT_ID>
+
+Arguments:
+  <KNOT_ID>  Knot ID to promote
+
+Options:
+  -p, --push <PUSH>        Push to remote after promotion
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
 === nool bug ===
 Track and manage bugs (report, link, list, show)
 
@@ -550,6 +1496,105 @@ Commands:
   help         Print this message or the help of the given subcommand(s)
 
 Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bug report ===
+Report a new bug
+
+Usage: nool bug report [OPTIONS] --title <TITLE> --reproduction <REPRODUCTION>
+
+Options:
+  -t, --title <TITLE>                  Bug title
+  -s, --severity <SEVERITY>            Severity: critical, major, minor, cosmetic [default: minor]
+  -r, --reproduction <REPRODUCTION>    Steps to reproduce
+  -i, --introduced-by <INTRODUCED_BY>  Knot ID that introduced this bug (retroactive)
+  -S, --solidify                       Automatically solidify
+      --compact                        Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>              Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                           Print help
+
+=== nool bug link ===
+Link a Knot as the fix for a bug
+
+Usage: nool bug link [OPTIONS] --fix <FIX> <BUG_ID>
+
+Arguments:
+  <BUG_ID>  Bug ID (hex)
+
+Options:
+  -f, --fix <FIX>          Knot ID that fixed the bug
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bug list ===
+List all bugs
+
+Usage: nool bug list [OPTIONS]
+
+Options:
+  -s, --status <STATUS>      Filter by status: reported, investigating, fixed, wontfix, duplicate
+  -v, --severity <SEVERITY>  Filter by severity
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
+
+=== nool bug show ===
+Show details for a specific bug
+
+Usage: nool bug show [OPTIONS] <BUG_ID>
+
+Arguments:
+  <BUG_ID>  Bug ID (hex)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bug investigate ===
+Mark a bug as investigating
+
+Usage: nool bug investigate [OPTIONS] <BUG_ID>
+
+Arguments:
+  <BUG_ID>  Bug ID (hex)
+
+Options:
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bug wont-fix ===
+Mark a bug as wontfix
+
+Usage: nool bug wont-fix [OPTIONS] --reason <REASON> <BUG_ID>
+
+Arguments:
+  <BUG_ID>  Bug ID (hex)
+
+Options:
+  -r, --reason <REASON>    Reason
+  -s, --solidify           Automatically solidify
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool bug duplicate ===
+Mark a bug as duplicate of another
+
+Usage: nool bug duplicate [OPTIONS] --of <OF> <BUG_ID>
+
+Arguments:
+  <BUG_ID>  Bug ID (hex)
+
+Options:
+  -o, --of <OF>            The original bug ID
+  -s, --solidify           Automatically solidify
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
@@ -599,6 +1644,106 @@ Options:
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
 
+=== nool usage ===
+Usage — token consumption, budgets, agent performance, thread costs
+
+Usage: nool usage [OPTIONS] <COMMAND>
+
+Commands:
+  usage          Show token consumption for an agent or all agents
+  budget-set     Set a token budget limit for an agent
+  budget-status  Show token budget status for agents
+  analytics      Show token analytics: cost per line, waste ratio, efficiency
+  agent          Agent bug rate, severity, patterns, and recommendations
+  thread         Thread-level cost analysis (tokens spent, bugs, cost per Knot)
+  dashboard      Dashboard — combined tokens-per-bug metric across all threads
+  help           Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool usage usage ===
+Show token consumption for an agent or all agents
+
+Usage: nool usage usage [OPTIONS]
+
+Options:
+  -a, --agent <AGENT>      Agent pubkey (hex, optional — shows all if omitted)
+  -t, --thread <THREAD>    Thread name (optional filter)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool usage budget-set ===
+Set a token budget limit for an agent
+
+Usage: nool usage budget-set [OPTIONS] --agent <AGENT> --limit <LIMIT>
+
+Options:
+  -a, --agent <AGENT>      Agent pubkey (hex)
+  -l, --limit <LIMIT>      Maximum tokens per period
+      --period <PERIOD>    Period duration in HLC ticks (default: 100000)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool usage budget-status ===
+Show token budget status for agents
+
+Usage: nool usage budget-status [OPTIONS]
+
+Options:
+  -a, --agent <AGENT>      Agent pubkey (hex, optional)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool usage analytics ===
+Show token analytics: cost per line, waste ratio, efficiency
+
+Usage: nool usage analytics [OPTIONS]
+
+Options:
+  -a, --agent <AGENT>      Agent pubkey (hex)
+  -t, --thread <THREAD>    Thread name
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool usage agent ===
+Agent bug rate, severity, patterns, and recommendations
+
+Usage: nool usage agent [OPTIONS] --key <KEY>
+
+Options:
+  -k, --key <KEY>          Agent pubkey (hex, first 4 bytes is enough)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool usage thread ===
+Thread-level cost analysis (tokens spent, bugs, cost per Knot)
+
+Usage: nool usage thread [OPTIONS] --name <NAME>
+
+Options:
+  -n, --name <NAME>        Thread name
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool usage dashboard ===
+Dashboard — combined tokens-per-bug metric across all threads
+
+Usage: nool usage dashboard [OPTIONS]
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
 === nool discover ===
 Discovery tools: conflicts, context, learnings, similar work
 
@@ -612,6 +1757,57 @@ Commands:
   help       Print this message or the help of the given subcommand(s)
 
 Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool discover conflicts ===
+Check for conflicting announcements before proposing changes
+
+Usage: nool discover conflicts [OPTIONS] <TARGET_NODES>...
+
+Arguments:
+  <TARGET_NODES>...  Node IDs your proposal will touch (supports glob: 'auth/*')
+
+Options:
+  -e, --exclude-agent <EXCLUDE_AGENT>  Exclude announcements from this agent (your own ID)
+      --compact                        Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>              Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                           Print help
+
+=== nool discover context ===
+Retrieve context snapshot from previous work
+
+Usage: nool discover context [OPTIONS] --snapshot-id <SNAPSHOT_ID>
+
+Options:
+  -s, --snapshot-id <SNAPSHOT_ID>  Hex-encoded context snapshot ID
+      --compact                    Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>          Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                       Print help
+
+=== nool discover learnings ===
+Extract learnings and decisions from a thread
+
+Usage: nool discover learnings [OPTIONS] --thread-id <THREAD_ID>
+
+Options:
+  -t, --thread-id <THREAD_ID>  Hex-encoded thread ID
+  -l, --limit <LIMIT>          Maximum number of learnings to retrieve [default: 20]
+      --compact                Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>      Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                   Print help
+
+=== nool discover similar ===
+Find similar work by topic or approach
+
+Usage: nool discover similar [OPTIONS] <QUERY>
+
+Arguments:
+  <QUERY>  Search query (topic, approach, or technique)
+
+Options:
+  -l, --limit <LIMIT>      Maximum results to return [default: 20]
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
@@ -631,6 +1827,58 @@ Options:
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
 
+=== nool announce intent ===
+Announce intent before starting work (without context)
+
+Usage: nool announce intent [OPTIONS] --intent <INTENT>
+
+Options:
+  -i, --intent <INTENT>
+          Human-readable intent (e.g., 'Refactor auth middleware for OAuth2')
+  -k, --target-nodes <TARGET_NODES>
+          Node IDs you'll touch (supports glob patterns)
+      --agent-id <AGENT_ID>
+          Your agent ID (hex-encoded pubkey, auto-detected if omitted)
+      --estimated-duration-ms <ESTIMATED_DURATION_MS>
+          Estimated work duration in milliseconds (default: 30 min)
+      --soft-dependencies <SOFT_DEPENDENCIES>
+          Soft dependencies on other work
+  -t, --thread <THREAD>
+          Thread association (optional)
+      --compact
+          Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>
+          Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help
+          Print help
+
+=== nool announce with-context ===
+Announce intent WITH context capture (decisions, constraints, patterns)
+
+Usage: nool announce with-context [OPTIONS] --intent <INTENT>
+
+Options:
+  -i, --intent <INTENT>
+          Human-readable intent
+  -k, --target-nodes <TARGET_NODES>
+          Node IDs you'll touch
+  -c, --context-file <CONTEXT_FILE>
+          Path to YAML/JSON file with context details (decisions, constraints, test_coverage, etc.)
+      --agent-id <AGENT_ID>
+          Your agent ID (auto-detected if omitted)
+      --estimated-duration-ms <ESTIMATED_DURATION_MS>
+          Estimated duration in ms
+      --soft-dependencies <SOFT_DEPENDENCIES>
+          Soft dependencies
+  -t, --thread <THREAD>
+          Thread association
+      --compact
+          Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>
+          Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help
+          Print help
+
 === nool completion ===
 Generate shell completion scripts (bash, zsh, fish, powershell)
 
@@ -643,3 +1891,196 @@ Options:
       --compact            Compact output mode for agent-friendly token usage (Strategy 6)
       --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
   -h, --help               Print help
+
+=== nool plan ===
+Manage and execute semantic plans (RFC-0001, RFC-0008)
+
+Usage: nool plan [OPTIONS] <COMMAND>
+
+Commands:
+  replay  Compute a sequence of operations to reach a target semantic state (RFC-0001)
+  pluck   Plan a selective undo (pluck) of specific operations (RFC-0001)
+  status  Show current plan status and steps
+  merge   Plan a merge of divergent semantic branches (RFC-0001 §25)
+  help    Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool plan replay ===
+Compute a sequence of operations to reach a target semantic state (RFC-0001)
+
+Usage: nool plan replay [OPTIONS]
+
+Options:
+      --target <TARGET>      Target Op IDs to include in the closure
+      --exclude <EXCLUDE>    Op IDs to explicitly exclude
+      --preserve <PRESERVE>  Op IDs that MUST be preserved (error if plan would revert them)
+      --save                 Persist the resulting plan to the ledger
+      --compact              Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>    Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                 Print help
+
+=== nool plan pluck ===
+Plan a selective undo (pluck) of specific operations (RFC-0001)
+
+Usage: nool plan pluck [OPTIONS]
+
+Options:
+      --targets <TARGETS>  Target Op IDs to revert (cascades to dependents)
+      --save               Persist the resulting plan to the ledger
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool plan status ===
+Show current plan status and steps
+
+Usage: nool plan status [OPTIONS] [PLAN_ID]
+
+Arguments:
+  [PLAN_ID]  Plan ID (defaults to latest)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool plan merge ===
+Plan a merge of divergent semantic branches (RFC-0001 §25)
+
+Usage: nool plan merge [OPTIONS] <BRANCHES>...
+
+Arguments:
+  <BRANCHES>...  Branches to merge (comma-separated names)
+
+Options:
+      --save               Persist the resulting plan to the ledger
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool apply ===
+Execute an approved or draft semantic plan (RFC-0005)
+
+Usage: nool apply [OPTIONS] --plan-id <PLAN_ID>
+
+Options:
+      --plan-id <PLAN_ID>            Plan ID to execute
+      --approval-id <APPROVAL_ID>    Approval ID (if required by policy)
+      --staging-root <STAGING_ROOT>  Staging root for materialization
+      --compact                      Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>            Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help                         Print help
+
+=== nool verify ===
+Run structural invariants against current or planned state (RFC-0002)
+
+Usage: nool verify [OPTIONS]
+
+Options:
+      --target <TARGET>    Target Knot ID or Plan ID
+      --all                Run all invariants (default)
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool explain ===
+Explain identities, dependencies, and reasons (RFC-0006)
+
+Usage: nool explain [OPTIONS] <SUBJECT>
+
+Arguments:
+  <SUBJECT>  Subject to explain: knot_id, op_id, feature_id, failure_id, etc
+
+Options:
+  -c, --closure            Show full dependency closure
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool evidence ===
+Transition Evidence: Prove why an AI-authored state transition was accepted or rejected
+
+Usage: nool evidence [OPTIONS] <COMMAND>
+
+Commands:
+  plan    Show evidence for a semantic plan
+  knot    Show evidence for a solidified Knot
+  merge   Show evidence for a merge operation
+  export  Export evidence object
+  help    Print this message or the help of the given subcommand(s)
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool evidence plan ===
+Show evidence for a semantic plan
+
+Usage: nool evidence plan [OPTIONS] <PLAN_ID>
+
+Arguments:
+  <PLAN_ID>  Plan ID to inspect
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool evidence knot ===
+Show evidence for a solidified Knot
+
+Usage: nool evidence knot [OPTIONS] <KNOT_ID>
+
+Arguments:
+  <KNOT_ID>  Knot ID to inspect
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool evidence merge ===
+Show evidence for a merge operation
+
+Usage: nool evidence merge [OPTIONS] <MERGE_PLAN_ID>
+
+Arguments:
+  <MERGE_PLAN_ID>  Merge Plan ID to inspect
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool evidence export ===
+Export evidence object
+
+Usage: nool evidence export [OPTIONS] <ID>
+
+Arguments:
+  <ID>  Plan, Knot, or Merge ID
+
+Options:
+  -f, --format <FORMAT>    Format: json or md [default: json]
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+
+=== nool review ===
+Interactive review surface for candidate changes (RFC-0008)
+
+Usage: nool review [OPTIONS] <TARGET>
+
+Arguments:
+  <TARGET>  Plan ID or Thread name to review
+
+Options:
+      --compact            Compact output mode for agent-friendly token usage (Strategy 6)
+      --persona <PERSONA>  Persona: developer (default), user, agent. Also supports NOOL_PERSONA env var
+  -h, --help               Print help
+

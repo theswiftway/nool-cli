@@ -1,6 +1,9 @@
+---
 name: nool-commands
-version: 2.2.1
-description: Nool Operational Continuity Infrastructure
+description: Nool Operational Continuity Infrastructure. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
+metadata:
+  version: "2.2.2"
+---
 
 This skill provides a comprehensive reference for Nool. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
 
@@ -8,30 +11,34 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 
 ### Initialize
 - `nool init`: Initialize a new Nool ledger and generate an identity key.
-- `nool init --from-git <branch>`: Bootstrap a Nool ledger from existing Git history.
 
 ### Propose Changes
-- `nool propose --intent "<rationale>" --path <file> --kind <type>`: Create a semantic change proposal. Supports multi-file Synthesis knots.
-- `nool propose --fast`: Zero-friction mode. Auto-infers intent from git diff and recent context.
+- `nool propose`: Generate a candidate Knot (interactive wizard mode recommended for beginners). Supports --intent, --path, --thread.
 - `nool propose --try-branch <name>`: Propose changes in an ephemeral try branch.
+- `nool propose --amend`: Amend the existing proposal.
 
-### Solidify (Commit)
-- `nool solidify --fast`: Rapid local iteration with deferred validation.
-- `nool solidify --full`: Full semantic validation (syntax check, integrity driver). Use before pushing.
-- `nool promote <knot_id>`: Promote a local knot to staged/synced status (creates Git commit).
+### Solidify (Commit) & Promote
+- `nool solidify`: Sign and append the candidate Knot to the DAG.
+- `nool solidify --fast`: Fast mode with deferred validation (default).
+- `nool solidify --full`: Full mode with full semantic guarantees.
+- `nool solidify --local`: Save to Knot DAG only (no git commit).
+- `nool promote <knot_id>`: Promote a Local knot to Staged/Synced status (runs validation and creates git commit).
 
 ### Semantic Planning & Verification
-- `nool plan <replay|pluck|merge>`: Manage and execute semantic plans (RFC-0001).
+- `nool plan replay`: Compute a sequence of operations to reach a target semantic state (RFC-0001).
+- `nool plan pluck`: Plan a selective undo (pluck) of specific operations.
+- `nool plan merge`: Plan a merge of divergent semantic branches.
+- `nool plan status`: Show current plan status and steps.
 - `nool apply --plan-id <id>`: Execute an approved or draft semantic plan (RFC-0005).
-- `nool verify --target <id>`: Run structural invariants against current or planned state (RFC-0002).
+- `nool verify`: Run structural invariants against current or planned state (RFC-0002).
 - `nool explain <subject>`: Explain identities, dependencies, and reasons (RFC-0006).
 - `nool review <target>`: Interactive review surface for candidate changes (RFC-0008).
+- `nool evidence <plan|knot|merge|export>`: Transition Evidence. Prove why an AI-authored state transition was accepted or rejected.
 
 ### Sync & Replicate
-- `nool push <remote>`: Push solidified Knots to a remote.
-- `nool pull <remote>`: Fetch and replay remote Knots.
-- `nool sync <remote>`: Bidirectional synchronization.
-- `nool bridge status`: Check auto-sync logs and Git mirror state.
+- `nool push <remote>`: Push (replicate) all unpushed Knots to a remote replica.
+- `nool pull <remote>`: Pull (fetch and replay) Knots from a remote replica.
+- `nool sync <remote>`: Sync (bidirectional) with a remote replica (pull + push).
 
 ### Try Branches (Ephemeral Experimentation)
 - `nool try new <name>`: Start a new ephemeral try branch.
@@ -41,93 +48,127 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 - `nool try discard <name>`: Discard a try branch.
 
 ### Query & Analysis
-- `nool query resolve-intent "<text>"`: Find Knots related to a specific intent.
+- `nool query resolve-intent "<text>"`: Search for knots matching an intent query.
 - `nool query neighbors <node_id>`: Show causal neighbors of a knot.
-- `nool query recent-knots`: Show recent knots (optionally filtered by thread).
-- `nool query blast-radius <node_ids>`: Compute causal descendants for knots.
-- `nool query materialize <node_ids>`: Reconstruct content from knots.
-- `nool query search "<text>"`: Semantic search over the DAG. Supports recursive search (v1.33.0).
-- `nool why <node_id>`: Walk causal chain of a knot.
+- `nool query recent-knots`: Show recent knots.
+- `nool query blast-radius <node_ids>`: Compute blast radius (causal descendants).
+- `nool query materialize <node_ids>`: Materialize content reconstruction for knots.
+- `nool query search "<text>"`: Semantic search (NL intent → Knots).
+- `nool query validate`: Validate files without proposing.
+- `nool why <node_id>`: Walk causal chain.
 - `nool log`: Show canonical replay log.
-- `nool dag`: Visualise the DAG.
+- `nool dag`: Visualise DAG.
+- `nool diff <left> <right>`: Show file-content diff between two Knots.
+
+### Usage & Analytics
+- `nool usage usage`: Show token consumption for an agent or all agents.
+- `nool usage budget-set`: Set a token budget limit for an agent.
+- `nool usage budget-status`: Show token budget status.
+- `nool usage analytics`: Show token analytics (cost per line, waste ratio, efficiency).
+- `nool usage agent`: Agent bug rate, severity, patterns, and recommendations.
+- `nool usage thread`: Thread-level cost analysis.
+- `nool usage dashboard`: Combined tokens-per-bug metric across all threads.
 
 ### Status & Health
-- `nool status`: View current DAG heads, pending proposals, and thread state.
-- `nool doctor`: Release-readiness and repository health checks (causal-aware in v1.33.0).
-- `nool doctor --fix`: Auto-repair semantic issues.
+- `nool status`: Show system status.
+- `nool doctor`: Release-readiness and repository health checks.
+- `nool doctor --fix`: Automatically fix issues where possible.
 - `nool validate`: Run background validation for all quarantined fast-mode Knots.
 
 ## Context & Knowledge
 
 ### Capture Learning
-- `nool learn --about <topic> --kind <root_cause|finding> --content "<text>"`: Record findings.
-- `nool findings <query>`: Query captured knowledge to avoid re-discovering issues.
+- `nool learn --about <topic> --kind <root_cause|finding> --content "<text>"`: Record a knowledge finding.
+- `nool findings <query>`: Retrieve recorded findings for a file, thread, or topic.
+
+### Discovery & Collaboration
+- `nool discover conflicts`: Check for conflicting announcements before proposing changes.
+- `nool discover context`: Retrieve context snapshot from previous work.
+- `nool discover learnings`: Extract learnings and decisions from a thread.
+- `nool discover similar`: Find similar work by topic or approach.
+
+### Multi-Agent Coordination
+- `nool announce intent`: Announce intent before starting work.
+- `nool announce with-context`: Announce intent WITH context capture.
+- `nool thread handoff`: Handoff thread responsibility to another agent.
 
 ## Threads, Tasks & Bugs
 
 ### Threads
-- `nool thread create "<name>"`: Create a new intent thread.
+- `nool thread create --name "<name>"`: Create a new intent thread.
 - `nool thread list`: List all threads.
 - `nool thread show <name>`: Show thread details.
-- `nool thread status <name>`: Set thread status (draft, active, review, released, archived).
-- `nool thread chat <name>`: Chat in a thread.
+- `nool thread status --name <name> --status <status>`: Set thread status.
+- `nool thread chat <name>`: Add or view DAG-backed notes in a thread.
 
 ### Tasks
-- `nool task create --name "<task>"`: Register a new task.
+- `nool task create`: Create task.
+- `nool task list-github` / `nool task import-github`: GitHub integration.
+- `nool task list-jira` / `nool task import-jira`: Jira integration.
 - `nool task inbox`: Show pending tasks.
-- `nool task pick <id>`: Claim a task.
-- `nool task assign <id> --to <agent>`: Assign a task.
+- `nool task pick`: Claim a task.
+- `nool task assign`: Assign a task.
 - `nool task mine`: Show my tasks.
-- `nool task finish <id>`: Mark a task as complete. Triggers Jira sync if configured (v1.33.0).
-- `nool task block <id> --reason <text>`: Block a task.
+- `nool task finish`: Mark a task as complete.
+- `nool task block`: Block a task.
 
 ### Bugs
-- `nool bug report --title "<title>" --severity <level> --reproduction "<steps>"`: Report a bug.
-- `nool bug link <bug_id> --fix <knot_id>`: Link a fix.
-- `nool bug list`: List bugs.
-- `nool bug show <bug_id>`: Show bug details.
-- `nool bug investigate <bug_id>`: Mark as investigating.
-- `nool bug wont-fix <bug_id> --reason <text>`: Mark as wontfix.
-- `nool bug duplicate <bug_id> --of <original_id>`: Mark as duplicate.
+- `nool bug report`: Report a new bug.
+- `nool bug link`: Link a Knot as the fix for a bug.
+- `nool bug list`: List all bugs.
+- `nool bug show`: Show details for a specific bug.
+- `nool bug investigate`: Mark a bug as investigating.
+- `nool bug wont-fix`: Mark a bug as wontfix.
+- `nool bug duplicate`: Mark a bug as duplicate of another.
 
 ### Tags & Releases
-- `nool tag <name>`: Create a semantic tag.
-- `nool release <version>`: Create a release version.
+- `nool tag <name>`: Semantic Tag.
+- `nool release <version>`: Release Version.
 
 ### Merge & Compare
-- `nool approve <knot_id>`: Approve a Knot.
-- `nool pluck <thread_name>`: Selective undo (thread plucking).
-- `nool compare <left> <right>`: Compare semantic changes between threads/releases.
-- `nool changelog`: Generate semantic changelog.
-- `nool diff <left> <right>`: Show file-content diff between two Knots.
-- `nool merge <thread1> <thread2>`: Semantic 3-way merge of two divergent threads.
+- `nool approve`: Approve a Knot or Intent Thread.
+- `nool pluck <thread_name>`: Selective Undo (Thread Plucking).
+- `nool compare <left> <right>`: Compare semantic changes between threads and/or releases.
+- `nool changelog`: Semantic Changelog.
 
 ## Git Bridge
-- `nool bridge status`: Check Git mirror state.
-- `nool bridge add-remote <url>`: Add auto-push remote.
-- `nool bridge remove-remote <url>`: Remove auto-push remote.
-- `nool bridge watch`: Start sync watch daemon.
-- `nool bridge lfs`: Initialize git-lfs support for large file tracking.
-- `nool git <command>`: Raw git pass-through.
+- `nool bridge status`: Show auto-sync configuration and recent push history.
+- `nool bridge add-remote <url>`: Add a remote URL for auto-pushing.
+- `nool bridge remove-remote <url>`: Remove an auto-push remote URL.
+- `nool bridge watch`: Start the sync watch daemon.
+- `nool bridge mirror-repair`: Repair or rebuild the Bifrost Git mirror.
+- `nool bridge lfs init|track|status`: Manage git-lfs support.
 
 ## Administrative
-- `nool console`: Launch the interactive web dashboard (default: localhost:4001).
-- `nool admin account`: Account settings (login, email, subscription).
-- `nool admin team`: Team management: add members, assign roles.
-- `nool admin channel`: Manage release channels.
-- `nool admin plugin`: Manage plugins.
+- `nool ui`: Interactive TUI DAG explorer.
+- `nool console`: Launch the interactive web console.
+- `nool daemon start|stop|status`: Background synchronization daemon.
+- `nool admin account`: Account settings (subscribe, billing).
+- `nool admin team`: Team management (add, list).
+- `nool admin plugin`: Plugin management (list, install, init).
+- `nool admin channel`: Release channel management (create, list).
+- `nool admin gc`: Resource management (GC).
+- `nool admin train-dict`: Train storage compression dictionary.
+- `nool admin reconcile`: v3.0 Self-Healing: Process a batch of items from the repair queue.
 - `nool inbox`: Unified notification centre.
 - `nool audit`: Compliance report.
 
+## Debug & Troubleshooting
+- `nool debug replay`: Start interactive replay.
+- `nool debug step`: Inspect a replay step.
+- `nool debug diff`: Show diff of a replay step.
+- `nool debug edit`: Add constraint to a replay step.
+- `nool debug rerun`: Replay from a selected step.
+- `nool debug blame`: Find root cause.
+- `nool debug bisect`: Binary search for regression.
+- `nool debug blast-radius`: Compute semantic blast radius and risk analysis.
+
 ## Other Commands
-- `nool languages`: List supported languages.
-- `nool link <knot_id>`: Link a solidified Knot to metadata.
+- `nool languages`: List all supported languages and their validation status.
+- `nool link <knot_id>`: Retroactively link a solidified Knot to metadata.
 - `nool quick-start`: Quick-start guide.
 - `nool guide`: Detailed guide.
-- `nool upgrade`: Upgrade CLI.
-- `nool uninstall`: Uninstall CLI.
-- `nool version`: Print version.
-
----
-
-*Note: Nool prioritizes semantic truth over textual merges. Use `nool doctor --fix` if disk state diverges from DAG state.*
+- `nool version`: Print version information.
+- `nool upgrade`: Upgrade the CLI.
+- `nool uninstall`: Uninstall the CLI.
+- `nool completion`: Generate shell completion scripts.
