@@ -1,7 +1,7 @@
 # Nool CLI Project Guide
 
 **Project**: Nool Operational Continuity Infrastructure  
-**Current Version**: v1.33.0 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
+**Current Version**: v2.2.1 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
 **Repository Type**: Nool-managed  
 **MCP Server**: Nool MCP (nool-mcp) — installed locally
 
@@ -9,8 +9,8 @@
 
 ### Quick References
 - **[Skills.md](./Skills.md)** — Complete reference for all 50+ nool commands
-  - 19 organized sections
-  - 100+ command documentation entries
+  - 20 organized sections
+  - 110+ command documentation entries
   - Usage examples and best practices
   - Workflow examples for common tasks
 
@@ -19,6 +19,7 @@
   - Prompting patterns for agents
   - Multi-agent collaboration workflows
   - Language support and plugin system
+  - **New in v2.0.0**: Semantic Planning Engine (RFC-0001)
 
 - **[skills/nool-commands/SKILL.md](./skills/nool-commands/SKILL.md)** — Agent-optimized skill reference
   - Quick lookup format
@@ -30,6 +31,40 @@ When working in this project, refer to:
 2. **SKILL.md** for quick syntax lookup
 3. Run `nool --help` for real-time command reference
 4. Run `nool quick-start` for interactive guidance
+
+---
+
+## ✨ v2.0.0 Features: Semantic Planning & Verification
+
+### Semantic Planning Engine (RFC-0001)
+```bash
+# Plan a selective undo of a thread
+nool plan pluck "Feature Thread"
+
+# Replay operations to reach a target state
+nool plan replay --target <knot_id>
+
+# Execute a plan
+nool apply --plan-id <plan_id>
+```
+
+### Structural Verification (RFC-0002)
+```bash
+# Run structural invariants
+nool verify --target <knot_id>
+```
+
+### Semantic Explainability (RFC-0006)
+```bash
+# Explain an identity or failure
+nool explain <knot_id>
+```
+
+### Interactive Review Surface (RFC-0008)
+```bash
+# Review candidate changes
+nool review <plan_id>
+```
 
 ---
 

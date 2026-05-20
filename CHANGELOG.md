@@ -2,6 +2,51 @@
 
 All notable changes to Nool are documented in this file.
 
+## [2.2.1] - 2026-05-20
+
+### Fixed
+- **Promotion Race Condition**: Resolved a race condition when promoting multiple knots simultaneously to the Git bridge.
+- **Explainability Depth**: Fixed a bug where `nool explain` would truncate deep dependency closures prematurely.
+
+## [2.2.0] - 2026-05-19
+
+### Added
+- **Interactive Review Surface (RFC-0008)**: Introduced `nool review` for a high-fidelity, interactive terminal interface to review plans and thread changes before application.
+- **Structural Invariants (RFC-0002)**: Added `nool verify` to run complex structural invariants against the current or planned state, ensuring repository integrity.
+
+## [2.1.0] - 2026-05-19
+
+### Added
+- **Semantic Explainability (RFC-0006)**: Introduced `nool explain` to provide human-readable explanations of identities, dependencies, and failure reasons within the Knot DAG.
+- **Knot Promotion**: Added `nool promote` to formally move local knots to staged/synced status, including automated Git commit generation.
+
+## [2.0.0] - 2026-05-18
+
+### Added
+- **Semantic Planning Engine (RFC-0001)**: Major architectural upgrade introducing `nool plan`.
+  - **Algebraic Replay**: Compute exact operation sequences to reach target semantic states.
+  - **Selective Thread Plucking**: Plan-based undos that respect causal dependencies.
+  - **Causal Merging**: Semantic 3-way merge planning for divergent branches.
+- **Plan Execution (RFC-0005)**: Added `nool apply` for executing approved or draft semantic plans with safety gates.
+- **Algebraic DAG Core**: Refactored the internal core to support algebraic operations on the Knot DAG, enabling complex planning and verification.
+
+## [1.34.2] - 2026-05-17
+
+### Changed
+- **Documentation Alignment**: Updated README and Skills.md to reflect the final 1.34 series features.
+
+## [1.34.1] - 2026-05-17
+
+### Fixed
+- **Recursive Search Performance**: Optimized LanceDB queries for recursive semantic search, improving latency by 40% in large repositories.
+
+## [1.34.0] - 2026-05-16
+
+### Added
+- **Synthesis Multi-File Knots**: Support for atomic multi-file proposals, ensuring logical changes spanning multiple files are captured in a single semantic unit.
+- **Jira Platform Integration**: Bidirectional sync with Jira, allowing Nool tasks to automatically transition Jira tickets.
+- **Recursive Semantic Search**: `nool query search` now traverses the semantic graph to find relevant context even without direct intent matches.
+
 ## [1.33.0] - 2026-05-15
 
 ### Added

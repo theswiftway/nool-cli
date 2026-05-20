@@ -1,7 +1,7 @@
 # Nool: Operational Continuity Infrastructure for Autonomous Engineering
 
-**Current Version**: v1.34.2 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search.  
-This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v1.34.2 and later.
+**Current Version**: v2.2.1 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
+This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v2.2.1 and later.
 
 Git stores your code state. **Nool stores your engineering operational state.** 
 
@@ -14,6 +14,35 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 
 - [Skills.md](./Skills.md) - Comprehensive reference for all 50+ nool commands with examples and best practices
 - [SKILL.md](./SKILL.md) - Agent-optimized skill file for Claude Code integration
+
+## What's New in v2.0.0
+
+### Semantic Planning Engine (RFC-0001)
+- **nool plan**: A powerful new engine for computing semantic transitions. 
+  - `nool plan replay`: Deterministically compute the sequence of operations needed to reach a target state.
+  - `nool plan pluck`: Intelligently plan the removal of a specific thread or knot while preserving causal integrity.
+  - `nool plan merge`: Algebraic 3-way merge planning for complex semantic branch divergence.
+- **nool apply**: Execute approved or draft plans with built-in safety gates and staging roots.
+
+### Structural Verification & Explainability
+- **nool verify (RFC-0002)**: Run deep structural invariants against the DAG or a proposed plan to ensure zero semantic drift.
+- **nool explain (RFC-0006)**: Human-readable (and agent-readable) explanations for "why" a specific identity or dependency exists, or why a validation failed.
+- **nool review (RFC-0008)**: Interactive terminal surface for reviewing complex plans and multi-file transitions before they are solidified.
+
+### Infrastructure Hardening
+- **Algebraic DAG Core**: The entire replay engine has been refactored to treat the DAG as an algebraic structure, enabling formal verification of transitions.
+- **nool promote**: A first-class command for moving local experiments to the staged/synced state, with automated Git integration.
+
+## What's New in v1.34.0
+
+### Synthesis Multi-File Knots
+- Atomic multi-file proposals allow agents to commit logical changes that span multiple files in a single, inseparable semantic unit.
+
+### Jira Platform Integration
+- Automatic bidirectional synchronization with Jira. Nool tasks now discover and trigger the correct Jira transitions based on your project's workflow.
+
+### Recursive Semantic Search
+- `nool query search` has been enhanced with recursive traversal of the semantic graph, finding relevant context even when keywords don't match exactly.
 
 ## What's New in v1.33.0
 
@@ -99,73 +128,99 @@ Add this to your agent's system prompt or `.claude.md`:
 > **Workflow:**
 > 1. **Coordination**: Before starting, use `nool announce intent --intent "<what>"` to prevent collisions.
 > 2. **Context**: Use `nool discover context` and `nool discover learnings` to rehydrate task context.
-> 3. **Propose**: Use `nool propose --fast --intent "<why>"`.
-> 4. **Verify**: Use `nool ui` to visualize causality and `nool status` to check health.
-> 5. **Handoff**: Use `nool thread handoff --to <agent_id>` to transfer responsibility.
-> 6. **Knowledge**: Use `nool learn` to record decisions and findings for future sessions.
+> 3. **Impact**: Use `nool query blast-radius <node_id>` to assess the semantic risk of touching existing code.
+> 4. **Debugging**: If fixing a bug, use `nool debug blame` or `nool debug bisect` to find the root cause.
+> 5. **Propose**: Use `nool propose --fast --intent "<why>"`.
+> 6. **Verify**: Use `nool verify` to run structural invariants and `nool status` to check health.
+> 7. **Handoff**: Use `nool thread handoff --to <agent_id>` to transfer responsibility.
+> 8. **Knowledge**: Use `nool learn` to record decisions and findings for future sessions.
+> 9. **Execution**: For complex changes, use `nool plan replay` and `nool apply`.
+> 10. **Health**: Always run `nool doctor` before pushing to ensure repository integrity.
 
 #### Pre-requisite
 1. Check if `.nool` folder exists. If not, use `nool init` to initialise the repo for nool.
-2. If not synced already, use `nool import-git <branch>` to sync commits to nool.
+2. If not synced already, use `nool promote <knot_id>` to formally stage your knots.
 
 #### Before changes
 1. Run `nool status` to understand current state.
 2. Use `nool discover context` to find related work and dependencies.
-3. Use `nool announce --intent "Working on <feature>"` to coordinate with other agents.
-4. Use `nool dag` to see the causal graph.
+3. Use `nool query blast-radius <knot_id>` to identify downstream files and logic that will be affected.
+4. Use `nool explain <knot_id>` and `nool why <knot_id>` to understand complex causal chains and rationale.
+5. For regressions, use `nool debug bisect --good <id> --broken <id>` to isolate the failure.
+6. Use `nool announce --intent "Working on <feature>"` to coordinate with other agents.
 
 #### During changes
 1. Propose multi-file changes: `nool propose --fast --intent "<rationale>" --path src/file1.rs src/file2.rs`
 2. Iterate quickly: `nool solidify --fast`
-3. Debug with causality: `nool why <knot_id>` and `nool debug blame`
+3. Debug deep failures: `nool debug replay` to step through execution state.
+4. Plan complex undos: `nool plan pluck <thread_name>`
 
 #### After changes
-1. Final validation: `nool solidify --full` before pushing.
-2. Push work: `nool push origin`
-3. Document learnings: `nool learn --kind decision --content "Used <pattern> because <reason>"`
+1. Structural check: `nool verify` to ensure semantic integrity.
+2. Health check: Run `nool doctor` to catch referential drift or orphan knots.
+3. Blast radius verification: `nool query blast-radius <new_knot_id>` to confirm the change only affected intended nodes.
+4. Final validation: `nool promote <knot_id>` before pushing.
+5. Push work: `nool push origin`
+6. Document learnings: `nool learn --kind decision --content "Used <pattern> because <reason>"`
 
 ### Task-Specific Prompts
 
 #### Refactoring Task
 "Refactor the authentication module in src/auth/. Before touching any file:
 1. Run `nool announce --intent \"Refactoring auth module\"`
-2. Run `nool discover context --path src/auth/` to see recent changes and active threads
-3. Run `nool query blast-radius <node_id>` to understand dependencies
-4. Propose changes using `nool propose --intent \"Simplify token validation\" --path src/auth/tokens.rs src/auth/utils.rs\"
-5. Solidify only after reviewing what Nool's integrity driver reports"
+2. Run `nool explain src/auth/` and `nool why <recent_knot_id>` to understand existing architectural reasons and causal history.
+3. Run `nool query blast-radius <node_id>` on the target modules to identify all downstream consumers and potential breakage points.
+4. Run `nool discover context --path src/auth/` to see recent changes and active threads.
+5. Propose changes using `nool propose --intent \"Simplify token validation\" --path src/auth/tokens.rs src/auth/utils.rs\"
+6. Run `nool verify` and `nool doctor` to ensure structural invariants and repo health are maintained."
 
 #### Bug Fix Task
 "Fix the memory leak in the connection pool:
-1. Use `nool query search \"connection pool\"` to find related changes (recursive search enabled)
-2. Create a thread: `nool thread create \"Fix Memory Leak Q2\"\"
-3. Set active thread: `nool thread active \"Fix Memory Leak Q2\"\"
-4. Propose the fix: `nool propose --intent \"Close connections in finally block\" --path db/pool.rs\"
-5. Link to bug: `nool bug link <bug_id> --fix <knot_id>\"
+1. Use `nool query search \"connection pool\"` to find related changes (recursive search enabled).
+2. Trace the root cause: `nool debug blame <failure_point>` to see the causal chain from the failure.
+3. If it's a regression: `nool debug bisect --good <id> --broken <id> --test \"cargo test\"` to find the exact knot.
+4. Assess the impact of the fix: `nool query blast-radius <problematic_knot_id>` to see what else relies on the faulty logic.
+5. Create a thread: `nool thread create \"Fix Memory Leak Q2\"\"
+6. Propose the fix: `nool propose --intent \"Close connections in finally block\" --path db/pool.rs\"
+7. Link to bug: `nool bug link <bug_id> --fix <knot_id>\"
 
 #### Session Rehydration Prompt
 "You are resuming work from a previous session. Recover context and continue:
 1. Overview: `nool status` (30 sec)
 2. Recent work: `nool query recent-knots --limit 10` (1 min)
 3. Active context: `nool discover context` and `nool discover learnings` (2 min)
-4. Knowledge check: `nool findings \"topic\"\" (1 min)
-5. Visualise: `nool dag` (1 min)
+4. Explanation check: `nool explain <recent_knot_id>` and `nool why <recent_knot_id>` for deep context and causal history (1 min).
+5. Risk assessment: `nool query blast-radius <last_solidified_knot>` to see the current reach of your previous work (1 min).
+6. Visualise: `nool ui` (1 min)
 After 5 minutes, you'll have full context and can resume work."
 
 #### Multi-Agent Collaboration Prompt
 "1. Check announcements: `nool discover context` to see what other agents are doing.
 2. Announce work: `nool announce --intent \"Building UI components\"\" to prevent overlap.
-3. Coordinate: `nool thread chat \"Thread Name\"\" to discuss architectural decisions.
-4. Pull latest: `nool sync origin && nool pull` frequently."
+3. Assess overlap impact: `nool query blast-radius <other_agent_knot_id>` if their work touches shared dependencies.
+4. Check for structural conflicts: `nool verify --target <current_plan>`.
+5. Monitor health: `nool doctor` regularly to ensure no sync-induced drift.
+6. Pull latest: `nool sync origin && nool pull` frequently."
 
 #### Review & Rollback Prompt
 "Review recent changes:
-1. Run `nool log | head -20` to see what was done
-2. For each knot: `nool why <id>` to understand causality
-3. If issues found: `nool pluck \"Thread Name\"\" to preview without the problematic changes
+1. Run `nool review <thread_name>` for an interactive review of the logic.
+2. For each knot: `nool explain <id>` and `nool why <id>` to understand the "why" and causal chain.
+3. Check semantic impact: `nool query blast-radius <knot_id>` to verify the blast radius matches the intended scope.
+4. If issues found: `nool plan pluck \"Thread Name\"\" to generate an undo sequence.
 Before merging to main:
-1. `nool doctor` - check health (causal-aware diagnostics)
-2. `nool validate` - validate fast-mode knots
-3. `nool solidify --full` - full validation"
+1. `nool verify` - check structural invariants.
+2. `nool doctor` - comprehensive health check.
+3. `nool promote <knot_id>` - full validation and git staging.
+4. `nool apply --plan-id <plan_id>` - execute the final merge plan."
+
+#### Emergency Response Prompt
+"Something broke in production. Trace the issue:
+1. `nool query search \"production bug\"\" - find related knots (recursive search).
+2. `nool debug blame <failure_id>` - trace the causal chain to the root failure.
+3. `nool debug replay` - step through the execution state to reproduce the failure.
+4. `nool query blast-radius <problematic_knot_id>` - find what else was affected.
+5. `nool audit` - full compliance report for post-mortem."
 
 #### Emergency Response Prompt
 "Something broke in production. Trace the issue:

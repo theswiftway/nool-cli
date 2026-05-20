@@ -1,5 +1,5 @@
 name: nool-commands
-version: 1.33.0
+version: 2.2.1
 description: Nool Operational Continuity Infrastructure
 
 This skill provides a comprehensive reference for Nool. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
@@ -11,13 +11,21 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 - `nool init --from-git <branch>`: Bootstrap a Nool ledger from existing Git history.
 
 ### Propose Changes
-- `nool propose --intent "<rationale>" --path <file> --kind <type>`: Create a semantic change proposal. Supports multi-file Synthesis knots (v1.33.0).
+- `nool propose --intent "<rationale>" --path <file> --kind <type>`: Create a semantic change proposal. Supports multi-file Synthesis knots.
 - `nool propose --fast`: Zero-friction mode. Auto-infers intent from git diff and recent context.
 - `nool propose --try-branch <name>`: Propose changes in an ephemeral try branch.
 
 ### Solidify (Commit)
-- `nool solidify --fast`: Rapid local iteration with deferred validation (recommended for active coding).
+- `nool solidify --fast`: Rapid local iteration with deferred validation.
 - `nool solidify --full`: Full semantic validation (syntax check, integrity driver). Use before pushing.
+- `nool promote <knot_id>`: Promote a local knot to staged/synced status (creates Git commit).
+
+### Semantic Planning & Verification
+- `nool plan <replay|pluck|merge>`: Manage and execute semantic plans (RFC-0001).
+- `nool apply --plan-id <id>`: Execute an approved or draft semantic plan (RFC-0005).
+- `nool verify --target <id>`: Run structural invariants against current or planned state (RFC-0002).
+- `nool explain <subject>`: Explain identities, dependencies, and reasons (RFC-0006).
+- `nool review <target>`: Interactive review surface for candidate changes (RFC-0008).
 
 ### Sync & Replicate
 - `nool push <remote>`: Push solidified Knots to a remote.

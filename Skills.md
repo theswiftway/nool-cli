@@ -1,6 +1,6 @@
 # Nool: Operational Continuity Infrastructure — Command Reference
 
-**Version**: v1.33.0 — Synthesis Multi-file Knots, Jira Integration, and Recursive Search
+**Version**: v2.2.1 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. These commands enable **Deterministic Rehydration**, **Semantic Lineage**, and **Governed Autonomy** for autonomous engineering agents.
 
@@ -11,22 +11,23 @@ This document provides a comprehensive reference for all Nool commands organized
 1. [Initialize](#initialize)
 2. [Propose Changes](#propose-changes)
 3. [Solidify (Commit)](#solidify-commit)
-4. [Sync & Replicate](#sync--replicate)
-5. [Try Branches](#try-branches-ephemeral-experimentation)
-6. [Query & Analysis](#query--analysis)
-7. [Status & Health](#status--health)
-8. [Context & Knowledge](#context--knowledge)
-9. [Threads, Tasks & Bugs](#threads-tasks--bugs)
-10. [Tags & Releases](#tags--releases)
-11. [Merge & Compare](#merge--compare)
-12. [Git Bridge](#git-bridge)
-13. [Administrative](#administrative)
-14. [Session Rehydration](#session-rehydration)
-15. [Debug & Troubleshooting](#debug--troubleshooting)
-16. [Discovery & Collaboration](#discovery--collaboration)
-17. [Multi-Agent Coordination](#multi-agent-coordination)
-18. [Knowledge & Learning](#knowledge--learning)
-19. [Other Commands](#other-commands)
+4. [Semantic Planning & Verification](#semantic-planning--verification)
+5. [Sync & Replicate](#sync--replicate)
+6. [Try Branches](#try-branches-ephemeral-experimentation)
+7. [Query & Analysis](#query--analysis)
+8. [Status & Health](#status--health)
+9. [Context & Knowledge](#context--knowledge)
+10. [Threads, Tasks & Bugs](#threads-tasks--bugs)
+11. [Tags & Releases](#tags--releases)
+12. [Merge & Compare](#merge--compare)
+13. [Git Bridge](#git-bridge)
+14. [Administrative](#administrative)
+15. [Session Rehydration](#session-rehydration)
+16. [Debug & Troubleshooting](#debug--troubleshooting)
+17. [Discovery & Collaboration](#discovery--collaboration)
+18. [Multi-Agent Coordination](#multi-agent-coordination)
+19. [Knowledge & Learning](#knowledge--learning)
+20. [Other Commands](#other-commands)
 
 ---
 
@@ -228,6 +229,73 @@ nool propose --intent "Fix bug" --path src/bug.rs --solidify
 ```
 
 **When to use**: Automatically commit after proposal validation passes.
+
+---
+
+## Semantic Planning & Verification
+
+Advanced tools for algebraic DAG manipulation and formal verification of semantic state.
+
+### `nool plan`
+Manage and execute semantic plans (RFC-0001, RFC-0008).
+
+**Subcommands**:
+- `replay`: Compute a sequence of operations to reach a target semantic state.
+- `pluck`: Plan a selective undo (pluck) of specific operations.
+- `status`: Show current plan status and steps.
+- `merge`: Plan a merge of divergent semantic branches.
+
+**When to use**: When you need to orchestrate complex transitions, merges, or selective undos that respect causal integrity.
+
+### `nool apply`
+Execute an approved or draft semantic plan (RFC-0005).
+
+**Usage**:
+```bash
+nool apply --plan-id <id>
+```
+
+**When to use**: To finalize and materialize a computed plan into the workspace.
+
+### `nool verify`
+Run structural invariants against current or planned state (RFC-0002).
+
+**Usage**:
+```bash
+nool verify --target <id>
+```
+
+**When to use**: To ensure that a proposed plan or the current DAG state adheres to project-wide semantic invariants.
+
+### `nool explain`
+Explain identities, dependencies, and reasons (RFC-0006).
+
+**Usage**:
+```bash
+nool explain <knot_id>
+```
+
+**When to use**: To understand "why" a specific mutation was made or to trace the complex closure of a dependency.
+
+### `nool review`
+Interactive review surface for candidate changes (RFC-0008).
+
+**Usage**:
+```bash
+nool review <plan_id|thread_name>
+```
+
+**When to use**: High-fidelity interactive review of complex changes before solidification.
+
+### `nool promote`
+Promote a local Knot to staged/synced status.
+
+**Usage**:
+```bash
+nool promote <knot_id>
+```
+
+**What it does**: Validates the Knot against the full integrity driver and creates the corresponding Git commit in the bridge.
 
 ---
 
