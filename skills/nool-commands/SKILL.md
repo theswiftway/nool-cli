@@ -3,7 +3,7 @@ name: nool-commands
 description: Nool Operational Continuity Infrastructure. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
 license: Proprietary. First 2000 knots or 30 days free, then see https://nool.dev/pricing
 metadata:
-  version: "2.2.2"
+  version: "2.2.3"
 ---
 
 This skill provides a comprehensive reference for Nool. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
@@ -166,6 +166,7 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 
 ## Other Commands
 - `nool languages`: List all supported languages and their validation status.
+- `nool insights`: Show generative project insights, blast radius stats, and time saved metrics.
 - `nool link <knot_id>`: Retroactively link a solidified Knot to metadata.
 - `nool quick-start`: Quick-start guide.
 - `nool guide`: Detailed guide.

@@ -1,12 +1,12 @@
 # Nool 
 
-[![Version](https://img.shields.io/badge/version-2.2.2-blue.svg)](https://github.com/nool-dev/nool)
+[![Version](https://img.shields.io/badge/version-2.2.3-blue.svg)](https://github.com/nool-dev/nool)
 [![Status](https://img.shields.io/badge/status-beta-yellow.svg)](https://github.com/nool-dev/nool)
 
 **Operational Continuity Infrastructure for Autonomous Engineering**
 
-**Current Version**: v2.2.2 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
-This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v2.2.2 and later.
+**Current Version**: v2.2.3 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
+This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v2.2.3 and later.
 
 Git stores your code state. **Nool stores your engineering operational state.** 
 
@@ -37,13 +37,21 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 
 ## 🔗 Quick Links
 
-- [Skills.md](./Skills.md) - Comprehensive reference for all 50+ nool commands with examples and best practices
-- [SKILL.md](./SKILL.md) - Agent-optimized skill file for Claude Code integration
+- [Skills.md](./Skills.md) - Comprehensive reference for the current Nool CLI command surface, with examples and best practices
+- [SKILL.md](./skills/nool-commands/SKILL.md) - Agent-optimized skill file for Claude Code integration
 - [Nool Tutorial](https://www.nool.dev/docs) - Learn how to use Nool
 
 ---
 
 ## 🚀 What's New
+
+### What's New in v2.2.3
+
+#### Expanded CLI Surfaces
+- **`nool insights`**: Show generative project insights, blast radius stats, and time saved metrics.
+- **`nool quick-start`**: Direct beginner-oriented guide surfaced from top-level help.
+- **`nool guide`**: Detailed guide entry point exposed directly from the CLI.
+- **Documentation sync**: The command reference now matches the current `nool help` and `nool version` output for v2.2.3.
 
 ### What's New in v2.2.2
 
@@ -127,7 +135,7 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 ## 🛠 Installation
 
 ```bash
-./install_tar.sh nool-release-2.2.2.tar.gz
+./install_tar.sh nool-release-2.2.3.tar.gz
 ```
 
 ### For Agent Integration
@@ -467,10 +475,13 @@ nool daemon stop
 ### Other Commands
 ```bash
 nool languages    # List supported languages
-nool quickstart   # Quick-start guide
+nool insights     # ROI, blast radius, and time-saved metrics
+nool completion zsh
+nool quick-start  # Quick-start guide
 nool guide        # Detailed guide
 nool upgrade      # Upgrade CLI
 nool version      # Print version
+nool uninstall    # Remove CLI and local identity keys
 nool audit        # Compliance report
 ```
 

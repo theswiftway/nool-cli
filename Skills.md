@@ -1,6 +1,6 @@
 # Nool: Operational Continuity Infrastructure — Command Reference
 
-**Version**: v2.2.2 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification
+**Version**: v2.2.3 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. These commands enable **Deterministic Rehydration**, **Semantic Lineage**, and **Governed Autonomy** for autonomous engineering agents.
 
@@ -530,10 +530,13 @@ Compute semantic blast radius and risk analysis for a change.
 ### `nool languages`
 List all supported languages and their validation status.
 
+### `nool insights`
+Show generative project insights, blast radius stats, and time saved metrics.
+
 ### `nool link <knot_id>`
 Retroactively link a solidified Knot to metadata.
 
-### `nool completion`
+### `nool completion <shell>`
 Generate shell completion scripts (bash, zsh, fish, powershell).
 
 ### `nool quick-start`
