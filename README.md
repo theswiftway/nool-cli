@@ -1,12 +1,12 @@
 # Nool 
 
-[![Version](https://img.shields.io/badge/version-2.2.3-blue.svg)](https://github.com/nool-dev/nool)
+[![Version](https://img.shields.io/badge/version-2.2.4-blue.svg)](https://github.com/nool-dev/nool)
 [![Status](https://img.shields.io/badge/status-beta-yellow.svg)](https://github.com/nool-dev/nool)
 
 **Operational Continuity Infrastructure for Autonomous Engineering**
 
-**Current Version**: v2.2.3 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
-This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v2.2.3 and later.
+**Current Version**: v2.2.4 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
+This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v2.2.4 and later.
 
 Git stores your code state. **Nool stores your engineering operational state.** 
 
@@ -39,11 +39,28 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 
 - [Skills.md](./Skills.md) - Comprehensive reference for the current Nool CLI command surface, with examples and best practices
 - [SKILL.md](./skills/nool-commands/SKILL.md) - Agent-optimized skill file for Claude Code integration
+- [GOVERNANCE.md](./docs/GOVERNANCE.md) - Deep dive into Nool's multi-layered enforcement model (WASM, Contracts, Reification)
 - [Nool Tutorial](https://www.nool.dev/docs) - Learn how to use Nool
 
 ---
 
 ## 🚀 What's New
+
+### What's New in v2.2.4
+
+#### Enhanced Agent Handoff Context
+- **`nool thread show --full`**: Major upgrade to handoff rehydration.
+  - **Internal Dependency Map**: Visualize how touched files within a thread relate to each other.
+  - **Transitive Dependency Closure**: Identify contextually related files *outside* the current thread using the improved `ImpactAnalyzer`.
+  - **AST-Aware API Hints**: Robust, language-specific extraction of public APIs (functions, classes, etc.) from touched files.
+  - **Dependency Signals**: Clearer visibility into imported modules and crates derived directly from the source AST.
+
+#### Improved Impact Analysis Engine
+- **Language-Specific Resolution**: `ImpactAnalyzer` now natively understands Rust crate structures (`nool_core::models` ➔ `crates/nool-core/src/models.rs`), group imports, and common file naming conventions across polyglot projects.
+
+#### Binary Size & Performance
+- **30% Reduction**: Implemented Stage 1 Size Optimizations (Fat LTO, stripped symbols, panic-abort). The binary size has been reduced from 166MB to ~115MB.
+- **Multi-Platform Support**: Robust, automated release packaging for macOS, Linux, and Windows.
 
 ### What's New in v2.2.3
 
@@ -135,7 +152,7 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 ## 🛠 Installation
 
 ```bash
-./install_tar.sh nool-release-2.2.3.tar.gz
+./install_tar.sh nool-release-2.2.4.tar.gz
 ```
 
 ### For Agent Integration
@@ -181,9 +198,9 @@ Add this to your agent's system prompt or `.claude.md`:
 > 2. **Context**: Use `nool discover context` and `nool discover learnings` to rehydrate task context.
 > 3. **Impact**: Use `nool query blast-radius <node_id>` to assess the semantic risk of touching existing code.
 > 4. **Debugging**: If fixing a bug, use `nool debug blame` or `nool debug bisect` to find the root cause.
-> 5. **Propose**: Use `nool propose --fast --intent "<why>"`.
+> 5. **Propose**: Use `nool propose --all --intent "<why>"`.
 > 6. **Verify**: Use `nool verify` to run structural invariants and `nool status` to check health.
-> 7. **Handoff**: Use `nool thread handoff --to <agent_id>` to transfer responsibility.
+> 7. **Handoff**: Use `nool thread show <name> --full` to provide decisive context to the next worker.
 > 8. **Knowledge**: Use `nool learn` to record decisions and findings for future sessions.
 > 9. **Execution**: For complex changes, use `nool plan replay` and `nool apply`.
 > 10. **Health**: Always run `nool doctor` before pushing to ensure repository integrity.
@@ -203,7 +220,7 @@ Add this to your agent's system prompt or `.claude.md`:
 6. Use `nool announce --intent "Working on <feature>"` to coordinate with other agents.
 
 #### During changes
-1. Propose multi-file changes: `nool propose --fast --intent "<rationale>" --path src/file1.rs src/file2.rs`
+1. Propose multi-file changes: `nool propose --all --intent "<rationale>" --path src/file1.rs src/file2.rs`
 2. Iterate quickly: `nool solidify --fast`
 3. Debug deep failures: `nool debug replay` to step through execution state.
 4. Plan complex undos: `nool plan pluck <thread_name>`
@@ -247,13 +264,13 @@ Add this to your agent's system prompt or `.claude.md`:
 <summary><strong>Session Rehydration Prompt</strong></summary>
 
 "You are resuming work from a previous session. Recover context and continue:
-1. Overview: `nool status` (30 sec)
-2. Recent work: `nool query recent-knots --limit 10` (1 min)
-3. Active context: `nool discover context` and `nool discover learnings` (2 min)
-4. Explanation check: `nool explain <recent_knot_id>` and `nool why <recent_knot_id>` for deep context and causal history (1 min).
-5. Risk assessment: `nool query blast-radius <last_solidified_knot>` to see the current reach of your previous work (1 min).
-6. Visualise: `nool ui` (1 min)
-After 5 minutes, you'll have full context and can resume work."
+1. Overview: `nool status`
+2. Recent work: `nool query recent-knots --limit 10`
+3. **Deep Rehydration**: `nool thread show <active_thread> --full` to see AST-aware API hints, internal dependency maps, and the transitive closure of related files.
+4. Explanation check: `nool explain <recent_knot_id>` and `nool why <recent_knot_id>` for deep context and causal history.
+5. Risk assessment: `nool query blast-radius <last_solidified_knot>` to see the current reach of your previous work.
+6. Visualise: `nool ui`
+After following these steps, you'll have full context and can resume work."
 </details>
 
 <details>
@@ -261,7 +278,7 @@ After 5 minutes, you'll have full context and can resume work."
 
 "1. Check announcements: `nool discover context` to see what other agents are doing.
 2. Announce work: `nool announce --intent "Building UI components"` to prevent overlap.
-3. Assess overlap impact: `nool query blast-radius <other_agent_knot_id>` if their work touches shared dependencies.
+3. **Structural Analysis**: For concurrent threads, use `nool thread show <other_thread> --full` to inspect their **Internal Dependency Map**. If their work touches your transitive closure, coordinate immediately.
 4. Check for structural conflicts: `nool verify --target <current_plan>`.
 5. Monitor health: `nool doctor` regularly to ensure no sync-induced drift.
 6. Pull latest: `nool sync origin && nool pull` frequently."
@@ -272,9 +289,10 @@ After 5 minutes, you'll have full context and can resume work."
 
 "Review recent changes:
 1. Run `nool review <thread_name>` for an interactive review of the logic.
-2. For each knot: `nool explain <id>` and `nool why <id>` to understand the "why" and causal chain.
-3. Check semantic impact: `nool query blast-radius <knot_id>` to verify the blast radius matches the intended scope.
-4. If issues found: `nool plan pluck "Thread Name"` to generate an undo sequence.
+2. **Dependency Audit**: Run `nool thread show <name> --full`. Verify the **Internal Dependency Map** matches the intended architecture and that the **Transitive Closure** doesn't include unexpected modules.
+3. For each knot: `nool explain <id>` and `nool why <id>` to understand the "why" and causal chain.
+4. Check semantic impact: `nool query blast-radius <knot_id>` to verify the blast radius matches the intended scope.
+5. If issues found: `nool plan pluck "Thread Name"` to generate an undo sequence.
 
 Before merging to main:
 1. `nool verify` - check structural invariants.
@@ -424,6 +442,7 @@ nool log
 # Threads
 nool thread create "Security Hardening"
 nool thread status "Security Hardening" --active
+nool thread show "Security Hardening" [--full]  # Use --full for AST-aware handoff context
 
 # Tasks
 nool task create --name "Fix login rate limit"
@@ -459,6 +478,9 @@ nool findings "rate limit"
 nool doctor
 nool doctor --fix      # Auto-repair referential drift
 nool validate
+nool admin plugin list             # List policies and plugins
+nool admin plugin install <path>   # Install WASM plugin/policy
+nool admin plugin uninstall <name> # Uninstall plugin/policy
 nool admin gc          # metabolic garbage collection
 nool admin train-dict  # optimize compression
 nool admin reconcile   # manual self-healing loop

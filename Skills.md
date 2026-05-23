@@ -1,6 +1,6 @@
 # Nool: Operational Continuity Infrastructure — Command Reference
 
-**Version**: v2.2.3 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification
+**Version**: v2.2.4 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. These commands enable **Deterministic Rehydration**, **Semantic Lineage**, and **Governed Autonomy** for autonomous engineering agents.
 
@@ -64,6 +64,7 @@ nool propose --intent "Add rate limiting" --path src/auth/login.rs --thread "Sec
 **Parameters**:
 - `--intent` / `-i`: Describe what you're changing
 - `--path`: Path to the changed file(s)
+- `--all`: Stage all modified/untracked files from Git worktree
 - `--kind` / `-k`: Knot kind (fn, test, config, doc). Auto-detected if omitted
 - `--thread` / `-t`: Associate with an intent thread
 - `--try-branch`: Associate with an ephemeral try branch
@@ -356,7 +357,7 @@ Manage semantic units of work.
 ### Threads
 - `nool thread create --name "<name>"`: Create a new intent thread.
 - `nool thread list`: List all threads.
-- `nool thread show <name>`: Show thread details.
+- `nool thread show <name> [--full]`: Show thread details. Use `--full` for AST-aware handoff context, internal dependency maps, and transitive closures.
 - `nool thread status --name <name> --status <status>`: Set thread status.
 - `nool thread chat <name>`: Add or view DAG-backed notes in a thread.
 - `nool thread handoff`: Handoff thread responsibility to another agent.
@@ -457,7 +458,7 @@ Account settings (subscribe, billing).
 Team management: add members, assign roles.
 
 ### `nool admin plugin`
-Plugin management: list, install, init.
+Plugin management: list, install, uninstall, init.
 
 ### `nool admin channel`
 Release channel management.

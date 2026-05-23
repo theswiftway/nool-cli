@@ -3,7 +3,7 @@ name: nool-commands
 description: Nool Operational Continuity Infrastructure. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
 license: Proprietary. First 2000 knots or 30 days free, then see https://nool.dev/pricing
 metadata:
-  version: "2.2.3"
+  version: "2.2.4"
 ---
 
 This skill provides a comprehensive reference for Nool. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
@@ -15,6 +15,7 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 
 ### Propose Changes
 - `nool propose`: Generate a candidate Knot (interactive wizard mode recommended for beginners). Supports --intent, --path, --thread.
+- `nool propose --all`: Stage all modified/untracked files from Git worktree.
 - `nool propose --try-branch <name>`: Propose changes in an ephemeral try branch.
 - `nool propose --amend`: Amend the existing proposal.
 
@@ -92,6 +93,7 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 - `nool announce intent`: Announce intent before starting work.
 - `nool announce with-context`: Announce intent WITH context capture.
 - `nool thread handoff`: Handoff thread responsibility to another agent.
+- `nool thread show <name> --full`: Show AST-aware handoff context, internal dependency maps, and transitive closures.
 
 ## Threads, Tasks & Bugs
 
@@ -146,7 +148,7 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 - `nool daemon start|stop|status`: Background synchronization daemon.
 - `nool admin account`: Account settings (subscribe, billing).
 - `nool admin team`: Team management (add, list).
-- `nool admin plugin`: Plugin management (list, install, init).
+- `nool admin plugin`: Plugin management (list, install, uninstall, init..
 - `nool admin channel`: Release channel management (create, list).
 - `nool admin gc`: Resource management (GC).
 - `nool admin train-dict`: Train storage compression dictionary.
