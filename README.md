@@ -1,12 +1,12 @@
 # Nool 
 
-[![Version](https://img.shields.io/badge/version-2.2.4-blue.svg)](https://github.com/nool-dev/nool)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](https://github.com/nool-dev/nool)
 [![Status](https://img.shields.io/badge/status-beta-yellow.svg)](https://github.com/nool-dev/nool)
 
 **Operational Continuity Infrastructure for Autonomous Engineering**
 
-**Current Version**: v2.2.4 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
-This guide documents the latest stable release. Feature sections note when they were introduced; all features listed below are available in v2.2.4 and later.
+**Current Version**: v3.2.0 — Semantic planning, coordination, review, and repository diagnostics.  
+This guide is aligned to the installed CLI surface from `nool version` and `nool help` for `Nool CLI v3.2.0`.
 
 Git stores your code state. **Nool stores your engineering operational state.** 
 
@@ -20,6 +20,8 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 ## 📑 Table of Contents
 - [Quick Links](#-quick-links)
 - [What's New](#-whats-new)
+  - [v3.2.0](#whats-new-in-v320)
+  - [v2.3.5](#whats-new-in-v235)
   - [v2.0.0](#whats-new-in-v200)
   - [v1.34.0](#whats-new-in-v1340)
   - [v1.33.0](#whats-new-in-v1330)
@@ -45,6 +47,28 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 ---
 
 ## 🚀 What's New
+
+### What's New in v3.2.0
+
+#### CLI Surface Sync
+- **Docs aligned to the installed CLI**: this README now matches `nool help`, `nool version`, and the generated `all_helps.txt` command surface for `Nool CLI v3.2.0`.
+- **Global agent-friendly flags**: top-level commands consistently expose `--compact`, and the root CLI exposes `--quiet` for low-noise automation.
+
+#### Top-Level Workflows
+- **Planning and review at top level**: `nool plan`, `nool apply`, `nool verify`, `nool explain`, `nool evidence`, and `nool review` are documented as first-class commands.
+- **Operational guides in the CLI**: `nool quick-start`, `nool guide`, `nool version`, `nool upgrade`, `nool uninstall`, and `nool completion` are available directly from the root command surface.
+
+### What's New in v2.3.5
+
+#### Plugin & Policy Management
+- **`nool admin plugin`**: Manual install, uninstall, and listing flows for WASM plugins and governance policies.
+
+#### Multi-Stage Lifecycle Hooks
+- Added `PrePropose`, `PostPropose`, `PreSolidify`, and `PrePush` lifecycle stages in the governance substrate.
+- Added installation hints when required policies are missing.
+
+#### Persona Hardening
+- Improved proposal ergonomics for agents, including better persona prioritization and manual justification support.
 
 ### What's New in v2.2.4
 
@@ -139,7 +163,7 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 
 #### Enhanced Diagnostics & Monitoring
 - **Timeline Visualization**: `nool dag` and `nool log` now detect and highlight parallel branches and potential semantic divergence.
-- **Replica Topology**: `nool status --topology` shows all known remotes, their sync health, and the overall mesh structure.
+- **Repository Health**: `nool status` and `nool doctor` provide the primary repository overview and readiness checks.
 - **Usage & Token Tracking**: `nool usage` provides detailed analytics on token consumption, agent performance, and thread-level costs.
 
 #### Infrastructure & DX
@@ -152,7 +176,7 @@ Everything runs on your local machine. Nothing gets uploaded to any server.
 ## 🛠 Installation
 
 ```bash
-./install_tar.sh nool-release-2.2.4.tar.gz
+./install_tar.sh nool-release-3.2.0.tar.gz
 ```
 
 ### For Agent Integration
@@ -198,7 +222,7 @@ Add this to your agent's system prompt or `.claude.md`:
 > 2. **Context**: Use `nool discover context` and `nool discover learnings` to rehydrate task context.
 > 3. **Impact**: Use `nool query blast-radius <node_id>` to assess the semantic risk of touching existing code.
 > 4. **Debugging**: If fixing a bug, use `nool debug blame` or `nool debug bisect` to find the root cause.
-> 5. **Propose**: Use `nool propose --all --intent "<why>"`.
+> 5. **Propose**: Use `nool propose --intent "<why>" --path <files...>`.
 > 6. **Verify**: Use `nool verify` to run structural invariants and `nool status` to check health.
 > 7. **Handoff**: Use `nool thread show <name> --full` to provide decisive context to the next worker.
 > 8. **Knowledge**: Use `nool learn` to record decisions and findings for future sessions.
@@ -217,13 +241,13 @@ Add this to your agent's system prompt or `.claude.md`:
 3. Use `nool query blast-radius <knot_id>` to identify downstream files and logic that will be affected.
 4. Use `nool explain <knot_id>` and `nool why <knot_id>` to understand complex causal chains and rationale.
 5. For regressions, use `nool debug bisect --good <id> --broken <id>` to isolate the failure.
-6. Use `nool announce --intent "Working on <feature>"` to coordinate with other agents.
+6. Use `nool announce intent --intent "Working on <feature>"` to coordinate with other agents.
 
 #### During changes
-1. Propose multi-file changes: `nool propose --all --intent "<rationale>" --path src/file1.rs src/file2.rs`
+1. Propose multi-file changes: `nool propose --intent "<rationale>" --path src/file1.rs --path src/file2.rs`
 2. Iterate quickly: `nool solidify --fast`
 3. Debug deep failures: `nool debug replay` to step through execution state.
-4. Plan complex undos: `nool plan pluck <thread_name>`
+4. Plan complex undos: `nool plan pluck --targets <op_ids>`
 
 #### After changes
 1. Structural check: `nool verify` to ensure semantic integrity.
@@ -231,7 +255,7 @@ Add this to your agent's system prompt or `.claude.md`:
 3. Blast radius verification: `nool query blast-radius <new_knot_id>` to confirm the change only affected intended nodes.
 4. Final validation: `nool promote <knot_id>` before pushing.
 5. Push work: `nool push origin`
-6. Document learnings: `nool learn --kind decision --content "Used <pattern> because <reason>"`
+6. Document learnings: `nool learn --about "<topic>" --kind reasoning_note --content "Used <pattern> because <reason>"`
 
 ### Task-Specific Prompts
 
@@ -239,10 +263,10 @@ Add this to your agent's system prompt or `.claude.md`:
 <summary><strong>Refactoring Task</strong></summary>
 
 "Refactor the authentication module in `src/auth/`. Before touching any file:
-1. Run `nool announce --intent "Refactoring auth module"`
+1. Run `nool announce intent --intent "Refactoring auth module"`
 2. Run `nool explain src/auth/` and `nool why <recent_knot_id>` to understand existing architectural reasons and causal history.
 3. Run `nool query blast-radius <node_id>` on the target modules to identify all downstream consumers and potential breakage points.
-4. Run `nool discover context --path src/auth/` to see recent changes and active threads.
+4. Run `nool discover context --snapshot-id <snapshot_id>` to rehydrate prior context before editing `src/auth/`.
 5. Propose changes using `nool propose --intent "Simplify token validation" --path src/auth/tokens.rs src/auth/utils.rs`
 6. Run `nool verify` and `nool doctor` to ensure structural invariants and repo health are maintained."
 </details>
@@ -253,9 +277,9 @@ Add this to your agent's system prompt or `.claude.md`:
 "Fix the memory leak in the connection pool:
 1. Use `nool query search "connection pool"` to find related changes (recursive search enabled).
 2. Trace the root cause: `nool debug blame <failure_point>` to see the causal chain from the failure.
-3. If it's a regression: `nool debug bisect --good <id> --broken <id> --test "cargo test"` to find the exact knot.
+3. If it's a regression: `nool debug bisect --good <id> --bad <id> --test "cargo test"` to find the exact knot.
 4. Assess the impact of the fix: `nool query blast-radius <problematic_knot_id>` to see what else relies on the faulty logic.
-5. Create a thread: `nool thread create "Fix Memory Leak Q2"`
+5. Create a thread: `nool thread create --name "Fix Memory Leak Q2"`
 6. Propose the fix: `nool propose --intent "Close connections in finally block" --path db/pool.rs`
 7. Link to bug: `nool bug link <bug_id> --fix <knot_id>`"
 </details>
@@ -277,7 +301,7 @@ After following these steps, you'll have full context and can resume work."
 <summary><strong>Multi-Agent Collaboration Prompt</strong></summary>
 
 "1. Check announcements: `nool discover context` to see what other agents are doing.
-2. Announce work: `nool announce --intent "Building UI components"` to prevent overlap.
+2. Announce work: `nool announce intent --intent "Building UI components"` to prevent overlap.
 3. **Structural Analysis**: For concurrent threads, use `nool thread show <other_thread> --full` to inspect their **Internal Dependency Map**. If their work touches your transitive closure, coordinate immediately.
 4. Check for structural conflicts: `nool verify --target <current_plan>`.
 5. Monitor health: `nool doctor` regularly to ensure no sync-induced drift.
@@ -292,7 +316,7 @@ After following these steps, you'll have full context and can resume work."
 2. **Dependency Audit**: Run `nool thread show <name> --full`. Verify the **Internal Dependency Map** matches the intended architecture and that the **Transitive Closure** doesn't include unexpected modules.
 3. For each knot: `nool explain <id>` and `nool why <id>` to understand the "why" and causal chain.
 4. Check semantic impact: `nool query blast-radius <knot_id>` to verify the blast radius matches the intended scope.
-5. If issues found: `nool plan pluck "Thread Name"` to generate an undo sequence.
+5. If issues found: `nool plan pluck --targets <op_ids>` to generate an undo sequence.
 
 Before merging to main:
 1. `nool verify` - check structural invariants.
@@ -440,14 +464,14 @@ nool log
 ### 5. Threads, Tasks & Bugs
 ```bash
 # Threads
-nool thread create "Security Hardening"
-nool thread status "Security Hardening" --active
+nool thread create --name "Security Hardening"
+nool thread status --name "Security Hardening" --status active
 nool thread show "Security Hardening" [--full]  # Use --full for AST-aware handoff context
 
 # Tasks
 nool task create --name "Fix login rate limit"
-nool task pick <id>
-nool task finish <id>
+nool task pick --id <id>
+nool task finish --id <id>
 
 # Bugs
 nool bug report --title "Login fails" --severity high

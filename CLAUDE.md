@@ -1,8 +1,8 @@
 # Nool CLI Project Guide
 
 **Project**: Nool Operational Continuity Infrastructure  
-**Current Version**: v2.2.1 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification.  
-**Repository Type**: Nool-managed  
+**Current Version**: v3.2.0 — synced to the installed `nool` CLI surface.  
+**Repository Type**: CLI source checkout  
 **MCP Server**: Nool MCP (nool-mcp) — installed locally
 
 ## 📚 Documentation
@@ -34,12 +34,12 @@ When working in this project, refer to:
 
 ---
 
-## ✨ v2.0.0 Features: Semantic Planning & Verification
+## ✨ v3.2.0 Features: Planning, Coordination & Review
 
 ### Semantic Planning Engine (RFC-0001)
 ```bash
 # Plan a selective undo of a thread
-nool plan pluck "Feature Thread"
+nool plan pluck --targets <op_id>
 
 # Replay operations to reach a target state
 nool plan replay --target <knot_id>
@@ -68,7 +68,7 @@ nool review <plan_id>
 
 ---
 
-## ✨ v1.33.0 Features: Collaboration & Diagnostics
+## ✨ v3.2.0 Coordination & Diagnostics
 
 ### Persona-Aware CLI
 ```bash
@@ -85,28 +85,28 @@ export NOOL_PERSONA=agent
 ### Discovery & Multi-Agent Coordination
 **Intent Announcement**
 ```bash
-nool announce --intent "Refactoring auth module" --thread "Security"
+nool announce intent --intent "Refactoring auth module" --thread "Security"
 ```
 - Alerts other agents/developers to active work.
 - Automatically captures surrounding context.
 
 **Knowledge Retrieval**
 ```bash
-nool learn --kind reasoning_note --content "Using B-trees for the index because..."
-nool findings --file src/db.rs
+nool learn --about "db index design" --kind reasoning_note --content "Using B-trees for the index because..."
+nool findings "src/db.rs"
 ```
 - Persist and retrieve architectural decisions and findings directly in the DAG.
 
 **Discovery Tools**
 ```bash
-nool discover conflicts  # Show potential semantic conflicts
-nool discover context    # Suggest relevant knots/files for current work
+nool discover conflicts src/auth/*     # Show potential semantic conflicts
+nool discover similar "auth refactor"  # Find related knots and approaches
 ```
 
 ### Advanced Diagnostics
 **Topology & Health**
 ```bash
-nool status --topology  # Visualize replica mesh and sync health
+nool status             # Visualize current repository state
 
 ```
 
@@ -183,8 +183,8 @@ nool status
 nool query recent-knots --limit 10
 
 # 3. Rehydrate task context
-nool discover context
-nool discover learnings
+nool discover context --snapshot-id <snapshot_id>
+nool discover learnings --thread-id <thread_id>
 
 # 4. Review findings from prior work
 nool findings "your topic or file"
@@ -197,19 +197,19 @@ nool findings "your topic or file"
 nool log --since "1 week ago"
 
 # 2. Get context from a specific thread
-nool discover context --thread "Feature Name"
-nool discover learnings --thread "Feature Name"
+nool discover context --snapshot-id <snapshot_id>
+nool discover learnings --thread-id <thread_id>
 
 # 3. Review related work
 nool discover similar "search term"
 
 # 4. Check for conflicts before starting
-nool discover conflicts
+nool discover conflicts src/auth/*
 
 # 5. Pull latest from remote
 nool pull origin
 
-# 6. Inspect decision history (recursive search v1.33.0)
+# 6. Inspect decision history
 nool query search "decision made"
 ```
 
@@ -225,10 +225,10 @@ nool why <knot_id>
 # 3. See what depends on it
 nool query blast-radius <knot_id>
 
-# 4. Trace root cause (v1.33.0 hardened)
+# 4. Trace root cause
 nool debug blame <failure_point>
 
-# 5. Review the actual changes (Synthesis knots v1.33.0)
+# 5. Review the actual changes
 nool query materialize <knot_id>
 ```
 
@@ -257,8 +257,8 @@ nool findings "your topic" --limit 20
 | `nool status` | Quick overview | Immediate |
 | `nool log` | Full history | Deep dive |
 | `nool query recent-knots` | Recent changes | Quick catch-up |
-| `nool discover context --thread X` | Thread decisions | Specific work |
-| `nool discover learnings --thread X` | Thread insights | Knowledge base |
+| `nool discover context --snapshot-id X` | Snapshot decisions | Specific work |
+| `nool discover learnings --thread-id X` | Thread insights | Knowledge base |
 | `nool discover similar "topic"` | Related work | Pattern discovery |
 | `nool findings "query"` | Recorded knowledge | Context documents |
 | `nool why <id>` | Causal chain | Understanding impact |
@@ -279,7 +279,7 @@ nool findings "your topic" --limit 20
 2. **Use Threads for Related Work**
    ```bash
    # Organize by feature/epic
-   nool thread create "Payment v3 Integration"
+   nool thread create --name "Payment v3 Integration"
    nool propose --thread "Payment v3 Integration" --intent "Add Stripe webhook signature verification"
    ```
 
@@ -298,9 +298,9 @@ nool findings "your topic" --limit 20
 4. **Use Announcements for Complex Work**
    ```bash
    # Announce with full context
-   nool announce with-context "Refactoring auth module" \
-     --decisions "Use OIDC for SSO, JWT for API auth" \
-     --constraints "Must not break existing OAuth2 clients"
+   nool announce with-context \
+     --intent "Refactoring auth module" \
+     --context-file context.yaml
    ```
 
 ### Example: Full Rehydration Workflow
@@ -326,12 +326,13 @@ nool task mine
 nool pull origin
 
 # 6. Check for conflicts (30 seconds)
-nool discover conflicts
+nool discover conflicts src/analytics/*
 
 # 7. Get context for specific thread (2 minutes)
-THREAD="Feature: User Analytics"
-nool discover context --thread "$THREAD"
-nool discover learnings --thread "$THREAD"
+SNAPSHOT_ID="<snapshot_id>"
+THREAD_ID="<thread_id>"
+nool discover context --snapshot-id "$SNAPSHOT_ID"
+nool discover learnings --thread-id "$THREAD_ID"
 
 # 8. Review learnings from past week (2 minutes)
 nool findings "user analytics" --limit 20
@@ -355,11 +356,11 @@ echo "=== Ready to resume work ==="
 # Verify nool is installed
 nool version
 
-# Should output: Nool v1.33.0 or later
+# Should output: Nool CLI v3.2.0
 ```
 
 ### Project Setup
-This project is already Nool-enabled. The `.nool` directory contains:
+In a Nool-managed checkout, the `.nool` directory contains:
 - Knot DAG (semantic change history)
 - Intent Index (searchable rationale)
 - Local identity keys (Ed25519 keypair)
@@ -410,7 +411,7 @@ nool push origin
 
 ```bash
 # 1. Create a thread for organized work
-nool thread create "Feature: Async command support"
+   nool thread create --name "Feature: Async command support"
 
 # 2. Propose semantic changes
 nool propose \
@@ -451,7 +452,7 @@ nool query blast-radius <knot_id>
 nool debug blame <failure_point>
 
 # Binary search for regression
-nool debug bisect --broken <broken_knot> --good <known_good_knot>
+nool debug bisect --good <known_good_knot> --bad <broken_knot> --test "cargo test"
 
 # Walk causal chain
 nool why <knot_id>
@@ -474,16 +475,15 @@ nool findings "command parsing"
 
 ```bash
 # Before starting work, check for conflicts
-nool discover conflicts
+nool discover conflicts src/commands/*
 
 # Retrieve context from previous work
-nool discover context --thread "Payment Integration"
+nool discover context --snapshot-id <snapshot_id>
 
 # Announce what you're about to do
 nool announce with-context \
-  "Refactoring error handling" \
-  --decisions "Use Result<T> pattern throughout" \
-  --constraints "Must maintain backward compatibility"
+  --intent "Refactoring error handling" \
+  --context-file context.yaml
 
 # Stay in sync
 nool pull origin
@@ -533,8 +533,8 @@ nool push origin       # Replicate changes
 ## 📊 Repository State
 
 ### Current Version
-- **Nool**: v1.33.0
-- **Last Updated**: May 14, 2026
+- **Nool**: v3.2.0
+- **Last Updated**: May 24, 2026
 - **Commands Documented**: 46+ with 90+ subcommands
 
 ### Key Directories
@@ -563,7 +563,7 @@ nool push origin       # Replicate changes
 
 2. **Check for conflicts**
    ```bash
-   nool discover conflicts
+   nool discover conflicts src/commands/*
    nool pull origin              # Get latest
    ```
 
@@ -601,7 +601,7 @@ nool push origin       # Replicate changes
 2. **Communicate**
    ```bash
    nool thread chat "Thread Name"  # Discussion
-   nool msg agent_name "Summary"   # Direct message
+   nool thread chat "Thread Name" --message "Summary"
    ```
 
 3. **Push to remote**
@@ -648,7 +648,7 @@ nool pluck "Thread Name"
 nool why <knot_id>
 
 # Binary search for regression
-nool debug bisect --broken <broken> --good <good>
+nool debug bisect --good <good> --bad <broken> --test "cargo test"
 ```
 
 ---
@@ -674,5 +674,4 @@ nool debug bisect --broken <broken> --good <good>
 
 ---
 
-*Last updated: May 14, 2026 for Nool v1.33.0*
-: May 14, 2026 for Nool v1.33.0*
+*Last updated: May 24, 2026 for Nool CLI v3.2.0*

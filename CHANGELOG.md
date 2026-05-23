@@ -4,6 +4,14 @@ All notable changes to Nool are documented in this file.
 
 ## [Unreleased]
 
+## [3.2.0] - 2026-05-24
+
+### Changed
+- **Documentation Sync**:
+  - Updated `README.md`, `Skills.md`, `CLAUDE.md`, and `skills/nool-commands/SKILL.md` to match the installed `Nool CLI v3.2.0` command surface.
+  - Corrected stale examples for `nool announce intent`, `nool thread create --name`, `nool thread status --name --status`, `nool task pick --id`, `nool task finish --id`, and `nool debug bisect --bad`.
+  - Removed outdated references to proposal and discovery flags that no longer match the generated help output.
+
 ## [2.3.5] - 2026-05-22
 
 ### Added

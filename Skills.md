@@ -1,6 +1,6 @@
 # Nool: Operational Continuity Infrastructure — Command Reference
 
-**Version**: v2.2.4 — Semantic Planning (RFC-0001), Algebraic DAG, and Structural Verification
+**Version**: v3.2.0 — Installed CLI command surface synced from `nool version` and `nool help`
 
 This document provides a comprehensive reference for all Nool commands organized by skill category. These commands enable **Deterministic Rehydration**, **Semantic Lineage**, and **Governed Autonomy** for autonomous engineering agents.
 
@@ -64,7 +64,6 @@ nool propose --intent "Add rate limiting" --path src/auth/login.rs --thread "Sec
 **Parameters**:
 - `--intent` / `-i`: Describe what you're changing
 - `--path`: Path to the changed file(s)
-- `--all`: Stage all modified/untracked files from Git worktree
 - `--kind` / `-k`: Knot kind (fn, test, config, doc). Auto-detected if omitted
 - `--thread` / `-t`: Associate with an intent thread
 - `--try-branch`: Associate with an ephemeral try branch
@@ -73,6 +72,9 @@ nool propose --intent "Add rate limiting" --path src/auth/login.rs --thread "Sec
 - `--fast`: Fast mode (default): <5s local iteration, deferred validation
 - `--full`: Full mode: full semantic guarantees (30-90s)
 - `--interactive`: Interactive guided mode (recommended for beginners)
+- `--bundle`: Include additional files for project-level reification
+- `--project-root`: Override project root for bundled reification
+- `--breaking`, `--issue`, `--test-note`, `--tag`, `--push`: Attach release and audit metadata
 
 ---
 
@@ -346,7 +348,12 @@ Find similar work by topic or approach.
 Announce intent before starting work (without context).
 
 ### `nool announce with-context`
-Announce intent WITH context capture (decisions, constraints, patterns).
+Announce intent WITH context capture from a context file.
+
+**Usage**:
+```bash
+nool announce with-context --intent "Refactor auth module" --context-file context.yaml
+```
 
 ---
 
@@ -495,10 +502,10 @@ nool findings "your topic"
 ### Full Context Recovery (15 Minutes)
 ```bash
 nool log --since "1 week ago"
-nool discover context --thread "Feature Name"
-nool discover learnings --thread "Feature Name"
+nool discover context --snapshot-id <snapshot_id>
+nool discover learnings --thread-id <thread_id>
 nool discover similar "topic"
-nool discover conflicts
+nool discover conflicts src/auth/*
 nool pull origin
 nool query search "specific work"
 ```

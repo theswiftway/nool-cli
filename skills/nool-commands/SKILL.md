@@ -3,7 +3,7 @@ name: nool-commands
 description: Nool Operational Continuity Infrastructure. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
 license: Proprietary. First 2000 knots or 30 days free, then see https://nool.dev/pricing
 metadata:
-  version: "2.2.4"
+  version: "3.2.0"
 ---
 
 This skill provides a comprehensive reference for Nool. Use Nool to capture engineering operational state, preserve continuity, and rehydrate agent context across every session, branch, and thread.
@@ -15,7 +15,6 @@ This skill provides a comprehensive reference for Nool. Use Nool to capture engi
 
 ### Propose Changes
 - `nool propose`: Generate a candidate Knot (interactive wizard mode recommended for beginners). Supports --intent, --path, --thread.
-- `nool propose --all`: Stage all modified/untracked files from Git worktree.
 - `nool propose --try-branch <name>`: Propose changes in an ephemeral try branch.
 - `nool propose --amend`: Amend the existing proposal.
 
