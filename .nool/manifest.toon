@@ -1,4 +1,4 @@
-intent: Refresh nool-cli docs from knot-agent-vision and bootstrap Nool VCS metadata
-knot_id: e2ab2f77e90b11cd61afd17ff0e78d806babec1d4c9405eb3bcc3312227af648
-solidified_at: 1780962896758
+intent: Remove legacy root nool.db after migrating Nool state into .nool
+knot_id: 9700933138dcdd6f695325c8630035dbcac2319ec728e7639461061e99927106
+solidified_at: 1780962996289
 thread: main
