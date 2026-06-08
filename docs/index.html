@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nool | The Persistence Layer for Autonomous Engineering</title>
-  <meta name="description" content="Nool provides operational continuity infrastructure for AI-native engineering teams. Capture intent, preserve continuity, and rehydrate agent context.">
-  <meta name="keywords" content="AI coding agent infrastructure, operational continuity, deterministic replay, persistent engineering state, semantic lineage, context rehydration, agent continuity">
+  <title>Nool | Agentic Change Control for AI Coding Agents</title>
+  <meta name="description" content="Nool is the control plane between an AI coding agent's intent and the codebase it changes. Govern scope, inspect impact, and keep Git workflows intact.">
+  <meta name="keywords" content="AI coding agent infrastructure, agentic change control, semantic blast radius, AI code governance, semantic impact envelope, multi-agent coordination">
   
   <!-- Open Graph -->
-  <meta property="og:title" content="Nool | Operational Continuity Infrastructure">
-  <meta property="og:description" content="The missing state layer for autonomous engineering agents. Works with Git, Claude Code, and Cursor.">
+  <meta property="og:title" content="Nool | Agentic Change Control">
+  <meta property="og:description" content="The control plane between AI agent intent and the codebase it changes. Works with Git and existing developer workflows.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://nool.dev">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Nool | Persistence Layer for Autonomous Engineering">
-  <meta name="twitter:description" content="Capture engineering intent and preserve agent context across sessions and branches.">
+  <meta name="twitter:title" content="Nool | Agentic Change Control">
+  <meta name="twitter:description" content="Govern AI-authored code with semantic impact analysis, policy gates, and durable causal state.">
 
   <!-- Agent Discoverability: JSON-LD -->
   <script type="application/ld+json">
@@ -26,20 +26,20 @@
     "name": "Nool",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Linux, macOS, Windows",
-    "description": "Operational continuity infrastructure for AI-native engineering. Provides persistent engineering state, semantic lineage, and deterministic context rehydration for autonomous agents.",
-    "softwareVersion": "2.2.4",
+    "description": "Agentic change control for AI-native engineering. Provides semantic impact analysis, policy gating, durable findings, and governed multi-agent workflows.",
+    "softwareVersion": "4.0.0",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
     },
     "featureList": [
-      "Semantic Planning",
-      "Deterministic Rehydration",
-      "Semantic Lineage",
-      "Governed Autonomy",
-      "Speculative Reification",
-      "Algebraic DAG Architecture"
+      "Semantic Impact Envelope Enforcement",
+      "Blast Radius Analysis",
+      "Multi-Agent Coordination",
+      "Durable Findings",
+      "Policy-Gated Evolution",
+      "Git-Compatible Workflow"
     ]
   }
   </script>
@@ -54,7 +54,7 @@
         <div class="nav-links">
           <a href="#platform">Platform</a>
           <a href="#solutions">Solutions</a>
-          <a href="#resources">Manifesto</a>
+          <a href="#resources">Resources</a>
           <a href="https://github.com/theswiftway/nool-cli">GitHub</a>
         </div>
       </nav>
@@ -62,11 +62,11 @@
 
     <main>
       <section class="hero">
-        <h1>The Persistence Layer for Autonomous Engineering</h1>
-        <p>Git stores your code state. Nool stores your engineering <strong>operational state</strong>. Capture intent, preserve continuity, and rehydrate agent context across every session, branch, and thread.</p>
+        <h1>Agentic Change Control for AI Coding Agents</h1>
+        <p>Nool is the control plane between an AI coding agent's intent and the codebase it is allowed to change. Compute semantic blast radius, enforce declared scope, and keep Git workflows intact.</p>
         <div class="cta-group">
-          <button class="btn btn-primary" onclick="window.location.href='https://github.com/theswiftway/nool-cli#steps-to-install'">Get Started with Nool CLI</button>
-          <button class="btn btn-secondary" onclick="window.location.href='#resources'">Read the Manifesto</button>
+          <button class="btn btn-primary" onclick="window.location.href='https://github.com/theswiftway/nool-cli#install'">Get Started with Nool CLI</button>
+          <button class="btn btn-secondary" onclick="window.location.href='#resources'">Read the Docs</button>
         </div>
 
         <div class="visual-split">
@@ -85,13 +85,13 @@
           <div class="terminal rehydration">
             <div class="terminal-header">
               <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-              <span style="font-size:0.7rem; color:#444; margin-left: auto;">NOOL-POWERED AGENT (CONTINUITY)</span>
+              <span style="font-size:0.7rem; color:#444; margin-left: auto;">NOOL-POWERED AGENT (GOVERNED)</span>
             </div>
             <div class="terminal-body">
               $ git checkout refactor-auth<br>
-              $ nool discover context<br>
-              <span style="color: var(--accent);">[SUCCESS] Rehydrating "Auth Refactor Q2" Intent Thread.</span><br>
-              <span style="color: var(--accent);">[SUCCESS] 14 Knots restored. Semantic lineage verified.</span><br>
+              $ nool announce intent --intent "Continue auth refactor"<br>
+              <span style="color: var(--accent);">[SUCCESS] Declared scope recorded. Collision scan passed.</span><br>
+              <span style="color: var(--accent);">[SUCCESS] Blast radius computed. Policy gates ready.</span><br>
               $ agent "Continue the refactor..."<br>
               <span style="color: #fff;">"Ready. Resuming token validation logic in src/auth/tokens.rs..."</span>
             </div>
@@ -101,42 +101,42 @@
 
       <section class="section" id="pain">
         <div class="section-title">
-          <h2 class="mono">The Engineering Entropy Crisis</h2>
-          <p style="color: var(--muted); max-width: 800px; margin: 1rem auto;">Coding agents are long-running systems trapped in short-lived sessions. Every context window reset is a lobotomy. Every branch switch is a loss of intent.</p>
+          <h2 class="mono">The AI Change-Control Problem</h2>
+          <p style="color: var(--muted); max-width: 800px; margin: 1rem auto;">Fast agents can change more than they promised. Nool makes scope, impact, and causal justification inspectable before the repository accepts the result.</p>
         </div>
         <div class="grid">
           <div class="card">
-            <h3>Context Drift</h3>
-            <p>Agents lose the "Why" as soon as the terminal closes. Nool preserves the operational lineage across time and threads.</p>
+            <h3>Scope Drift</h3>
+            <p>Agents can refactor beyond their declared intent. Nool compares declared scope against computed semantic blast radius.</p>
           </div>
           <div class="card">
-            <h3>Lossy Summaries</h3>
-            <p>Summaries are fundamentally insufficient for high-fidelity engineering. Nool provides deterministic rehydration of actual state.</p>
+            <h3>Unreviewable Impact</h3>
+            <p>Byte diffs do not explain semantic reach. Nool surfaces transitive impact across related files, tests, and interfaces.</p>
           </div>
           <div class="card">
-            <h3>Agentic Entropy</h3>
-            <p>As agents move faster, technical debt and reasoning gaps accumulate. Nool provides the governance layer to arrest decay.</p>
+            <h3>Ungoverned Autonomy</h3>
+            <p>Productive agents still need policy gates, causal evidence, and durable findings. Nool provides the governance runtime.</p>
           </div>
         </div>
       </section>
 
       <section class="section" id="platform">
         <div class="section-title">
-          <h2 class="mono">Operational Continuity Infrastructure</h2>
-          <p style="color: var(--muted);">Nool provides the persistent substrate required for governed autonomous engineering.</p>
+          <h2 class="mono">How Nool Governs AI Code Change</h2>
+          <p style="color: var(--muted);">Nool provides agentic change control without replacing Git or breaking existing repository workflows.</p>
         </div>
         <div class="grid">
           <div class="card">
-            <h3>Deterministic Rehydration</h3>
-            <p>Instantly recover the full task context, including intent, blast radius, and recent learnings, with 100% semantic fidelity.</p>
+            <h3>Semantic Impact Envelope</h3>
+            <p>Compare declared intent against computed semantic blast radius and require reconciliation when implementation exceeds scope.</p>
           </div>
           <div class="card">
-            <h3>Semantic Lineage</h3>
-            <p>Nool tracks mutations of logic, not just lines of text. Every change is linked to its rationale and parent DAG edges.</p>
+            <h3>Durable Causal Ledger</h3>
+            <p>Persist intent, impact, findings, decisions, and justifications as repository state rather than fragile session memory.</p>
           </div>
           <div class="card">
-            <h3>Governed Autonomy</h3>
-            <p>The Aram Gate performs speculative reification, ensuring every agent mutation is verified-runnable before it is solidified.</p>
+            <h3>Multi-Agent Coordination</h3>
+            <p>Coordinate parallel agents through intent announcements, contention detection, shared semantic state, and policy-gated transitions.</p>
           </div>
         </div>
       </section>
@@ -157,32 +157,32 @@
             <tr>
               <td>Primary Data</td>
               <td>File Diffs (Text)</td>
-              <td>Semantic Mutations (AST/Intent)</td>
+              <td>Semantic Mutations (Intent/Impact)</td>
             </tr>
             <tr>
               <td>Core Architecture</td>
               <td>Linear/Directed Graph</td>
-              <td>Algebraic Knot DAG (RFC-0001)</td>
+              <td>Governed Semantic Ledger</td>
             </tr>
             <tr>
               <td>Planning</td>
-              <td>Manual Merges</td>
-              <td>Semantic Planning Engine</td>
+              <td>Manual Review of Text Diffs</td>
+              <td>Semantic Planning and Scope Control</td>
             </tr>
             <tr>
               <td>Focus</td>
               <td>Result (The "What")</td>
-              <td>Process (The "Why")</td>
+              <td>Intent, Impact, and Justification</td>
             </tr>
             <tr>
               <td>Agent Utility</td>
               <td>Passive Storage</td>
-              <td>Active Rehydration</td>
+              <td>Active Governance</td>
             </tr>
             <tr>
               <td>Verification</td>
               <td>Post-commit (CI)</td>
-              <td>Structural Invariants (RFC-0002)</td>
+              <td>Policy Gates and Impact Enforcement</td>
             </tr>
           </tbody>
         </table>
@@ -191,20 +191,20 @@
       <section class="section" id="resources">
         <div class="section-title">
           <h2 class="mono">Technical Resources</h2>
-          <p style="color: var(--muted);">Deep dives into the architecture of operational continuity.</p>
+          <p style="color: var(--muted);">Docs for setup, command workflows, and the reasoning behind agentic change control.</p>
         </div>
         <div class="grid">
           <a href="https://github.com/theswiftway/nool-cli#readme" class="card">
-            <h3>Technical Manifesto</h3>
-            <p>The philosophical and technical foundation of why we built Nool and how it solves engineering entropy.</p>
+            <h3>Overview</h3>
+            <p>High-level product and workflow overview for teams evaluating Nool as the control plane for AI-authored code.</p>
           </a>
           <a href="https://github.com/theswiftway/nool-cli/blob/main/Skills.md" class="card">
             <h3>CLI Reference</h3>
-            <p>Comprehensive documentation for all 50+ Nool commands, including agent-optimized workflows.</p>
+            <p>Command reference aligned to the newer installed CLI surface, including workspace, planning, and governance workflows.</p>
           </a>
           <a href="https://github.com/theswiftway/nool-cli/blob/main/skills/nool-commands/SKILL.md" class="card">
             <h3>Agent Skill File</h3>
-            <p>Drop-in capability file for Claude Code and Cursor to enable native Nool support.</p>
+            <p>Agent-optimized operating guide for using Nool across planning, execution, discovery, and multi-agent coordination.</p>
           </a>
         </div>
       </section>
@@ -212,7 +212,7 @@
 
     <footer>
       <div class="footer-content">
-        <div>&copy; 2026 Nool.dev | Operational Continuity for the Autonomous Era.</div>
+        <div>&copy; 2026 Nool.dev | Agentic Change Control for the AI Era.</div>
         <div class="nav-links" style="margin:0;">
           <a href="https://github.com/theswiftway/nool-cli">GitHub</a>
           <a href="https://twitter.com/nool_dev">Twitter</a>

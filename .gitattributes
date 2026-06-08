@@ -1,3 +1,5 @@
 1.16.0/*.tar.gz filter=lfs diff=lfs merge=lfs -text
 tmpbin/* filter=lfs diff=lfs merge=lfs -text
 *.tar.gz filter=lfs diff=lfs merge=lfs -text
+.nool/knot.bin merge=nool-knot
+.nool/manifest.toon merge=union

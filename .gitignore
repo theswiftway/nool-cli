@@ -1,0 +1,26 @@
+# Nool local state
+.nool/*
+!.nool/
+!.nool/knot.bin
+!.nool/manifest.toon
+.nool/cache/
+.nool/tmp/
+.nool/target/
+.nool/memory/
+.nool/git_mirror/
+.nool/daemon.sock
+.nool/sync.log
+.nool/test_sync.log
+.nool/nool.db
+.nool/nool.db-shm
+.nool/nool.db-wal
+.nool/nool.db-journal
+.nool/knots.redb
+.nool/.DS_Store
+.nool/adr/
+.nool/SIE_JUSTIFICATION
+.nool/enhancement-context.yaml
+knots.redb
+knots.redb.lock
+nool.toml
+nool_proposal.tmp

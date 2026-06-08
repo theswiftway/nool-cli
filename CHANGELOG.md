@@ -4,6 +4,13 @@ All notable changes to Nool are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Documentation refresh from `knot-agent-vision`**:
+  - Replaced the older `v3.2.0` README in `README.md` with the newer AI change-control positioning and current workflow overview.
+  - Replaced `Skills.md` with the newer command reference aligned to the website docs.
+  - Replaced `skills/nool-commands/SKILL.md` with the newer agent skill content and metadata.
+  - Updated `docs/index.html` to match the newer site messaging and `v4.0.0` software metadata.
+
 ## [3.2.0] - 2026-05-24
 
 ### Changed
