@@ -1,4 +1,4 @@
-intent: Remove legacy root nool.db after migrating Nool state into .nool
-knot_id: 9700933138dcdd6f695325c8630035dbcac2319ec728e7639461061e99927106
-solidified_at: 1780962996289
+intent: added bug fixes for token usage
+knot_id: b20bfb616810918709eb722a2d2508de8e85c085a75098425265d51668e11cea
+solidified_at: 1781146137997
 thread: main

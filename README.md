@@ -23,7 +23,7 @@ Git remains the ecosystem compatibility and storage layer. Nool governs the evol
 ## Install
 
 ```bash
-./install_tar.sh nool-4.0.2-aarch64-apple-darwin.tar.gz
+./install_tar.sh nool-4.1.0-aarch64-apple-darwin.tar.gz
 nool version
 ```
 
