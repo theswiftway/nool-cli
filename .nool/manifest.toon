@@ -1,4 +1,4 @@
-intent: Update docs for installed Nool CLI v5.9.1
-knot_id: f488bf32775ed519b6642b4448561e0c97f6ce4925502074f3b43dfafaf49d38
-solidified_at: 1782389387359
+intent: Replace bundled release tarballs with Nool 5.9.1 assets
+knot_id: 5359138441fbf25c8e369da28e33f3bcc8023d1c620eec36de0a45fc4f24d2b3
+solidified_at: 1782390858627
 thread: main
