@@ -1,6 +1,6 @@
 # Nool
 
-[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](https://github.com/nool-dev/nool)
+[![Version](https://img.shields.io/badge/version-5.9.1-blue.svg)](https://github.com/nool-dev/nool)
 [![Status](https://img.shields.io/badge/status-production-green.svg)](https://github.com/nool-dev/nool)
 
 Nool is a version control system engineered for the era of AI-authored code. It acts as the control plane between an AI coding agent's intent and the codebase it modifies, ensuring changes are intentional, inspectable, and governed before they become canonical.
@@ -23,7 +23,7 @@ Git remains the ecosystem compatibility and storage layer. Nool governs the evol
 ## Install
 
 ```bash
-./install_tar.sh nool-4.5.0-aarch64-apple-darwin.tar.gz
+./install_tar.sh nool-5.9.1-aarch64-apple-darwin.tar.gz
 nool version
 ```
 
@@ -52,10 +52,12 @@ Use this sequence for most code changes:
 
 ```bash
 nool status --compact
+nool discover features
 nool announce intent --intent "Refine command documentation"
-nool propose --all --intent "Refresh docs from product site" --fast
-nool solidify --full
-nool sync origin
+nool work start --intent "Refresh docs from installed CLI"
+nool task create --name "Update docs for Nool 5.9.1" --solidify
+nool propose --all --intent "Refresh docs from installed CLI" --fast
+nool solidify
 ```
 
 For planned state transitions and safer staged execution:
@@ -128,11 +130,11 @@ nool apply --plan-id <plan_id>
 - `nool workspace insights`: Aggregate insights across child projects.
 - `nool workspace pull`: Run `nool pull` across the workspace in dependency order.
 
-### Runtime and Administration
+### Runtime, Governance, and Administration
 
 - `nool bridge`: Manage the Git Bifrost bridge and LFS integration.
 - `nool daemon`: Launch the background sync daemon.
-- `nool console`: Launch the interactive web console.
+- `nool console`: Launch the web console and v5.0 control-plane API.
 - `nool ui`: Launch the interactive TUI DAG explorer.
 - `nool untrack`: Stop tracking files in Git while keeping them locally.
 - `nool validate`: Run background validation for quarantined fast-mode Knots.
@@ -147,11 +149,19 @@ nool apply --plan-id <plan_id>
 - `nool completion`: Generate shell completion scripts.
 - `nool quick-start`: Show the beginner quick-start guide.
 - `nool guide`: Show the detailed command guide.
+- `nool inquiry`: Inspect the Inquiry Tree of directions, evidence, and distilled insights.
+- `nool council`: Run the configured multi-model council over the working-tree diff.
+- `nool agent`: Inspect declarative agent specs.
+- `nool fleet`: Plan and run fleets of sovereign agents over a goal.
+- `nool harness`: Report health of the swappable model backends.
+- `nool soul`: Create and manage persistent model personas.
+- `nool enrich`: Recall knowledge for a query and perform bounded enrichment on misses.
 
 ## Notes
 
-- This repository now carries the newer command-reference content from `knot-agent-vision`, replacing the older `v3.2.0` docs set.
+- Verified against the installed CLI on this machine: `Nool CLI v5.9.1`.
 - `nool checkpoint` is the primary release-label command; `nool release` remains a backward-compatible alias.
+- The current quick-start path is `status --compact -> discover features -> announce intent -> work start -> task create -> propose -> solidify`.
 - For agent workflows, prefer `--compact` on `status`, `log`, `dag`, and `plan status`.
 
 ## Learn More

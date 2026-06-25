@@ -1,7 +1,7 @@
 # Nool Command Reference
 
-**Verified against the installed CLI on this machine:** June 8, 2026  
-**Installed version:** 4.0.0
+**Verified against the installed CLI on this machine:** June 25, 2026  
+**Installed version:** 5.9.1
 
 This page reflects the commands exposed by the locally installed `nool` binary. It is organized by workflow so the site matches the command surface users can actually run.
 
@@ -51,9 +51,12 @@ nool status --compact
 
 ```bash
 nool status --compact
+nool discover features
 nool announce intent --intent "Refine homepage command reference"
+nool work start --intent "Refresh site command docs"
+nool task create --name "Update command reference for Nool 5.9.1" --solidify
 nool propose --all --intent "Refresh site command docs" --fast
-nool solidify --full
+nool solidify
 ```
 
 ## Sync, History, and Release
@@ -138,7 +141,7 @@ nool announce with-context \
 |---------|---------|
 | `nool bridge` | Manage the Git Bifrost bridge and LFS integration. |
 | `nool daemon` | Launch the background sync daemon. |
-| `nool console` | Launch the interactive web console. |
+| `nool console` | Launch the web console and v5.0 control-plane API. Use `--serve` to start it headlessly without opening a browser. |
 | `nool ui` | Launch the interactive TUI DAG explorer. |
 | `nool untrack` | Stop tracking files in Git while keeping them locally. |
 | `nool validate` | Run background validation for quarantined fast-mode Knots. |
@@ -160,6 +163,13 @@ nool announce with-context \
 | `nool quick-start` | Show the beginner quick-start guide. |
 | `nool guide` | Show the detailed command guide. |
 | `nool help` | Print help for the root command or subcommands. |
+| `nool soul` | Create and manage persistent model personas. |
+| `nool enrich` | Recall knowledge for a query and perform bounded enrichment on misses. |
+| `nool inquiry` | Inspect the Inquiry Tree of agent directions, evidence, and distilled insights. |
+| `nool council` | Run the configured multi-model council over the working-tree diff and report the quorum or veto outcome. |
+| `nool agent` | Inspect declarative agent specs. |
+| `nool fleet` | Plan and run fleets of sovereign agents over a goal. |
+| `nool harness` | Report health of the swappable model backends. |
 
 ## Experimentation and Debugging
 
@@ -174,11 +184,11 @@ nool announce with-context \
 
 The top-level command tree currently includes:
 
-`init`, `workspace`, `propose`, `try`, `tag`, `checkpoint`, `approve`, `solidify`, `push`, `pull`, `sync`, `log`, `why`, `status`, `doctor`, `admin`, `prune`, `migrate`, `languages`, `debug`, `dag`, `pluck`, `link`, `changelog`, `compare`, `diff`, `thread`, `task`, `audit`, `bridge`, `inbox`, `console`, `quick-start`, `guide`, `work`, `version`, `upgrade`, `uninstall`, `query`, `ui`, `daemon`, `promote`, `bug`, `validate`, `untrack`, `learn`, `findings`, `usage`, `discover`, `reify`, `announce`, `completion`, `plan`, `apply`, `verify`, `explain`, `evidence`, `insights`, `review`, `visualize`, `config`, `help`
+`init`, `workspace`, `propose`, `try`, `tag`, `checkpoint`, `approve`, `solidify`, `push`, `pull`, `sync`, `log`, `why`, `status`, `doctor`, `admin`, `soul`, `enrich`, `prune`, `migrate`, `languages`, `flow`, `debug`, `dag`, `pluck`, `link`, `changelog`, `compare`, `diff`, `thread`, `task`, `inquiry`, `audit`, `bridge`, `inbox`, `console`, `quick-start`, `guide`, `work`, `version`, `upgrade`, `uninstall`, `query`, `ui`, `daemon`, `promote`, `bug`, `validate`, `untrack`, `learn`, `findings`, `usage`, `discover`, `reify`, `announce`, `completion`, `plan`, `apply`, `verify`, `explain`, `evidence`, `insights`, `review`, `visualize`, `config`, `council`, `agent`, `fleet`, `harness`, `help`
 
 ## Notes
 
-- The command surface above is based on the installed binary (`v4.0.0`), not older draft docs.
-- New since `3.4.2`: `workspace`, `checkpoint` (replaces the old top-level `release` — `release` now works only as an alias), `prune`, `migrate`, `work`, `reify`, `visualize`, and `config`. `nool init` also gained `--from-git <branch>` to import existing Git history when adopting Nool as your VCS.
+- The command surface above is based on the installed binary (`v5.9.1`), not older draft docs.
+- This build includes the newer agent-runtime commands `soul`, `enrich`, `flow`, `inquiry`, `council`, `agent`, `fleet`, and `harness` in addition to the earlier planning, workspace, and governance surface.
 - Commands previously mentioned in older docs such as `rehydrate`, `history`, `policy`, and `impact` are not top-level commands in the installed CLI.
 - For agent workflows, prefer `--compact` on `status`, `log`, `dag`, and `plan status`.

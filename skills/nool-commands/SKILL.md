@@ -3,9 +3,9 @@ name: nool-commands
 description: Comprehensive expert guidance for the Nool CLI. Covers semantic VCS, algebraic planning (replay/merge/rebase), staged execution, thread management, task lifecycle, multi-agent coordination, discovery and knowledge, diagnostics, and Git interop. Use for all Nool-related operations from initialization to hardened release.
 license: Apache-2.0
 metadata:
-  version: "4.0.0"
+  version: "5.9.1"
   author: nool-core-team
-compatibility: Requires nool CLI v4.0.0+
+compatibility: Requires nool CLI v5.9.1+
 allowed-tools: bash(nool *)
 ---
 
@@ -33,7 +33,7 @@ Use this sequence for most code changes:
 3. **Plan**: `nool plan replay --target <op_ids>`
 4. **Review**: `nool review <plan_id>`
 5. **Apply**: `nool apply --plan-id <plan_id>`
-6. **Solidify**: `nool solidify --full`
+6. **Solidify**: `nool solidify`
 7. **Sync**: `nool sync origin`
 
 ## Algebraic Planning and Execution
@@ -185,9 +185,20 @@ Inspect a reified bundle and validate its syntax before solidifying.
 
 ## Interactive and Daemon
 
-- `nool console`: Launch the interactive web dashboard.
+- `nool console`: Launch the web console and v5.0 control-plane API. Use `--serve` for a headless daemon.
 - `nool ui`: Interactive TUI DAG explorer.
 - `nool daemon`: Launch the background sync daemon.
+
+## Agent Runtime and Research
+
+- `nool soul`: Create and manage persistent model personas.
+- `nool enrich`: Recall knowledge for a query and run bounded enrichment when memory misses.
+- `nool inquiry`: Inspect the Inquiry Tree of agent directions, evidence, and distilled insights.
+- `nool flow`: Render the model-facing TOON work order for an agent.
+- `nool council`: Run a configured consortium over the working-tree diff and inspect each model's verdict.
+- `nool agent`: Inspect declarative agent specs.
+- `nool fleet`: Plan and run fleets of sovereign agents over a goal.
+- `nool harness`: Report health of the swappable model backends.
 
 ## Debug and Root Cause
 
@@ -258,6 +269,10 @@ If `UNIQUE constraint failed: v2_plan_steps.step_id` appears during replanning w
 ### Pending proposals are binary bundles
 
 `.nool/candidate.knot` is a binary file. Inspect it with `nool diff` or resolve it with `nool solidify --full`.
+
+---
+
+*Verified against installed `Nool CLI v5.9.1` on June 25, 2026.*
 
 ### `nool apply` uses `--plan-id`
 
